@@ -85,3 +85,6 @@
 
 ## 画面遷移図
 https://www.figma.com/design/Bkcr6pD16cOWottqsE4RwW/%E3%83%9F%E3%83%8B%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=nNqf2re7BqmkHzf6-1
+
+## ER図
+https://dbdiagram.io/d/mini_memory-694625964bbde0fd74dd610f
