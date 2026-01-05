@@ -82,7 +82,7 @@ group :test do
   # Capybara - ブラウザ自動テストフレームワーク
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  
+
   # Selenium WebDriver - ブラウザ自動化ツール
   gem "selenium-webdriver"
 end
