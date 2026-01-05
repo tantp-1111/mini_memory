@@ -85,6 +85,9 @@ group :test do
 
   # Selenium WebDriver - ブラウザ自動化ツール
   gem "selenium-webdriver"
+
+  # minitest - テストの安定性向上のためv5に固定
+  gem 'minitest', '~> 5.25'
 end
 
 # Tailwind CSS - ユーティリティファーストなCSSフレームワーク
