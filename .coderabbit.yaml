@@ -47,11 +47,10 @@ reviews:
       - "DO NOT MERGE"
       - "DRAFT"
 
+    # ベースブランチに応じた回答をする場合、指定（例：develop/main）
+    base_branches:
+      - develop
+
 chat:
   # PR上での対話を前提にするならON（不要ならfalseでもOK）
   auto_reply: true
-
-# ベースブランチに応じた回答をする場合、指定（例：develop/main）
-base_branches:
-  - develop
-
