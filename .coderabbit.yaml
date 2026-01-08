@@ -52,5 +52,6 @@ chat:
   auto_reply: true
 
 # ベースブランチに応じた回答をする場合、指定（例：develop/main）
-base_branches: "develop"
+base_branches:
+  - develop
 
