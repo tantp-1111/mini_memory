@@ -22,10 +22,10 @@
     <!-- drawerトリガーはヘッダー内に配置 -->
     <%= render 'shared/header' %>
 
-      <div class="drawer min-h-screen">
+      <div class="drawer">
         <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
 
-        <div class="drawer-content flex flex-col">
+        <div class="drawer-content flex flex-col pb-16">
           <main>
             <%= yield %>
           </main>
