@@ -19,8 +19,24 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <!-- drawerトリガーはヘッダー内に配置 -->
+    <%= render 'shared/header' %>
+
+      <div class="drawer">
+        <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
+
+        <div class="drawer-content flex flex-col pb-16">
+          <main>
+            <%= yield %>
+          </main>
+        </div>
+
+        <div class="drawer-side z-50">
+          <label for="drawer-menu" class="drawer-overlay"></label>
+          <%= render 'shared/drawer_menu' %>
+        </div>
+      </div>
+
+    <%= render 'shared/footer' %>
   </body>
 </html>
