@@ -26,7 +26,7 @@
       <summary>アカウント</summary>
       <ul>
         <li><%= link_to "マイページ", "#" %></li>
-        <li><%= link_to "ログアウト", "#", data: { turbo_method: :delete } %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
       </ul>
     </details>
   </li>

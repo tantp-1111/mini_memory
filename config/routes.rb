@@ -1,16 +1,13 @@
 Rails.application.routes.draw do
+  authenticated :user do
+    root to: "dashboard#top", as: :authenticated_root
+  end
 
   root "static_pages#top"
 
-  get "/dashboard", to: "dashboard#index"
-
-  authenticated :user do
-    root to: "dashboard#index", as: :authenticated_root
-  end
-
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions'
+    registrations: "users/registrations",
+    sessions: "users/sessions"
   }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

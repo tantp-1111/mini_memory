@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# 新規登録・アカウント編集時にname属性を許可するためのコントローラー
+
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [ :create ]
+  before_action :configure_account_update_params, only: [ :update ]
 
   # GET /resource/sign_up
   # def new
@@ -40,23 +42,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # If you have extra params to permit, append them to the sanitizer.
+  # 許可する追加のパラメータがある場合は、それらをサニタイザーに追加(sign_up用) - ストロングパラメータ
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
   end
 
-  # If you have extra params to permit, append them to the sanitizer.
+  # 許可する追加のパラメータがある場合は、それらをサニタイザーに追加(account_update用) - ストロングパラメータ
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
   end
 
-  # The path used after sign up.
+  # sign up後のリダイレクト先を指定(dashboard#top)
   def after_sign_up_path_for(resource)
-    dashboard_path
+    authenticated_root_path
   end
 
-  # The path used after sign up for inactive accounts.
-  def after_inactive_sign_up_path_for(resource)
-    dashboard_path
-  end
+  # inactive sign up後のリダイレクト先を指定(confirmableモジュール使用時)
+  # def after_inactive_sign_up_path_for(resource)
+  #   root_path
+  # end
 end

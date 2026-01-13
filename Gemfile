@@ -93,4 +93,4 @@ end
 # Tailwind CSS - ユーティリティファーストなCSSフレームワーク
 gem "tailwindcss-rails"
 
-gem 'devise'
+gem "devise"
