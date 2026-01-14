@@ -76,6 +76,8 @@ group :development do
   # web-console - ブラウザ上でのデバッグコンソール
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem "htmlbeautifier"
 end
 
 group :test do

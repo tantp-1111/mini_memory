@@ -1,16 +1,19 @@
 <!-- ドロワー -->
 <ul class="menu menu-bordered w-80 min-h-full bg-base-100 text-base-content">
 
-  <li>
-    <details open>
-      <summary>私のミニメモリー</summary>
-      <ul>
-        <li><%= link_to "新規投稿", "#" %></li>
-        <li><%= link_to "投稿一覧（ミニメモリー）", "#" %></li>
-        <li><%= link_to "子と楽しむ", "#" %></li>
-      </ul>
-    </details>
-  </li>
+  <% if user_signed_in? %>
+    <li>
+      <summary>〇〇さん、ようこそ！</summary>
+      <details open>
+        <summary>私のミニメモリー</summary>
+        <ul>
+          <li><%= link_to "新規投稿", "#" %></li>
+          <li><%= link_to "投稿一覧（ミニメモリー）", "#" %></li>
+          <li><%= link_to "子と楽しむ", "#" %></li>
+        </ul>
+      </details>
+    </li>
+  <% end %>
 
   <li>
     <details>
@@ -24,10 +27,17 @@
   <li>
     <details>
       <summary>アカウント</summary>
-      <ul>
-        <li><%= link_to "マイページ", "#" %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul>
+          <li><%= link_to "マイページ", "#" %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+        </ul>
+      <% else %>
+        <ul>
+          <li><%= link_to "新規登録", new_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+        </ul>
+      <% end %>
     </details>
   </li>
 
