@@ -1,0 +1,28 @@
+<div class="max-w-6xl mx-auto px-4 pt-6">
+  <!-- 検索フォーム -->
+  <div class="mb-6">
+    <form>
+      <div class="join w-full max-w-md mx-auto">
+        <input
+          type="search"
+          placeholder="検索ワード"
+          class="input input-bordered join-item w-full"
+        />
+        <button type="submit" class="btn btn-primary join-item">
+          検索
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 掲示板一覧 -->
+  <% if @my_memories.present? %>
+    <% @my_memories.each do |my_memory| %>
+      <%= render partial: 'my_memory', collection: @my_memories %>
+    <% end %>
+  <% else %>
+    <div class="text-center text-base-content/60 mt-8">
+      ミニメモリーがありません
+    </div>
+  <% end %>
+</div>
