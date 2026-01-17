@@ -17,9 +17,7 @@
 
   <!-- 掲示板一覧 -->
   <% if @my_memories.present? %>
-    <% @my_memories.each do |my_memory| %>
-      <%= render partial: 'my_memory', collection: @my_memories %>
-    <% end %>
+    <%= render @my_memories %>
   <% else %>
     <div class="text-center text-base-content/60 mt-8">
       ミニメモリーがありません

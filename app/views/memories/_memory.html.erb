@@ -1,4 +1,4 @@
-<div id="my_memory-id-<%= my_memory.id %>" class="card bg-base-100 shadow-md">
+<div id="memory-id-<%= memory.id %>" class="card bg-base-100 shadow-md">
   <figure>
     <%= image_tag "memory_placeholder.png",
       class: "h-48 w-full object-cover" %>
@@ -7,18 +7,18 @@
   <div class="card-body">
     <div class="flex items-start gap-2">
       <h2 class="card-title flex-1">
-        <%= link_to my_memory.title, '#', class: "hover:underline" %>
+        <%= link_to memory.title, '#', class: "hover:underline" %>
       </h2>
 
       <div class="flex gap-2">
         <%= link_to '#',
-          id: "button-edit-#{my_memory.id}",
+          id: "button-edit-#{memory.id}",
           class: "btn btn-ghost btn-sm" do %>
           <i class="bi bi-pencil-fill"></i>
         <% end %>
 
         <%= link_to '#',
-          id: "button-delete-#{my_memory.id}",
+          id: "button-delete-#{memory.id}",
           method: :delete,
           data: { confirm: '' },
           class: "btn btn-ghost btn-sm text-error" do %>
@@ -30,12 +30,12 @@
     <div class="flex items-center gap-4 text-sm text-base-content/70">
       <div class="flex items-center gap-1">
         <i class="bi bi-person"></i>
-        <span><%= my_memory.user.name %></span>
+        <span><%= memory.user.name %></span>
       </div>
 
       <div class="flex items-center gap-1">
         <i class="bi bi-calendar"></i>
-        <span><%= l my_memory.created_at, format: :short %></span>
+        <span><%= l memory.created_at, format: :short %></span>
       </div>
     </div>
 

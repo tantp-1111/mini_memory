@@ -12,7 +12,7 @@ module Myapp
     config.load_defaults 7.2
 
     # デフォルトのタイムゾーンを日本時間に設定
-    config.time_zone = 'Tokyo'
+    config.time_zone = "Tokyo"
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
