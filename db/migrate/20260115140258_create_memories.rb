@@ -5,10 +5,10 @@ class CreateMemories < ActiveRecord::Migration[7.2]
       t.text :description, null: false
       t.date :memory_date
 
-      t.references :user, foreign_key: true
+      t.references :user, foreign_key: true, null: false
 
       t.integer :visibility, null: false, default: 0
-      # private: 0, unlisted: 1, public: 2
+      # private: 0, unlisted: 1, published: 2
 
       t.timestamps
     end

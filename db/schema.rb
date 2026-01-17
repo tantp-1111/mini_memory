@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_15_140258) do
     t.string "title", null: false
     t.text "description", null: false
     t.date "memory_date"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.integer "visibility", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
