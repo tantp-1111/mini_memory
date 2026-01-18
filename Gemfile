@@ -58,6 +58,15 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Tailwind CSS - ユーティリティファーストなCSSフレームワーク
+gem "tailwindcss-rails"
+
+# Devise - 認証ソリューション
+gem "devise"
+
+# rails-i18n - 多言語対応（日本語含む）
+gem "rails-i18n"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -76,8 +85,6 @@ group :development do
   # web-console - ブラウザ上でのデバッグコンソール
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
-  gem "htmlbeautifier"
 end
 
 group :test do
@@ -91,8 +98,3 @@ group :test do
   # minitest - テストの安定性向上のためv5に固定
   gem "minitest", "~> 5.25"
 end
-
-# Tailwind CSS - ユーティリティファーストなCSSフレームワーク
-gem "tailwindcss-rails"
-
-gem "devise"
