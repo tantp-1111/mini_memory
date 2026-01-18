@@ -1,0 +1,44 @@
+ja:
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+      login: ログイン
+    label:
+      name: 名前
+      email: メールアドレス
+      password: パスワード
+      password_confirmation: パスワード確認
+  devise:
+    registrations:
+      new:
+        title: 新規登録
+      edit:
+        title: アカウント編集
+    sessions:
+      new:
+        title: ログイン
+        stay_logged_in: ログイン状態を保持する
+  header:
+    mypage: マイページ
+    user_create: 新規登録
+    login: ログイン
+  drawer:
+    summary:
+      my_mini_memory: 私のミニメモリー
+      everyone_mini_memory: みんなのミニメモリー
+      account: アカウント
+      others: その他
+    list:
+      create_memory: 新規投稿
+      memory_index: 思い出一覧
+      enjoy_with_child: 子と楽しむ
+      board: 掲示板
+      mypage: マイページ
+      logout: ログアウト
+      user_create: 新規登録
+      login: ログイン
+      terms_of_service: 利用規約
+      privacy_policy: プライバシーポリシー
+      contact: お問い合わせ

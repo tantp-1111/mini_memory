@@ -13,6 +13,8 @@ module Myapp
 
     # デフォルトのタイムゾーンを日本時間に設定
     config.time_zone = "Tokyo"
+    # デフォルトの言語設定を日本語に設定
+    config.i18n.default_locale = :ja
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
