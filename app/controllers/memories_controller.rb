@@ -8,4 +8,19 @@ class MemoriesController < ApplicationController
   def new
     @memory = Memory.new
   end
+
+  def create
+    @memory = current_user.memories.build(memory_params)
+    if @memory.save
+      redirect_to memories_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def memory_params
+    params.require(:memory).permit(:title, :description, :memory_date, :visibility)
+  end
 end
