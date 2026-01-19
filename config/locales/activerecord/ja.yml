@@ -2,9 +2,21 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      memory: 思い出
     attributes:
       user:
         email: メールアドレス
         name: 名前
         password: パスワード
         password_confirmation: パスワード確認
+      memory:
+        title: タイトル
+        description: 説明
+        memory_date: 思い出の日付
+        visibility: 公開範囲
+  enums:
+    memory:
+      visibility:
+        private_only: 非公開
+        unlisted: 非公開URLを知っている人のみ閲覧可能
+        published: 掲示板にて誰でも閲覧可能
