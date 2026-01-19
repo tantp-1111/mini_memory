@@ -13,7 +13,7 @@ class Memory < ApplicationRecord
   # enumの選択肢を国際化対応した配列で返すヘルパーメソッド
   def self.visibility_options_for_select
     Memory.visibilities.keys.map do |key|
-      [I18n.t("enums.memory.visibility.#{key}"), key]
+      [ I18n.t("enums.memory.visibility.#{key}"), key ]
     end
   end
 end
