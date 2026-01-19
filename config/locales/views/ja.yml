@@ -20,6 +20,9 @@ ja:
       new:
         title: ログイン
         stay_logged_in: ログイン状態を保持する
+  memories:
+    new:
+      title: 思い出の新規投稿
   header:
     mypage: マイページ
     user_create: 新規登録
