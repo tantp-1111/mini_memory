@@ -3,7 +3,6 @@ ja:
     flash_message:
       created: "%{model}を作成しました"
       not_created: "%{model}の作成に失敗しました"
-      require_login: "ログインが必要です"
   helpers:
     submit:
       create: 登録
