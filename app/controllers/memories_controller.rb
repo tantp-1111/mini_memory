@@ -12,8 +12,9 @@ class MemoriesController < ApplicationController
   def create
     @memory = current_user.memories.build(memory_params)
     if @memory.save
-      redirect_to memories_path
+      redirect_to memories_path, notice: t("defaults.flash_message.created", model: Memory.model_name.human)
     else
+      flash.now[:error] = t("defaults.flash_message.not_created", model: Memory.model_name.human)
       render :new, status: :unprocessable_entity
     end
   end

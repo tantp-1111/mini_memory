@@ -63,6 +63,7 @@ gem "tailwindcss-rails"
 
 # Devise - 認証ソリューション
 gem "devise"
+gem "devise-i18n"
 
 # rails-i18n - 多言語対応（日本語含む）
 gem "rails-i18n"
