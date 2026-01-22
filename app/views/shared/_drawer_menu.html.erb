@@ -3,7 +3,7 @@
 
   <% if user_signed_in? %>
     <li>
-      <summary>〇〇さん、ようこそ！</summary>
+      <summary><%= current_user.name %>さん、ようこそ！</summary>
       <details open>
         <summary><%= t('drawer.summary.my_mini_memory') %></summary>
         <ul>
