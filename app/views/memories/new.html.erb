@@ -4,6 +4,7 @@
   </h1>
 
   <%= form_with model: @memory, class: "space-y-6" do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
     <!--タイトル-->
     <div class="form-control">
       <%= f.label :title, class: "label" %>
