@@ -1,7 +1,8 @@
 <div id="memory-id-<%= memory.id %>" class="card bg-base-100 shadow-md">
   <figure>
-    <%= image_tag "memory_placeholder.png",
-      class: "h-48 w-full object-cover" %>
+    <% if memory.image.attached? %>
+  <div><%= image_tag(memory.image_as_thumbnail) %></div>
+<% end %>
   </figure>
 
   <div class="card-body">

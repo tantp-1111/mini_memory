@@ -16,6 +16,12 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# libvips直接インストール
+RUN apt-get update && \
+    apt-get install -y libvips42 libvips-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \

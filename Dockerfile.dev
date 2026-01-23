@@ -15,6 +15,12 @@ RUN apt-get update -qq \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn vim
 
+# image_processing gem用にlibvipsをインストール
+RUN apt-get update && \
+    apt-get install -y libvips42 libvips-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # ディレクトリを作成してそれを作業ディレクトリ（Dockerが操作するディレクトリ）に設定
 RUN mkdir /myapp
 WORKDIR /myapp

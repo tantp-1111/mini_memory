@@ -32,6 +32,13 @@
             class: "select select-bordered w-full" %>
     </div>
 
+    <!-- 画像アップロード -->
+    <div class="form-control">
+      <%= f.label :image, class: "label" %>
+      <%= f.file_field :image,
+      accept: "image/jpeg, image/jpg, image/png" %>
+    </div>
+
     <div>
       <%= f.submit nil, class: "btn btn-primary" %>
     </div>

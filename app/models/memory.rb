@@ -4,6 +4,10 @@ class Memory < ApplicationRecord
 
   belongs_to :user
 
+  has_one_attached :image
+
+  validates :image, presence: true
+
   enum :visibility, {
     private_only: 0,   # 本人のみ閲覧可能
     unlisted: 1,  # 本人、非公開URLを知っている人のみ閲覧可能
@@ -16,4 +20,12 @@ class Memory < ApplicationRecord
       [ I18n.t("enums.memory.visibility.#{key}"), key ]
     end
   end
+
+  # サムネイル表示用メソッド
+  def image_as_thumbnail
+    return unless image.attached?
+    return unless image.content_type.in?(%w[image/jpeg image/jpg image/png])
+    image.variant(resize_to_limit: [ 400, 400 ])
+  end
+
 end
