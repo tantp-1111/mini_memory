@@ -5,7 +5,8 @@ class Memory < ApplicationRecord
   belongs_to :user
 
   has_one_attached :image
-
+  validate :image_content_type
+  validate :image_size
   validates :image, presence: true
 
   enum :visibility, {
@@ -21,11 +22,35 @@ class Memory < ApplicationRecord
     end
   end
 
-  # サムネイル表示用メソッド
-  def image_as_thumbnail
-    return unless image.attached?
-    return unless image.content_type.in?(%w[image/jpeg image/jpg image/png])
-    image.variant(resize_to_limit: [ 400, 400 ])
+  ACCEPT_CONTENT_TYPE = %w[image/jpeg image/jpg image/png]
+  MAX_IMAGE_SIZE = 10.megabytes
+
+  # アップロード形式のバリデーション
+  def image_content_type
+    if image.attached? && !image.content_type.in?(ACCEPT_CONTENT_TYPE)
+      errors.add(:image, "：JPEG,JPG,PNGをアップロードしてください")
+    end
+  end
+  # 画像サイズのバリデーション
+  def image_size
+    if image.attached? && image.blob.byte_size > MAX_IMAGE_SIZE
+      errors.add(:image, "：10MB以下の画像をアップロードしてください")
+    end
   end
 
+  # サムネイル表示用メソッド
+  def image_as_thumbnail
+    return unless image.attached? && image.content_type.in?(ACCEPT_CONTENT_TYPE)
+    image.variant(resize_to_limit: [ 200, 200 ])
+  end
+
+  # default画像表示用メソッド
+  def default_image
+    "memory_placeholder.png"
+  end
+
+  # 画像表示用メソッド
+  def display_image
+    image_as_thumbnail || default_image
+  end
 end
