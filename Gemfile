@@ -56,7 +56,7 @@ gem "bootsnap", require: false
 
 # image_processing - 画像処理とバリアント生成
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 # Tailwind CSS - ユーティリティファーストなCSSフレームワーク
 gem "tailwindcss-rails"

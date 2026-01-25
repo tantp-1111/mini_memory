@@ -4,6 +4,7 @@
   </h1>
 
   <%= form_with model: @memory, class: "space-y-6" do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
     <!--タイトル-->
     <div class="form-control">
       <%= f.label :title, class: "label" %>
@@ -29,6 +30,13 @@
             Memory.visibility_options_for_select,
             {},
             class: "select select-bordered w-full" %>
+    </div>
+
+    <!-- 画像アップロード -->
+    <div class="form-control">
+      <%= f.label :image, class: "label" %>
+      <%= f.file_field :image,
+      accept: "image/jpeg, image/jpg, image/png" %>
     </div>
 
     <div>
