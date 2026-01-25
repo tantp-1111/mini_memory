@@ -2,7 +2,7 @@ class MemoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @my_memories = current_user.memories.includes(:user).order(created_at: :desc)
+    @my_memories = current_user.memories.with_attached_image.order(created_at: :desc)
   end
 
   def new
@@ -17,6 +17,10 @@ class MemoriesController < ApplicationController
       flash.now[:error] = t("defaults.flash_message.not_created", model: Memory.model_name.human)
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @memory = current_user.memories.find(params[:id])
   end
 
   private
