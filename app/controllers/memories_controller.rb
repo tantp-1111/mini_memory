@@ -2,7 +2,7 @@ class MemoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @my_memories = current_user.memories.includes(:user).order(created_at: :desc)
+    @my_memories = current_user.memories.with_attached_image.order(created_at: :desc)
   end
 
   def new
@@ -19,9 +19,13 @@ class MemoriesController < ApplicationController
     end
   end
 
+  def show
+    @memory = current_user.memories.find(params[:id])
+  end
+
   private
 
   def memory_params
-    params.require(:memory).permit(:title, :description, :memory_date, :visibility)
+    params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image)
   end
 end

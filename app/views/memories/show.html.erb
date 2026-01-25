@@ -1,0 +1,43 @@
+<div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+
+  <!-- タイトル -->
+  <h1 class="text-2xl font-bold">
+    <%= @memory.title %>
+  </h1>
+
+  <!-- 画像 -->
+  <div class="w-full">
+      <%= image_tag @memory.display_image, class: "rounded-lg w-full object-cover" %>
+  </div>
+
+  <!-- 日付 -->
+    <div class="text-sm text-gray-500">
+      <%= l(@memory.memory_date) %>
+    </div>
+
+  <!-- 本文 -->
+  <div class="max-w-none">
+      <%= simple_format(@memory.description) %>
+  </div>
+
+  <!-- 公開範囲 -->
+  <div class="text-sm text-gray-600">
+    <span class="font-semibold">公開範囲：</span>
+    <%= t("enums.memory.visibility.#{@memory.visibility}") %>
+  </div>
+
+  <!-- 操作ボタン（本人のみ） -->
+  <% if current_user == @memory.user %>
+    <div class="flex gap-2 pt-4">
+      <%= link_to "編集",
+                  "#",
+                  class: "btn btn-outline btn-primary" %>
+
+      <%= link_to "削除",
+                  "#",
+                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                  class: "btn btn-outline btn-error" %>
+    </div>
+  <% end %>
+
+</div>

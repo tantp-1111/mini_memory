@@ -14,6 +14,7 @@ ja:
         description: 説明
         memory_date: 思い出の日付
         visibility: 公開範囲
+        image: 画像
   enums:
     memory:
       visibility:
