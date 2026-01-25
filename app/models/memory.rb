@@ -29,13 +29,13 @@ class Memory < ApplicationRecord
   # アップロード形式のバリデーション
   def image_content_type
     if image.attached? && !image.content_type.in?(ACCEPT_CONTENT_TYPE)
-      errors.add(:image, "：JPEG,JPG,PNGをアップロードしてください")
+      errors.add(:image, "はJPEG、JPG、PNGのみアップロード可能です")
     end
   end
   # 画像サイズのバリデーション
   def image_size
     if image.attached? && image.blob.byte_size > MAX_IMAGE_SIZE
-      errors.add(:image, "：10MB以下の画像をアップロードしてください")
+      errors.add(:image, "は10MB以下にしてください")
     end
   end
 
