@@ -2,7 +2,14 @@
   <% if !flash.empty? %>
     <div class="px-4 my-2 space-y-2">
       <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= flash_class_for(message_type) %>">
+      <!-- flashの種類に応じたスタイルを適用 -->
+        <% if flash_class_for(message_type) == "success" %>
+          <div class="alert alert-success">
+        <% elsif flash_class_for(message_type) == "error" %>
+          <div class="alert alert-error">
+        <% else %>
++          <div class="alert">
+        <% end %>
           <%= message %>
         </div>
       <% end %>

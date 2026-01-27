@@ -11,10 +11,23 @@ class MemoriesController < ApplicationController
 
   def create
     @memory = current_user.memories.build(memory_params)
-    if @memory.save
-      redirect_to memories_path, notice: t("defaults.flash_message.created", model: Memory.model_name.human)
-    else
-      flash.now[:error] = t("defaults.flash_message.not_created", model: Memory.model_name.human)
+
+    begin
+      if params[:memory][:image].present?
+        @memory.image = ImageProcessable.process_and_transform_image(params[:memory][:image], 854)
+      end
+
+      if @memory.save
+        flash[:success] = t("defaults.flash_message.created", model: Memory.model_name.human)
+        redirect_to memories_path
+      else
+        flash.now[:error] = t("defaults.flash_message.not_created", model: Memory.model_name.human)
+        render :new, status: :unprocessable_entity
+      end
+
+    # モジュールで設定したエラーのキャッチ
+    rescue ImageProcessable::ImageProcessingError => e
+      flash.now[:error] = e.message
       render :new, status: :unprocessable_entity
     end
   end
