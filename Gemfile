@@ -68,6 +68,9 @@ gem "devise-i18n"
 # rails-i18n - 多言語対応（日本語含む）
 gem "rails-i18n"
 
+# cloudinary - 画像ストレージ
+gem "cloudinary"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
