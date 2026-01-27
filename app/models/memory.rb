@@ -23,7 +23,7 @@ class Memory < ApplicationRecord
     end
   end
 
-  ACCEPT_CONTENT_TYPE = %w[image/jpeg image/jpg image/png]
+  ACCEPT_CONTENT_TYPE = %w[image/jpeg image/jpg image/png image/webp]
   MAX_IMAGE_SIZE = 10.megabytes
 
   # アップロード形式のバリデーション
