@@ -36,7 +36,16 @@
     <div class="form-control">
       <%= f.label :image, class: "label" %>
       <%= f.file_field :image, id: "memory_image", direct_upload: true %>
-      <div id="new-image" class="h-32 mx-auto"></div>
+
+      <!-- 画像プレビュー表示用 -->
+      <p class="text-xs text-gray-400 mt-1">
+        ※ 変更する場合のみ画像を選択してください
+      </p>
+      <div id="new-image" class="h-32 mx-auto">
+        <% if @memory.image.attached? %>
+          <%= image_tag @memory.display_image, class: "h-full mx-auto" %>
+        <% end %>
+      </div>
     </div>
 
     <div>

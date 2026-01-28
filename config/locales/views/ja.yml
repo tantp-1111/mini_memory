@@ -1,8 +1,12 @@
 ja:
   defaults:
+    delete_confirm: 削除しますか？
     flash_message:
       created: "%{model}を作成しました"
       not_created: "%{model}の作成に失敗しました"
+      updated: "%{model}を更新しました"
+      not_updated: "%{model}の更新に失敗しました"
+      deleted: "%{model}を削除しました"
   helpers:
     submit:
       create: 登録
@@ -27,6 +31,8 @@ ja:
   memories:
     new:
       title: 思い出新規投稿
+    edit:
+      title: 思い出編集
   header:
     mypage: マイページ
     user_create: 新規登録
