@@ -56,7 +56,7 @@ class MemoriesController < ApplicationController
     # モジュールで設定したエラーのキャッチ
     rescue ImageProcessable::ImageProcessingError => e
       flash.now[:error] = e.message
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

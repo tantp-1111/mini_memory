@@ -1,8 +1,11 @@
 document.addEventListener('turbo:load', () => {
-    if (document.URL.match(/new/) || document.URL.match(/edit/)) {
+    if (document.URL.match(/\/memories\/new/) || document.URL.match(/\/memories\/\d+\/edit/)) {
 
             const imageContainer = document.getElementById('new-image');
             const imageInput = document.getElementById('memory_image');
+
+            // 要素が存在しない場合は処理を中断
+            if (!imageContainer || !imageInput) return;
 
             // 画像表示用の関数
             const createImageHTML = (blob) => {
@@ -21,10 +24,11 @@ document.addEventListener('turbo:load', () => {
                 createImageHTML(blob); //画像表示用の関数を実行
             });
 
+    }
+});
+
             // キャッシュ削除
             document.addEventListener('turbo:before-cache', () => {
                 const previews = document.getElementById('new-image');
                 if (previews) previews.innerHTML = "";
             });
-    }
-});
