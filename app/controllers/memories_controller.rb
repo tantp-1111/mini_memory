@@ -45,7 +45,7 @@ class MemoriesController < ApplicationController
         @memory.image = ImageProcessable.process_and_transform_image(params[:memory][:image], 854)
       end
 
-      if @memory.save
+      if @memory.update(memory_params.except(:image))
         flash[:success] = t("defaults.flash_message.updated", model: Memory.model_name.human)
         redirect_to memories_path
       else
