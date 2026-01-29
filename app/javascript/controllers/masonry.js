@@ -1,6 +1,7 @@
 $(document).on("turbo:load", function () {
   const $masonry = $(".masonry");
   if ($masonry.length === 0) return; //もしmasonryクラスが見つからなければ処理を終了
+  if (!$.fn.imagesLoaded || !$.fn.masonry) return;
 
   $masonry.imagesLoaded(function () { //要素内の全ての画像が読み込まれるまで待つ
     $masonry.masonry({
