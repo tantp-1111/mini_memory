@@ -1,4 +1,4 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: pastel --default, night;
+  themes: autumn --default, night;
 }

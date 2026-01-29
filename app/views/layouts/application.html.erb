@@ -16,6 +16,7 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
   </head>
 
   <body>
@@ -39,5 +40,15 @@
       </div>
 
     <%= render 'shared/footer' %>
+
+
+    <!-- jQueryのCDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- MasonryのCDN 本体 -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    <!-- imagesLoadedのCDN 画像が全部読み込まれてから動くようにしてくれるもの -->
+    <script src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
   </body>
 </html>

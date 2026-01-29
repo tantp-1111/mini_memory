@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+/* Masonry */
+@layer utilities {
+  .masonry-grid {
+    position: relative;
+  }
+
+  /* デフォルト */
+  .masonry-sizer,
+  .masonry-item {
+    width: 15%;
+  }
+
+  /* 画面大 */
+  @media (max-width: 1024px) {
+    .masonry-sizer,
+    .masonry-item {
+      width: 20%;
+    }
+  }
+
+  /* 画面小 */
+  @media (max-width: 640px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 47%;
+  }
+}
+
+  /* 画像間の隙間 */
+  .masonry-item {
+    margin-bottom: 16px;
+  }
+}
