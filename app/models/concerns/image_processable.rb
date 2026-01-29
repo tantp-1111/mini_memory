@@ -15,7 +15,7 @@ module ImageProcessable
         .source(image_io)
         .resize_to_fit(width, nil)
         .convert("webp")
-        .saver(strip: true, quality: 85)
+        .saver(strip: true, quality: 50)
         .call
 
       # ActionDispatch::Http::UploadedFileを返す
