@@ -40,12 +40,13 @@ class MemoriesController < ApplicationController
     @memory = current_user.memories.find(params[:id])
 
     begin
+      @memory.assign_attributes(memory_params.except(:image))
       # 画像がアップロードされている場合のみ画像処理を実行
       if params[:memory][:image].present?
         @memory.image = ImageProcessable.process_and_transform_image(params[:memory][:image], 854)
       end
 
-      if @memory.update(memory_params.except(:image))
+      if @memory.save
         flash[:success] = t("defaults.flash_message.updated", model: Memory.model_name.human)
         redirect_to memories_path
       else
