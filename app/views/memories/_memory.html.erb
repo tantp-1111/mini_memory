@@ -1,9 +1,11 @@
+<div class="masonry-item">
 <%= link_to memory_path(memory),
     id: "memory-id-#{memory.id}",
-    class: "card bg-base-100 w-full" do %>
+    class: "bg-base-100 block" do %>
 
   <figure>
   <div><%= image_tag memory.display_image, alt: memory.title, class: "w-full h-full object-cover" %></div>
   </figure>
 
 <% end %>
+</div>
