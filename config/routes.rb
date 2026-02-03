@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   authenticated :user do
     root to: "dashboard#top", as: :authenticated_root
   end
