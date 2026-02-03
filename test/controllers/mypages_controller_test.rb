@@ -1,7 +1,6 @@
 require "test_helper"
 
 class MypagesControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @user = users(:one) # fixtures
     sign_in @user
