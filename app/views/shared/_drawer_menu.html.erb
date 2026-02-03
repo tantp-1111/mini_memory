@@ -29,7 +29,7 @@
       <summary><%= t('drawer.summary.account') %></summary>
       <% if user_signed_in? %>
         <ul>
-          <li><%= link_to t('drawer.list.mypage'), "#" %></li>
+          <li><%= link_to t('drawer.list.mypage'), mypage_path %></li>
           <li><%= link_to t('drawer.list.logout'), destroy_user_session_path, data: { turbo_method: :delete } %></li>
         </ul>
       <% else %>

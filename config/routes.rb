@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   authenticated :user do
     root to: "dashboard#top", as: :authenticated_root
   end
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions"
   }
+
+  get "mypage" => "mypages#show"
 
   resources :memories, only: %i[index new create show edit update destroy]
 
