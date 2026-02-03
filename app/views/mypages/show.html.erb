@@ -1,0 +1,10 @@
+<h1>about me</h1>
+
+<h3>ユーザー名</h3>
+<%= @user.name %>
+<h3>メールアドレス</h3>
+<%= @user.email %>
+
+<%= link_to edit_user_registration_path do %>
+              編集
+            <% end %>
