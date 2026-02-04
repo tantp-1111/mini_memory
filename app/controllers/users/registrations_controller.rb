@@ -57,6 +57,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     authenticated_root_path
   end
 
+  # アカウント更新時にパスワード不要で更新を可能にする
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
+  # アカウントupdate後のリダイレクト先を指定(mypage#show)
+  def after_update_path_for(resource)
+    mypage_path
+  end
+
   # inactive sign up後のリダイレクト先を指定(confirmableモジュール使用時)
   # def after_inactive_sign_up_path_for(resource)
   #   root_path
