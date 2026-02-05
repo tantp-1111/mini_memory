@@ -65,6 +65,12 @@ gem "tailwindcss-rails"
 gem "devise"
 gem "devise-i18n"
 
+gem "omniauth-line"
+gem "omniauth-rails_csrf_protection"
+
+# dotenv-rails - 環境変数の管理 (LINE_CHANNEL_ID, SECRET etc.)b
+gem 'dotenv-rails'
+
 # rails-i18n - 多言語対応（日本語含む）
 gem "rails-i18n"
 
