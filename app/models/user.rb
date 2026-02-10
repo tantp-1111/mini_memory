@@ -12,19 +12,20 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
 
-    user.email =
+    if user.new_record?
+      user.email =
       auth.info.email.presence ||
-      user.email.presence ||
       "#{auth.uid}-#{auth.provider}@example.com"
 
-    user.name =
+      user.name =
       auth.info.name.presence ||
-      user.name.presence ||
       "LINEユーザー"
 
-    user.password = Devise.friendly_token[0, 20] if user.new_record?
+      user.password = Devise.friendly_token[0, 20]
 
-    user.save
+      user.save
+    end
+
     user
-end
+  end
 end
