@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :memories, dependent: :destroy
 
+  # OmniauthでLINEログインしたときに呼ばれるメソッド - 初回登録&二回目以降のログイン両方で使用
   def self.from_omniauth(auth)
     user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
 
@@ -21,9 +22,9 @@ class User < ApplicationRecord
       user.name.presence ||
       "LINEユーザー"
 
-    user.password ||= Devise.friendly_token[0, 20]
+    user.password = Devise.friendly_token[0, 20] if user.new_record?
 
-    user.save!
+    user.save
     user
 end
 end
