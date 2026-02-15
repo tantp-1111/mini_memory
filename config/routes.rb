@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get "mypage" => "mypages#show"
 
-  resources :memories, only: %i[index new create show edit update destroy]
+  resources :memories, param: :uuid, only: %i[index new create show edit update destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,23 +1,30 @@
 <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
 
-  <!-- タイトル -->
-  <h1 class="text-2xl font-bold">
+  <!-- 画像 -->
+  <div class="w-full">
+      <%= image_tag @memory.image, class: "aspect-square overflow-hidden bg-neutral" %>
+  </div>
+
+    <!-- タイトル -->
+  <h1 class="text-3xl font-black leading-tight text-base-content">
     <%= @memory.title %>
   </h1>
 
-  <!-- 画像 -->
-  <div class="w-full">
-      <%= image_tag @memory.image, class: "rounded-lg w-full object-cover" %>
-  </div>
+  <div class="flex items-center gap-1 font-bold"> <%= @memory.user.name %> のミニメモリー</div>
 
   <!-- 日付 -->
-    <div class="text-sm text-gray-500">
+    <div class="text-sm text-base-content/60">
       <%= l(@memory.memory_date) %>
     </div>
 
   <!-- 本文 -->
-  <div class="max-w-none">
-      <%= simple_format(@memory.description) %>
+  <div class="space-y-4">
+      <h3 class="font-bold text-base-content/40 tracking-widest text-sm">エピソード</h3>
+      <div class="relative bg-red-50 p-6 rounded-3xl border-l-8 border-red-400">
+        <p class="text-lg leading-relaxed text-base-content/80">
+          <%= simple_format(@memory.description) %>
+        </p>
+      </div>
   </div>
 
   <!-- 公開範囲 -->
