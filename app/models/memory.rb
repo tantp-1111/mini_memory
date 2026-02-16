@@ -54,4 +54,9 @@ class Memory < ApplicationRecord
   def display_image
     image_as_thumbnail || default_image
   end
+
+  # URLのパラメータとしてuuidを使用
+  def to_param
+    uuid
+  end
 end
