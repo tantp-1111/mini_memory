@@ -33,11 +33,11 @@ class MemoriesController < ApplicationController
   end
 
   def edit
-    @memory = current_user.memories.find_by(uuid: params[:uuid])
+    @memory = current_user.memories.find_by!(uuid: params[:uuid])
   end
 
   def update
-    @memory = current_user.memories.find_by(uuid: params[:uuid])
+    @memory = current_user.memories.find_by!(uuid: params[:uuid])
 
     begin
       @memory.assign_attributes(memory_params.except(:image))
@@ -62,7 +62,7 @@ class MemoriesController < ApplicationController
   end
 
   def destroy
-    memory = current_user.memories.find_by(uuid: params[:uuid])
+    memory = current_user.memories.find_by!(uuid: params[:uuid])
     memory.destroy!
     redirect_to memories_path, notice: t("defaults.flash_message.deleted", model: Memory.model_name.human)
   end
@@ -70,7 +70,7 @@ class MemoriesController < ApplicationController
 
 
   def show
-    @memory = current_user.memories.find_by(uuid: params[:uuid])
+    @memory = current_user.memories.find_by!(uuid: params[:uuid])
   end
 
   private
