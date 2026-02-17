@@ -7,9 +7,15 @@
       <%# 画像カード %>
       <div class="card bg-base-100 shadow-xl overflow-hidden">
         <figure class="bg-base-200">
-          <%= image_tag @memory.image,
-              alt: @memory.title,
-              class: "w-full object-contain max-h-[70vh]" %>
+          <% if @memory.image.attached? %>
+            <%= image_tag @memory.image,
+                alt: @memory.title,
+                class: "w-full object-contain max-h-[70vh]" %>
+          <% else %>
+            <div class="w-full h-64 flex items-center justify-center bg-base-200 text-base-content/50">
+              画像がありません
+            </div>
+          <% end %>
         </figure>
       </div>
 
@@ -19,7 +25,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
-          <%= l(@memory.memory_date, format: :short) %>
+          <%= l(@memory.memory_date, format: :short) if @memory.memory_date %>
         </div>
       </div>
 
@@ -40,7 +46,7 @@
 
       <%# 投稿者 %>
       <div class="flex items-center gap-3 pb-6 border-b border-base-200">
-      <%# アバター画像実装後はif文で表示切り替え %>
+      <%# アバター画像実装後はif文で表示切り替え予定 %>
         <div class="avatar placeholder">
           <div class="bg-neutral text-neutral-content rounded-full w-9 h-9 flex items-center justify-center">
             <span class="text-sm font-bold">
@@ -66,18 +72,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <%# 公開範囲 %>
-      <div class="flex items-center gap-2 text-xs text-base-content/50">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-        </svg>
-        <span>公開範囲：</span>
-        <span class="font-semibold text-base-content/70">
-          <%= t("enums.memory.visibility.#{@memory.visibility}") %>
-        </span>
       </div>
 
       <%# ボタン群 %>
