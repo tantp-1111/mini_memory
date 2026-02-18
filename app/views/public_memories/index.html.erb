@@ -16,9 +16,11 @@
   </div>
 
   <!-- 掲示板一覧 -->
-  <% if @my_memories.present? %>
+  <% if @public_memories.present? %>
     <div class="masonry">
-      <%= render @my_memories %>
+      <%= render partial: "public_memories/memory",
+           collection: @public_memories,
+           as: :memory %>
     </div>
   <% else %>
     <div class="text-center text-base-content/60 mt-8">
