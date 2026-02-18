@@ -13,7 +13,7 @@
         <div class="avatar placeholder">
             <div class="bg-neutral text-neutral-content rounded-full w-9 h-9 flex items-center justify-center">
               <span class="text-sm font-bold">
-                <%= memory.user.name.slice(0, 1) %>
+                <%= memory.user&.name&.slice(0, 1) || "?" %>
               </span>
             </div>
             </div>
