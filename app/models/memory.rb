@@ -12,9 +12,12 @@ class Memory < ApplicationRecord
 
   enum :visibility, {
     private_only: 0,   # 本人のみ閲覧可能
-    unlisted: 1,  # 本人、非公開URLを知っている人のみ閲覧可能
+    unlisted: 1,  # 家族グループメンバーのみ閲覧可能
     published: 2     # 掲示板にて誰でも閲覧可能、非公開URLを知っている人も閲覧可能
   }
+
+  # 公開投稿のみを取得するスコープ
+  scope :publicly_available, -> { where(visibility: :published) }
 
   # enumの選択肢を国際化対応した配列で返すヘルパーメソッド
   def self.visibility_options_for_select
