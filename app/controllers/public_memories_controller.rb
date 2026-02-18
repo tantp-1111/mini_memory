@@ -10,7 +10,7 @@ class PublicMemoriesController < ApplicationController
   end
 
   def show
-    @memory = Memory.publicly_available.find_by!(uuid: params[:id])
+    @memory = Memory.publicly_available.find_by!(uuid: params[:uuid])
     # published以外はActiveRecord::RecordNotFoundが発生し、
     # memory_not_foundメソッドで処理される
   end

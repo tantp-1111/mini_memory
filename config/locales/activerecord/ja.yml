@@ -19,5 +19,5 @@ ja:
     memory:
       visibility:
         private_only: 非公開
-        unlisted: 非公開URLを知っている人のみ閲覧可能
+        unlisted: 家族グループメンバーのみ閲覧可能
         published: 掲示板にて誰でも閲覧可能
