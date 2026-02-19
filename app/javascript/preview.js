@@ -22,6 +22,12 @@ document.addEventListener('turbo:load', () => {
                 const file = e.target.files[0]; //フォームで選択したファイルを取得
                 const blob =window.URL.createObjectURL(file); //選択したファイルのURLを取得
                 createImageHTML(blob); //画像表示用の関数を実行
+                // ▼ ファイル名を表示するエリアを取得して、ファイル名をセットして表示
+                const fileNameEl = document.getElementById('file-name');
+                if (fileNameEl) {
+                    fileNameEl.textContent = file.name;
+                    fileNameEl.classList.remove('hidden');
+                }
             });
 
     }
@@ -31,4 +37,9 @@ document.addEventListener('turbo:load', () => {
             document.addEventListener('turbo:before-cache', () => {
                 const previews = document.getElementById('new-image');
                 if (previews) previews.innerHTML = "";
+                const fileNameEl = document.getElementById('file-name');
+                if (fileNameEl) {
+                    fileNameEl.textContent = "";
+                    fileNameEl.classList.add('hidden');
+                }
             });
