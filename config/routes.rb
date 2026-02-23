@@ -1,21 +1,34 @@
 Rails.application.routes.draw do
+  # ログインしているユーザーとそうでないユーザーでルートを分ける
+  # ログインしているユーザーはダッシュボードのトップへ、そうでないユーザーは静的ページのトップへ
   authenticated :user do
     root to: "dashboard#top", as: :authenticated_root
   end
 
   root "static_pages#top"
 
+  # deviseをカスタマイズ
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
+  # マイページ
   get "mypage" => "mypages#show"
 
+  # ミニメモリー - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :memories, param: :uuid, only: %i[index new create show edit update destroy]
 
+  # 掲示板 - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :public_memories, param: :uuid, only: %i[index show]
+
+  get "memory_game" => "memory_games#show", as: :memory_game
+
+  # ゲーム（写真で神経衰弱）
+  namespace :api do
+    resource :memory_game, only: %i[show]
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
