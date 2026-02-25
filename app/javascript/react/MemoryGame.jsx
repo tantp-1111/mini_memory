@@ -291,7 +291,7 @@ export default function MemoryGame() {
 
     if (firstCard.id === secondCard.id) {
       // ✅ マッチ → カードをmatched状態にしてからモーダル表示
-      setTimeout(() => {
+      const t = setTimeout(() => {
         setDeck(prev =>
           prev.map(c =>
             c.index === firstIndex || c.index === index
@@ -313,10 +313,11 @@ export default function MemoryGame() {
         })
         setSelected([])
       }, 300)
+      timersRef.current.push(t) // タイマーIDをrefに保存しておく
     } else {
       // ❌ ミス
       // 900ms後にカードを元に戻して選択状態をリセット（その間はロックしたまま）
-      setTimeout(() => {
+      const t = setTimeout(() => {
         setDeck(prev =>
           prev.map(c =>
             c.index === firstIndex || c.index === index
@@ -327,6 +328,7 @@ export default function MemoryGame() {
         setSelected([])
         setLocked(false)
       }, 900)
+      timersRef.current.push(t) // タイマーIDをrefに保存しておく
     }
   }, [locked, selected, deck, totalPairs])
 
