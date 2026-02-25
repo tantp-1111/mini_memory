@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useEffect, useState, useCallback, useMemo, useRef } from "react"
 
 // ── ユーティリティ ──────────────────────────────
 const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5)
@@ -23,9 +23,11 @@ const Card = React.memo(({ card, onClick, iconPath }) => {
   }
 
   return (
-    <div
+    <button
+      type="button"
       className="[perspective:800px] cursor-pointer aspect-square"
       onClick={handleClick}
+      aria-label={`${card.title}をめくる`}
     >
       <div
         className={[
@@ -59,7 +61,7 @@ const Card = React.memo(({ card, onClick, iconPath }) => {
           />
         </div>
       </div>
-    </div>
+    </button>
   )
 })
 // ── マッチ時モーダル（投稿内容を表示）──────────
@@ -187,6 +189,15 @@ const InsufficientAlert = ({ needed }) => (
 
 // ── メインコンポーネント ────────────────────────
 export default function MemoryGame() {
+  // タイマー管理用のrefと、タイマーをクリアする関数を定義
+  const timersRef = useRef([])
+
+  const clearTimers = useCallback(() => {
+    timersRef.current.forEach(clearTimeout)
+    timersRef.current = []
+  }, [])
+
+  // iconのパスをdata属性から取得してメモ化
   const iconPath = useMemo(
     () => document.getElementById("memory-game-root")?.dataset.iconPath,
     []
@@ -204,6 +215,7 @@ export default function MemoryGame() {
 
   // カードデータをAPIから取得してデッキを構築する関数
   const fetchCards = useCallback(async () => {
+    clearTimers() // 新しいゲームを始める前にタイマーをクリアして状態をリセット
     setStatus("loading")
     try {
       const res  = await fetch("/api/memory_game", {
@@ -243,7 +255,10 @@ export default function MemoryGame() {
     }
   }, [])
 
-  useEffect(() => { fetchCards() }, [fetchCards])
+  useEffect(() => {
+    fetchCards()
+    return clearTimers
+}, [fetchCards, clearTimers])
 
   // モーダルを閉じてゲームを再開
   const handleMatchModalClose = useCallback(() => {
