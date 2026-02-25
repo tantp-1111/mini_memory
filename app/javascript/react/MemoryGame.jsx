@@ -16,22 +16,17 @@ const getCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]')?.content ?? ""
 
 // ── カード1枚 ───────────────────────────────────
-  // アイコンのパスをdata属性から取得
-const iconPath = document.getElementById("memory-game-root")?.dataset.iconPath
-  // React.memoで不要な再レンダリングを防止
-const Card = React.memo(({ card, onClick }) => {
-  // まだめくられていない、かつマッチしていないカードのみクリック可能
+// React.memoでカードコンポーネントをメモ化して、propsが変わらない限り再レンダリングしないようにする
+const Card = React.memo(({ card, onClick, iconPath }) => {
   const handleClick = () => {
     if (!card.flipped && !card.matched) onClick(card.index)
   }
 
   return (
-    // perspectiveで3D空間を作り、cursor-pointerでクリック可能、aspect-squareで正方形を維持
     <div
       className="[perspective:800px] cursor-pointer aspect-square"
       onClick={handleClick}
     >
-      {/* カードの表裏を3Dで回転させる */}
       <div
         className={[
           "relative w-full h-full transition-transform duration-500 ease-in-out",
@@ -48,12 +43,12 @@ const Card = React.memo(({ card, onClick }) => {
           />
         </div>
 
-        {/* 表面 */}
+        {/* 表面（変更なし）*/}
         <div
           className={[
             "absolute inset-0 rounded-2xl overflow-hidden [backface-visibility:hidden]",
             "[transform:rotateY(180deg)] shadow-md",
-            card.matched? "ring-4 ring-success ring-offset-2" : "border-2 border-base-300",
+            card.matched ? "ring-4 ring-success ring-offset-2" : "border-2 border-base-300",
           ].join(" ")}
         >
           <img
@@ -67,7 +62,6 @@ const Card = React.memo(({ card, onClick }) => {
     </div>
   )
 })
-
 // ── マッチ時モーダル（投稿内容を表示）──────────
 const MatchModal = ({ card, onClose }) => {
   if (!card) return null
@@ -193,6 +187,11 @@ const InsufficientAlert = ({ needed }) => (
 
 // ── メインコンポーネント ────────────────────────
 export default function MemoryGame() {
+  const iconPath = useMemo(
+    () => document.getElementById("memory-game-root")?.dataset.iconPath,
+    []
+  )
+
   const [status, setStatus]         = useState("loading") // loading, error, insufficient, playing, clearの状態管理
   const [deck, setDeck]             = useState([]) // カードの配列
   const [needed, setNeeded]         = useState(0) // 不足しているカード枚数
@@ -210,8 +209,20 @@ export default function MemoryGame() {
       const res  = await fetch("/api/memory_game", {
         headers: { "X-CSRF-Token": getCsrfToken() }
       })
+
+      // APIリクエストが失敗した場合のエラーハンドリング
+      if (!res.ok) {
+        if (res.status === 401) {
+          window.location.href = "/users/sign_in"
+          return
+        }
+        throw new Error(`HTTP ${res.status}`)
+      }
+
+      // APIからのレスポンスを処理してゲームの状態を初期化
       const data = await res.json()
 
+      // 必要なカード枚数が足りない場合は、足りない枚数を表示してゲーム開始前の状態にする
       if (!data.sufficient) {
         setNeeded(data.needed)
         setStatus("insufficient")
@@ -333,7 +344,7 @@ export default function MemoryGame() {
 
           <div className="grid grid-cols-4 gap-3 md:gap-4 w-full max-w-2xl">
             {deck.map(card => (
-              <Card key={card.index} card={card} onClick={handleFlip} />
+              <Card key={card.index} card={card} onClick={handleFlip} iconPath={iconPath} />
             ))}
           </div>
 

@@ -31,6 +31,14 @@ function mountMemoryGame() {
   el.__reactRoot.render(<MemoryGame />)
 }
 
+function unmountReactApp() {
+  const element = document.getElementById("react-root")
+  if (!element || !element.__reactRoot) return
+
+  element.__reactRoot.unmount()
+  delete element.__reactRoot
+}
+
 function unmountMemoryGame() {
   const el = document.getElementById("memory-game-root")
   if (!el || !el.__reactRoot) return
