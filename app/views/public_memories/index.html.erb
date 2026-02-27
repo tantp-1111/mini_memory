@@ -1,19 +1,5 @@
+<div class="min-h-screen bg-base-200">
 <div class="max-w-6xl mx-auto px-4 pt-6">
-  <!-- 検索フォーム(未実装) -->
-  <div class="mb-6">
-    <form>
-      <div class="join w-full max-w-md mx-auto">
-        <input
-          type="search"
-          placeholder="検索ワード"
-          class="input input-bordered join-item w-full"
-        />
-        <button type="submit" class="btn btn-primary join-item disabled">
-          検索
-        </button>
-      </div>
-    </form>
-  </div>
 
   <!-- 掲示板一覧 -->
   <% if @public_memories.present? %>
@@ -27,4 +13,5 @@
       ミニメモリーがありません
     </div>
   <% end %>
+</div>
 </div>

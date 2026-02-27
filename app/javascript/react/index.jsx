@@ -1,23 +1,6 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
-import App from "./App"
 import MemoryGame from "./MemoryGame"
-
-// Appのマウントとアンマウント
-function mountReactApp() {
-  const element = document.getElementById("react-root")
-  if (!element) return
-
-  if (!element.__reactRoot) {
-    element.__reactRoot = createRoot(element)
-  }
-
-  element.__reactRoot.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  )
-}
 
 // ── MemoryGame のマウント ──
 function mountMemoryGame() {
