@@ -1,4 +1,51 @@
-<div>
-  <h1 class="font-bold text-4xl">Dashboardログイン後表示ページ</h1>
-  <p>このページが開けていればログイン成功</p>
+<div class="min-h-screen bg-base-200">
+  <div class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <section class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <div class="flex items-center justify-between">
+          <h1 class="card-title text-2xl">最近のミニメモリー</h1>
+          <%= link_to "すべて見る", memories_path, class: "link link-hover text-sm" %>
+        </div>
+
+        <% if @recent_memories.present? %>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <% @recent_memories.each do |memory| %>
+              <%= link_to memory_path(memory), class: "rounded-xl overflow-hidden border border-base-300 hover:opacity-90 transition" do %>
+                <%= image_tag memory.display_image, alt: memory.title, class: "w-full h-36 object-cover" %>
+                <div class="p-3">
+                  <p class="font-semibold truncate"><%= memory.title %></p>
+                  <p class="text-xs text-base-content/60"><%= memory.memory_date.present? ? l(memory.memory_date) : "日付なし" %></p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-base-content/60">まだミニメモリーがありません。</div>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <%= link_to memories_path, class: "card bg-base-100 shadow-sm hover:shadow-md transition" do %>
+        <div class="card-body">
+          <h2 class="card-title">ミニメモリー一覧</h2>
+          <p class="text-sm text-base-content/70">自分のミニメモリーを確認できます。</p>
+        </div>
+      <% end %>
+
+      <%= link_to public_memories_path, class: "card bg-base-100 shadow-sm hover:shadow-md transition" do %>
+        <div class="card-body">
+          <h2 class="card-title">掲示板</h2>
+          <p class="text-sm text-base-content/70">公開されたみんなのミニメモリーを見られます。</p>
+        </div>
+      <% end %>
+
+      <%= link_to memory_game_path, class: "card bg-base-100 shadow-sm hover:shadow-md transition" do %>
+        <div class="card-body">
+          <h2 class="card-title">ゲーム</h2>
+          <p class="text-sm text-base-content/70">ミニメモリーを使って子供とゲームを楽しめます。</p>
+        </div>
+      <% end %>
+    </section>
+  </div>
 </div>
