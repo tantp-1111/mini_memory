@@ -1,15 +1,3 @@
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-<% end %>
-
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
 <% end %>
@@ -20,6 +8,38 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+    <%= button_to omniauth_authorize_path(resource_name, :line),
+        method: :post,
+        data: { turbo: false },
+        form: { class: "w-full max-w-sm mx-auto" },
+        class: "relative bg-[#06C755] text-white font-bold py-3 px-6 rounded flex items-center justify-center gap-2 w-full overflow-hidden group" do %>
+
+      <span class="relative z-0 flex items-center gap-2">
+        <img src="/line_icon.png" class="w-5 h-5">
+          <%= local_assigns[:button_text] || "LINEでログイン" %>
+      </span>
+
+      <span class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition z-10"></span>
+    <% end %>
   <% end %>
 <% end %>
+
+<%- if controller_name != 'sessions' %>
+  <p class="text-center text-sm text-base-content/60 mt-4">
+    すでにアカウントをお持ちですか？
+    <%= link_to "ログイン", new_session_path(resource_name), class: "link link-primary font-semibold" %><br />
+  </p>
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <p class="text-center text-sm text-base-content/60 mt-4">
+    アカウントをお持ちでない方は
+    <%= link_to "新規登録", new_registration_path(resource_name), class: "link link-primary font-semibold" %><br />
+  </p>
+<% end %>
+
+<%#- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%# p class="text-center text-sm text-base-content/60 mt-4">
+    パスワードをお忘れの方は
+  <%#= link_to "パスワードをリセットする", new_password_path(resource_name), class: "link link-primary font-semibold" %>
+<%# end %>
