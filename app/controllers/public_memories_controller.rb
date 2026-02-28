@@ -6,7 +6,7 @@ class PublicMemoriesController < ApplicationController
 
   # publishedのみ取得
   def index
-    @public_memories = Memory.publicly_available.with_attached_image.order(created_at: :desc)
+    @public_memories = Memory.publicly_available.with_attached_image.includes(:user).order(created_at: :desc)
   end
 
   def show
