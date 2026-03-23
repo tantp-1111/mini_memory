@@ -26,9 +26,9 @@ module ApplicationHelper
         title: :title,
         description: :description,
         type: "website",
-        url: url: "#{request.base_url}#{request.path}",
+        url: "#{request.base_url}#{request.path}",
         image: image_url("ogp.png"),
-        locale: "ja-JP"
+        locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image", # Xで表示する場合は大きいカードを使用
