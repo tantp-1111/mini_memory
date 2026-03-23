@@ -77,6 +77,9 @@ gem "rails-i18n"
 # cloudinary - 画像ストレージ
 gem "cloudinary"
 
+# meta-tags - メタタグ管理
+gem "meta-tags"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
