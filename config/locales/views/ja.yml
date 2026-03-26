@@ -1,5 +1,6 @@
 ja:
   defaults:
+    unknown_user: 不明なユーザー
     delete_confirm: 削除しますか？
     cancel: キャンセル
     flash_message:

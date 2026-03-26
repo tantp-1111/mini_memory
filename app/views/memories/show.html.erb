@@ -55,7 +55,7 @@
           </div>
         </div>
         <span class="text-sm text-base-content/60">
-          <span class="font-semibold text-base-content/80"><%= @memory.user&.name || "不明" %></span>
+          <span class="font-semibold text-base-content/80"><%= @memory.user&.name || t('defaults.unknown_user') %></span>
           <%= t('.users_minimemory') %>
         </span>
       </div>
