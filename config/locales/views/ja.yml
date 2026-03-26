@@ -1,6 +1,7 @@
 ja:
   defaults:
     delete_confirm: 削除しますか？
+    cancel: キャンセル
     flash_message:
       created: "%{model}を作成しました"
       not_created: "%{model}の作成に失敗しました"
@@ -11,13 +12,29 @@ ja:
     submit:
       create: 登録
       submit: 保存
+      edit: 編集
       update: 更新
+      delete: 削除
+      return_to_list: 一覧に戻る
       login: ログイン
     label:
       name: 名前
       email: メールアドレス
       password: パスワード
       password_confirmation: パスワード確認
+      title: タイトル
+      description: エピソード
+      memory_date: 日付
+      visibility: 公開範囲
+      image: 写真
+    placeholder:
+      title: モノのタイトルを入力...
+      description: モノにまつわるエピソードや思い出を入力...
+      image:
+        new: クリックして写真を選択
+        edit: クリックして写真を変更
+    format:
+      image: JPEG, PNG, JPG, Webp
   devise:
     registrations:
       new:
@@ -29,29 +46,56 @@ ja:
         title: ログイン
         stay_logged_in: ログイン状態を保持する
   memories:
+    index:
+      not_found: ミニメモリがありません
     new:
-      title: 思い出新規投稿
+      title: ミニメモリ新規投稿
+      subtitle: 大切なモノをここに残しましょう
     edit:
-      title: 思い出編集
+      title: ミニメモリ編集
+      subtitle: 内容を編集できます
+    show:
+      image_not_found: 画像がありません
+      users_minimemory: のミニメモリ
+      episode: Episode
+      return_to_list: 一覧に戻る
+  public_memories:
+    index:
+      not_found: ミニメモリがありません
+    show:
+      image_not_found: 画像がありません
+      users_minimemory: のミニメモリ
+      episode: Episode
+      return_to_list: 一覧に戻る
+  mypage:
+    title: マイページ
+    subtitle: アカウント情報を確認できます
+    user_name: ユーザー名
   header:
     mypage: マイページ
     user_create: 新規登録
     login: ログイン
+  footer:
+    home: ホーム
+    mini_memory: ミニメモリ
+    new_memory: 新規投稿
+    board: 掲示板
+    enjoy: 楽しむ
   drawer:
     summary:
-      my_mini_memory: 私のミニメモリー
-      everyone_mini_memory: みんなのミニメモリー
+      mini_memory: 私のミニメモリ
+      everyone_mini_memory: みんなのミニメモリ
       account: アカウント
       others: その他
     list:
       create_memory: 新規投稿
-      memory_index: 思い出一覧
-      enjoy_with_child: 子と楽しむ
+      memory_index: ミニメモリ一覧
+      enjoy: 楽しむ
       board: 掲示板
       mypage: マイページ
       logout: ログアウト
       user_create: 新規登録
       login: ログイン
-      terms_of_service: 利用規約
-      privacy_policy: プライバシーポリシー
-      contact: お問い合わせ
+      terms_of_service: 利用規約(工事中)
+      privacy_policy: プライバシーポリシー(工事中)
+      contact: お問い合わせ(工事中)
