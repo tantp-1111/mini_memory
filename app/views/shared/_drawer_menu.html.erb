@@ -5,11 +5,11 @@
     <li>
       <summary><%= current_user.name %>さん、ようこそ！</summary>
       <details open>
-        <summary><%= t('drawer.summary.my_mini_memory') %></summary>
+        <summary><%= t('drawer.summary.mini_memory') %></summary>
         <ul>
           <li><%= link_to t('drawer.list.create_memory'), new_memory_path %></li>
           <li><%= link_to t('drawer.list.memory_index'), memories_path %></li>
-          <li><%= link_to t('drawer.list.enjoy_with_child'), memory_game_path %></li>
+          <li><%= link_to t('drawer.list.enjoy'), memory_game_path %></li>
         </ul>
       </details>
     </li>
