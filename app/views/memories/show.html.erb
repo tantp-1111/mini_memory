@@ -18,7 +18,7 @@
                 class: "w-full object-contain max-h-[70vh]" %>
           <% else %>
             <div class="w-full h-64 flex items-center justify-center bg-base-200 text-base-content/50">
-              <%= t('.image_not_found') %>
+              <%= t('defaults.image_not_found') %>
             </div>
           <% end %>
         </figure>
@@ -56,14 +56,14 @@
         </div>
         <span class="text-sm text-base-content/60">
           <span class="font-semibold text-base-content/80"><%= @memory.user&.name || t('defaults.unknown_user') %></span>
-          <%= t('.users_minimemory') %>
+          <%= t('defaults.users_minimemory') %>
         </span>
       </div>
 
       <%# エピソード %>
       <div>
-        <p class="text-xs font-bold tracking-widest uppercase text-base-content/40 mb-3">
-          <%= t('.episode') %>
+        <p class="text-xs font-bold tracking-widest text-base-content/40 mb-3">
+          <%= t('defaults.episode') %>
         </p>
         <div class="card bg-base-100 shadow-md border-l-4 border-primary">
           <div class="card-body py-6 px-7">

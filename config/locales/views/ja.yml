@@ -3,6 +3,10 @@ ja:
     unknown_user: 不明なユーザー
     delete_confirm: 削除しますか？
     cancel: キャンセル
+    not_found: ミニメモリがみつかりません。登録しましょう。
+    image_not_found: 画像がありません
+    users_minimemory: のミニメモリ
+    episode: EPISODE
     flash_message:
       created: "%{model}を作成しました"
       not_created: "%{model}の作成に失敗しました"
@@ -47,8 +51,6 @@ ja:
         title: ログイン
         stay_logged_in: ログイン状態を保持する
   memories:
-    index:
-      not_found: ミニメモリがありません
     new:
       title: ミニメモリ新規投稿
       subtitle: 大切なモノをここに残しましょう
@@ -56,17 +58,9 @@ ja:
       title: ミニメモリ編集
       subtitle: 内容を編集できます
     show:
-      image_not_found: 画像がありません
-      users_minimemory: のミニメモリ
-      episode: Episode
       return_to_list: 一覧に戻る
   public_memories:
-    index:
-      not_found: ミニメモリがありません
     show:
-      image_not_found: 画像がありません
-      users_minimemory: のミニメモリ
-      episode: Episode
       return_to_list: 一覧に戻る
   mypage:
     title: マイページ
