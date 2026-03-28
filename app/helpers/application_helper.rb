@@ -27,12 +27,12 @@ module ApplicationHelper
         description: :description,
         type: "website",
         url: "#{request.base_url}#{request.path}",
-        image: image_url("ogp.png"),
+        image: image_url("minimemory_ogp.png"),
         locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image", # Xで表示する場合は大きいカードを使用
-        image: image_url("ogp.png")
+        image: image_url("minimemory_ogp.png")
       }
     }
   end
