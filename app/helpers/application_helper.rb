@@ -27,13 +27,23 @@ module ApplicationHelper
         description: :description,
         type: "website",
         url: "#{request.base_url}#{request.path}",
-        image: image_url("minimemory_ogp.png"),
+        image: ogp_image_url,
         locale: "ja_JP"
       },
       twitter: {
         card: "summary_large_image", # Xで表示する場合は大きいカードを使用
-        image: image_url("minimemory_ogp.png")
+        image: ogp_image_url
       }
     }
+  end
+
+  def ogp_image_url
+    if @memory&.id
+      public_id = @memory.image.key
+      cloud_name = Rails.application.credentials.dig(:cloudinary, :cloud_name)
+      return "https://res.cloudinary.com/#{cloud_name}/image/upload/#{public_id}.jpeg"
+    end
+    # デフォルトOGP画像
+    image_url("minimemory_ogp.png")
   end
 end

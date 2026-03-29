@@ -111,6 +111,19 @@
           </div>
         <% end %>
 
+        <%# Xシェアボタン（公開範囲が掲示板にて公開のみ表示） %>
+        <% if @memory.published? %>
+          <%= link_to "https://x.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@memory.title)}",
+              id: "button-share-x-#{@memory.id}",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              class: "btn btn-neutral btn-sm self-start gap-2" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          <% end %>
+        <% end %>
+
         <%= link_to memories_path, class: "btn btn-ghost btn-sm self-start gap-2" do %>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
