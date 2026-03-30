@@ -113,7 +113,8 @@
 
         <%# Xシェアボタン（公開範囲が掲示板にて公開のみ表示） %>
         <% if @memory.published? %>
-          <%= link_to "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@memory.title)}",
+          <% share_target_url = public_memories_url(@memory.uuid) %>
+          <%= link_to "https://twitter.com/intent/tweet?url=#{CGI.escape(share_target_url)}&text=#{CGI.escape(@memory.title)}",
               id: "button-share-x-#{@memory.id}",
               target: "_blank",
               rel: "noopener noreferrer",
