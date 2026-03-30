@@ -38,12 +38,11 @@ module ApplicationHelper
   end
 
   def ogp_image_url
-    if @memory&.id
+    cloud_name = Rails.application.credentials.dig(:cloudinary, :cloud_name)
+    if @memory&.image&.attached? && cloud_name.present?
       public_id = @memory.image.key
-      cloud_name = Rails.application.credentials.dig(:cloudinary, :cloud_name)
-      return "https://res.cloudinary.com/#{cloud_name}/image/upload/#{public_id}.jpeg"
+      return "https://res.cloudinary.com/#{cloud_name}/image/upload/#{public_id}.jpeg" if public_id.present?
     end
-    # デフォルトOGP画像
     image_url("minimemory_ogp.png")
   end
 end
