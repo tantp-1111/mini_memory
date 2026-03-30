@@ -7,6 +7,7 @@ ja:
     image_not_found: 画像がありません
     users_minimemory: のミニメモリ
     episode: EPISODE
+    x_sharing: Xでシェア
     flash_message:
       created: "%{model}を作成しました"
       not_created: "%{model}の作成に失敗しました"
