@@ -100,7 +100,7 @@
         <% end %>
 
         <%# Xシェアボタン %>
-        <%= link_to "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@memory.title)}&hashtags=MiniMemory",
+        <%= link_to "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@memory.title)}&#{CGI.escape('ミニメモリ')}",
             id: "button-share-x-#{@memory.id}",
             target: "_blank",
             rel: "noopener noreferrer",

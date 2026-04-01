@@ -1,86 +1,153 @@
-<div class="relative overflow-hidden bg-gradient-to-b from-amber-50 via-orange-50 to-base-100">
-  <div class="pointer-events-none absolute -top-20 -left-16 h-60 w-60 rounded-full bg-amber-200/50 blur-3xl"></div>
-  <div class="pointer-events-none absolute top-24 -right-16 h-64 w-64 rounded-full bg-orange-200/50 blur-3xl"></div>
-
-  <section class="relative mx-auto max-w-6xl px-4 pb-16 pt-5 sm:px-8 sm:pb-20 lg:pt-16">
+<div class="relative overflow-hidden">
+  <!-- 背景画像（固定） -->
+  <div class="absolute inset-0 -z-10 bg-fixed bg-cover bg-center"
+       style="background-image: url('<%= asset_path('hero_top.png') %>');">
+  </div>
+  <!-- コンテンツ -->
+  <section class="relative mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-8 sm:pb-20 lg:pt-20">
     <div class="grid items-center gap-10 lg:grid-cols-2">
-      <div>
-        <p class="mb-3 inline-flex items-center rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-amber-700 shadow-sm">
-          こどもの「小さな宝物の記憶」を残す
+
+      <!-- 左：テキスト -->
+      <div class="backdrop-blur-sm bg-white/40 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <p class="mb-3 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-amber-700 shadow">
+          捨てたいけど捨てられないモノ、ありませんか？
         </p>
-        <h1 class="text-4xl font-black leading-tight text-gray-900 sm:text-5xl">
-          捨てられない思い出を、
-          <span class="text-orange-500">写真とことば</span>
+
+        <h1 class="text-4xl font-black leading-tight text-gray-900 sm:text-5xl drop-shadow-md">
+          小さな思い出が詰まったモノを
+          <span class="text-orange-500 drop-shadow">
+            写真とことば
+          </span>
           で残そう
         </h1>
-        <p class="mt-5 text-base leading-relaxed text-gray-700 sm:text-lg">
-          どんぐり、葉っぱ、折り紙、小さなおもちゃ。
-          「取っておくほどではないけど捨てられない」モノを、
-          そのときのエピソードと一緒に記録できるミニメモリー。
+
+        <p class="mt-5 text-base leading-relaxed text-gray-800 sm:text-lg drop-shadow-sm">
+          どんぐり、葉っぱ、折り紙、らくがき。子どもの成長とともに増える、そんな小さなモノたち。
+          「取っておくほどではないけれど捨てられない」モノを、
+          そのときのエピソードと一緒に記録できるアプリです。
           罪悪感なく片付けながら、大切な思い出はここに残せます。
         </p>
-        <div class="mt-8 rounded-2xl border border-orange-200 bg-white/90 p-4 shadow-lg sm:p-5">
-          <p class="text-xs font-bold tracking-wide text-orange-600">はじめての方はこちら</p>
-          <%= link_to "みんなの思い出を見る", public_memories_path, class: "btn mt-3 w-full border-0 bg-orange-500 text-white shadow-md hover:bg-orange-600 btn-lg" %>
-          <p class="mt-2 text-xs text-gray-600">登録なしで、投稿された思い出をすぐに見られます。</p>
+
+        <div class="mt-8 rounded-2xl border border-orange-200 bg-white p-4 shadow-lg sm:p-5">
+          <p class="text-xs font-bold tracking-wide text-orange-600">
+            はじめての方はこちら
+          </p>
+
+          <%= link_to "みんなの思い出を見る",
+            public_memories_path,
+            class: "btn mt-3 w-full border-0 bg-orange-500 text-white shadow-md hover:bg-orange-600 btn-lg" %>
+
+          <p class="mt-2 text-xs text-gray-600">
+            登録なしで、掲示板に投稿された思い出をすぐに見られます。
+          </p>
         </div>
+
         <div class="mt-4 flex flex-wrap gap-3">
-          <%= link_to "無料ではじめる", new_user_registration_path, class: "btn btn-primary btn-md sm:btn-lg" %>
-          <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline btn-md sm:btn-lg" %>
+          <%= link_to "無料ではじめる",
+            new_user_registration_path,
+            class: "btn btn-primary btn-md sm:btn-lg shadow-md" %>
+
+          <%= link_to "ログイン",
+            new_user_session_path,
+            class: "btn btn-outline btn-md sm:btn-lg bg-white/80" %>
         </div>
       </div>
 
-      <div class="grid gap-4 sm:grid-cols-2">
-        <article class="card border border-amber-100 bg-white/90 shadow-lg sm:col-span-2">
-          <div class="card-body">
-            <h2 class="card-title text-lg text-gray-900">モノではなく、思い出を残す</h2>
-            <p class="text-gray-600">
-              写真だけでなく、子どもの様子やその日の気持ちまで記録。
-              後から見返したときに、当時の空気感まで思い出せます。
-              （現段階は写真、タイトル、日付、エピソードのみですが、
-              今後は子供の様子やタグ機能も実装予定です。）
-            </p>
-          </div>
-        </article>
-        <article class="card border border-orange-100 bg-white/90 shadow-md">
-          <div class="card-body">
-            <h2 class="card-title text-base text-gray-900">かんたん投稿</h2>
-            <p class="text-sm text-gray-600">写真・タイトル・エピソードを入力するだけ。</p>
-          </div>
-        </article>
-        <article class="card border border-orange-100 bg-white/90 shadow-md">
-          <div class="card-body">
-            <h2 class="card-title text-base text-gray-900">あとで探せる</h2>
-            <p class="text-sm text-gray-600">タグや日付で振り返りやすい設計です（今後実装予定）。</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+      <!-- 右：カード（Dribbble風 縦） -->
+      <div class="flex flex-col gap-6">
 
-  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-8">
-    <div class="rounded-3xl border border-orange-100 bg-white/90 p-6 shadow-lg sm:p-8">
-      <h2 class="text-2xl font-bold text-gray-900">使い方は3ステップ</h2>
-      <div class="mt-6 grid gap-4 md:grid-cols-3">
-        <div class="rounded-2xl bg-amber-50 p-5">
-          <p class="text-xs font-semibold text-amber-700">STEP 1</p>
-          <p class="mt-2 font-semibold text-gray-900">写真を撮る</p>
-          <p class="mt-2 text-sm text-gray-600">思い出のモノをその場で撮影して保存します。</p>
-        </div>
-        <div class="rounded-2xl bg-orange-50 p-5">
-          <p class="text-xs font-semibold text-orange-700">STEP 2</p>
-          <p class="mt-2 font-semibold text-gray-900">エピソードを書く</p>
-          <p class="mt-2 text-sm text-gray-600">「どうして大事だったのか」「その時感じたこと」を短くメモします。</p>
-        </div>
-        <div class="rounded-2xl bg-yellow-50 p-5">
-          <p class="text-xs font-semibold text-yellow-700">STEP 3</p>
-          <p class="mt-2 font-semibold text-gray-900">いつでも振り返る</p>
-          <p class="mt-2 text-sm text-gray-600">いつでも思い出を見返せます。また、ゲームを通して子どもと振り返ることができます。</p>
-        </div>
-      </div>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <%= link_to "今すぐ登録する", new_user_registration_path, class: "btn btn-primary" %>
-        <%= link_to "みんなの思い出を見る", public_memories_path, class: "btn btn-outline btn-warning" %>
+        <!-- ① -->
+        <article class="group relative overflow-hidden rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl p-6 transition hover:-translate-y-1 hover:shadow-2xl">
+
+          <!-- グラデーションアクセント -->
+          <div class="absolute inset-y-0 left-0 w-1 bg-linear-to-b from-orange-400 to-pink-400"></div>
+
+          <div class="flex items-start gap-4">
+
+            <!-- アイコン -->
+            <div class="relative">
+              <div class="absolute inset-0 blur-xl opacity-40 bg-orange-400 rounded-full"></div>
+              <div class="relative rounded-2xl bg-orange-100 p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 fill-current" height="24px" viewBox="0 -960 960 960" width="24px">
+                  <path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- テキスト -->
+            <div>
+              <p class="text-xs font-bold tracking-widest text-orange-400">01</p>
+              <h2 class="mt-1 text-lg font-bold text-gray-900">
+                かんたん投稿
+              </h2>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                写真・タイトル・エピソードを入力するだけ。
+              </p>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- ② -->
+        <article class="group relative overflow-hidden rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl p-6 transition hover:-translate-y-1 hover:shadow-2xl">
+
+          <div class="absolute inset-y-0 left-0 w-1 bg-linear-to-b from-amber-400 to-yellow-400"></div>
+
+          <div class="flex items-start gap-4">
+
+            <div class="relative">
+              <div class="absolute inset-0 blur-xl opacity-40 bg-amber-400 rounded-full"></div>
+              <div class="relative rounded-2xl bg-amber-100 p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 fill-current" height="24px" viewBox="0 -960 960 960" width="24px">
+                  <path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280Zm80-240v-280 280Z"/>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs font-bold tracking-widest text-amber-400">02</p>
+              <h2 class="mt-1 text-lg font-bold text-gray-900">
+                掲示板で交流
+              </h2>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                みんなの小さな思い出をのぞいてみましょう。<br>
+                子育てあるあるが見つかるかも。
+              </p>
+            </div>
+
+          </div>
+        </article>
+
+
+        <!-- ③ -->
+        <article class="group relative overflow-hidden rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl p-6 transition hover:-translate-y-1 hover:shadow-2xl">
+
+          <div class="absolute inset-y-0 left-0 w-1 bg-linear-to-b from-yellow-400 to-orange-400"></div>
+
+          <div class="flex items-start gap-4">
+
+            <div class="relative">
+              <div class="absolute inset-0 blur-xl opacity-40 bg-yellow-400 rounded-full"></div>
+              <div class="relative rounded-2xl bg-yellow-100 p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 fill-current" height="24px" viewBox="0 -960 960 960" width="24px">
+                  <path d="M189-160q-60 0-102.5-43T42-307q0-9 1-18t3-18l84-336q14-54 57-87.5t98-33.5h390q55 0 98 33.5t57 87.5l84 336q2 9 3.5 18.5T919-306q0 61-43.5 103.5T771-160q-42 0-78-22t-54-60l-28-58q-5-10-15-15t-21-5H385q-11 0-21 5t-15 15l-28 58q-18 38-54 60t-78 22Zm3-80q19 0 34.5-10t23.5-27l28-57q15-31 44-48.5t63-17.5h190q34 0 63 18t45 48l28 57q8 17 23.5 27t34.5 10q28 0 48-18.5t21-46.5q0 1-2-19l-84-335q-7-27-28-44t-49-17H285q-28 0-49.5 17T208-659l-84 335q-2 6-2 18 0 28 20.5 47t49.5 19Zm376.5-291.5Q580-543 580-560t-11.5-28.5Q557-600 540-600t-28.5 11.5Q500-577 500-560t11.5 28.5Q523-520 540-520t28.5-11.5Zm80-80Q660-623 660-640t-11.5-28.5Q637-680 620-680t-28.5 11.5Q580-657 580-640t11.5 28.5Q603-600 620-600t28.5-11.5Zm0 160Q660-463 660-480t-11.5-28.5Q637-520 620-520t-28.5 11.5Q580-497 580-480t11.5 28.5Q603-440 620-440t28.5-11.5Zm80-80Q740-543 740-560t-11.5-28.5Q717-600 700-600t-28.5 11.5Q660-577 660-560t11.5 28.5Q683-520 700-520t28.5-11.5Zm-367 63Q370-477 370-490v-40h40q13 0 21.5-8.5T440-560q0-13-8.5-21.5T410-590h-40v-40q0-13-8.5-21.5T340-660q-13 0-21.5 8.5T310-630v40h-40q-13 0-21.5 8.5T240-560q0 13 8.5 21.5T270-530h40v40q0 13 8.5 21.5T340-460q13 0 21.5-8.5ZM480-480Z"/>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs font-bold tracking-widest text-yellow-500">03</p>
+              <h2 class="mt-1 text-lg font-bold text-gray-900">
+                ゲームで振り返る
+              </h2>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                ゲームを通してこどもの成長を振り返りましょう。
+              </p>
+            </div>
+
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
