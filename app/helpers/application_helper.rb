@@ -45,4 +45,8 @@ module ApplicationHelper
     end
     image_url("minimemory_ogp.png")
   end
+
+  def active_if(controller)
+    controller == controller_name ? "dock-active" : ""
+  end
 end
