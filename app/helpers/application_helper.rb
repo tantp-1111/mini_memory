@@ -45,4 +45,19 @@ module ApplicationHelper
     end
     image_url("minimemory_ogp.png")
   end
+
+  # ナビゲーションのアクティブ状態を判定するヘルパーメソッド
+  def active_if(controller)
+    controller == controller_name ? "dock-active" : ""
+  end
+
+  # ミニメモリのリスト関連のアクティブ状態を判定するヘルパーメソッド
+  def active_if_memories_list
+    action_name.in?(%w[index show edit update destroy]) ? active_if("memories") : ""
+  end
+
+  # ミニメモリの投稿関連のアクティブ状態を判定するヘルパーメソッド
+  def active_if_memories_new
+    action_name.in?(%w[new create]) ? active_if("memories") : ""
+  end
 end
