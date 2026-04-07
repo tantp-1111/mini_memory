@@ -46,14 +46,7 @@
 
       <%# 投稿者 %>
       <div class="flex items-center gap-3 pb-6 border-b border-base-200">
-      <%# アバター画像実装後はif文で表示切り替え予定 %>
-        <div class="avatar placeholder">
-          <div class="bg-neutral text-neutral-content rounded-full w-9 h-9 flex items-center justify-center">
-            <span class="text-sm font-bold">
-              <%= @memory.user&.name&.slice(0, 1) || "?" %>
-            </span>
-          </div>
-        </div>
+        <%= render "shared/user_avatar", user: @memory.user, size: :md %>
         <span class="text-sm text-base-content/60">
           <span class="font-semibold text-base-content/80"><%= @memory.user&.name || t('defaults.unknown_user') %></span>
           <%= t('defaults.users_minimemory') %>

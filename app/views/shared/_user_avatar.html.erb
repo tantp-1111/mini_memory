@@ -1,0 +1,24 @@
+<%#
+  locals:
+    user   - User object (can be nil)
+    size   - :sm (w-6 h-6) or :md (w-9 h-9, default)
+%>
+<% size ||= :md %>
+<% size_classes = size == :sm ? "w-6 h-6" : "w-9 h-9" %>
+<% text_classes  = size == :sm ? "text-xs font-bold" : "text-sm font-bold" %>
+
+<% if user&.avatar_attached? %>
+  <div class="avatar">
+    <div class="<%= size_classes %> rounded-full overflow-hidden">
+      <%= image_tag user.avatar, class: "w-full h-full object-cover", alt: user.name %>
+    </div>
+  </div>
+<% else %>
+  <div class="avatar placeholder">
+    <div class="bg-neutral text-neutral-content rounded-full <%= size_classes %> flex items-center justify-center">
+      <span class="<%= text_classes %>">
+        <%= user&.avatar_display_initial %>
+      </span>
+    </div>
+  </div>
+<% end %>
