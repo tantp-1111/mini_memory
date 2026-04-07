@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # 許可する追加のパラメータがある場合は、それらをサニタイザーに追加(account_update用) - ストロングパラメータ
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :avatar ])
   end
 
   # sign up後のリダイレクト先を指定(dashboard#top)

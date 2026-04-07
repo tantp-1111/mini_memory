@@ -40,7 +40,7 @@ ja:
         new: クリックして写真を選択
         edit: クリックして写真を変更
     format:
-      image: JPEG, PNG, JPG, Webp
+      image: JPEG, PNG, JPG
   devise:
     registrations:
       new:
@@ -67,6 +67,7 @@ ja:
     title: マイページ
     subtitle: アカウント情報を確認できます
     user_name: ユーザー名
+    avatar: アバター画像
   header:
     mypage: マイページ
     user_create: 新規登録
