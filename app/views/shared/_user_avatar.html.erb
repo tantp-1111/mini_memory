@@ -10,7 +10,10 @@
 <% if user&.avatar_attached? %>
   <div class="avatar">
     <div class="<%= size_classes %> rounded-full overflow-hidden">
-      <%= image_tag user.avatar, class: "w-full h-full object-cover", alt: user.name %>
+      <%= image_tag(
+            size == :sm ? user.avatar_small : user.avatar_medium,
+            class: "w-full h-full object-cover",
+            alt: user.name) %>
     </div>
   </div>
 <% else %>

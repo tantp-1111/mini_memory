@@ -8,6 +8,10 @@ class User < ApplicationRecord
   # 定数
   ACCEPTED_CONTENT_TYPES = [ "image/png", "image/jpg", "image/jpeg" ].freeze
   MAX_AVATAR_SIZE = 5.megabytes
+  AVATAR_SIZES = {
+    small: [24, 24],
+    medium: [36, 36]
+  }.freeze
 
   # Active Storageのバリデーション
   has_one_attached :avatar
@@ -50,6 +54,14 @@ class User < ApplicationRecord
   # アバター画像のURLまたはイニシャルを返す
   def avatar_display_initial
     name&.slice(0, 1) || "?"
+  end
+
+  def avatar_small
+    avatar.variant(resize_to_fill: AVATAR_SIZES[:small]) if avatar.attached?
+  end
+
+  def avatar_medium
+    avatar.variant(resize_to_fill: AVATAR_SIZES[:medium]) if avatar.attached?
   end
 
   private
