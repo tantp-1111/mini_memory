@@ -19,8 +19,33 @@
 
     <div class="card bg-base-100 shadow-2xl border border-base-200">
       <div class="card-body p-6 gap-4">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
           <%= render "shared/error_messages", object: resource %>
+
+          <div class="flex flex-col items-center gap-2">
+            <% if resource.avatar.attached? %>
+              <div class="avatar">
+                <div class="w-20 h-20 rounded-full overflow-hidden">
+                  <%= image_tag resource.avatar, class: "w-full h-full object-cover", alt: resource.name %>
+                </div>
+              </div>
+            <% else %>
+              <div class="avatar placeholder">
+                <div class="bg-neutral text-neutral-content rounded-full w-20 h-20 flex items-center justify-center">
+                  <span class="text-2xl font-bold"><%= resource.name&.slice(0, 1) %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="form-control gap-1">
+            <%= f.label :avatar, class: "label py-0" do %>
+              <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60">アバター画像</span>
+            <% end %>
+            <%= f.file_field :avatar,
+                  accept: "image/png,image/jpg,image/jpeg",
+                  class: "file-input file-input-bordered file-input-sm w-full" %>
+          </div>
 
           <div class="form-control gap-1">
             <%= f.label :name, class: "label py-0" do %>
