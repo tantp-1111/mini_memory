@@ -24,7 +24,8 @@ class Memory < ApplicationRecord
   scope :publicly_available, -> { where(visibility: :published) }
 
   # 定数
-  ACCEPT_CONTENT_TYPE = [ "image/png", "image/jpg", "image/jpeg" ].freeze
+  # 画像はwebpで保存される - 注意!
+  ACCEPT_CONTENT_TYPE = [ "image/png", "image/jpg", "image/jpeg", "image/webp" ].freeze
   MAX_IMAGE_SIZE = 10.megabytes
 
   # enumの選択肢を国際化対応した配列で返すクラスメソッド
