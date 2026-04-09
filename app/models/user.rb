@@ -9,8 +9,8 @@ class User < ApplicationRecord
   ACCEPTED_CONTENT_TYPES = [ "image/png", "image/jpg", "image/jpeg" ].freeze
   MAX_AVATAR_SIZE = 5.megabytes
   AVATAR_SIZES = {
-    small: [24, 24],
-    medium: [36, 36]
+    small: [ 24, 24 ],
+    medium: [ 36, 36 ]
   }.freeze
 
   # Active Storageのバリデーション
