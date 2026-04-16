@@ -34,7 +34,7 @@ class InvitationsController < ApplicationController
     end
 
     unless user_signed_in?
-      session[:pending_invite_token] = params[:token]
+      store_location_for(:user, invitation_path(params[:token]))
       redirect_to new_user_session_path, alert: "参加するにはログインが必要です" and return
     end
 

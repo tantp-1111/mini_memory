@@ -1,4 +1,38 @@
-<div>
-  <h1 class="font-bold text-4xl">Invitations#show</h1>
-  <p>Find me in app/views/invitations/show.html.erb</p>
+<div class="min-h-screen bg-base-200 flex justify-center items-center py-6 px-4">
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10 bg-primary blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full opacity-10 bg-secondary blur-3xl"></div>
+  </div>
+
+  <div class="relative w-full max-w-md">
+    <div class="card bg-base-100 shadow-2xl border border-base-200">
+      <div class="card-body p-8 gap-6 items-center text-center">
+
+        <!-- アイコン -->
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+          </svg>
+        </div>
+
+        <!-- テキスト -->
+        <div class="flex flex-col gap-2">
+          <h1 class="text-xl font-bold tracking-tight">グループへの招待</h1>
+          <p class="text-base-content/60 text-sm">
+            <span class="font-semibold text-base-content"><%= @family_group.name %></span>
+            に招待されています
+          </p>
+          <p class="text-base-content/40 text-xs"><%= @family_group.users.count %>人が参加中</p>
+        </div>
+
+        <!-- 参加ボタン -->
+        <%= form_with url: join_invitation_path(@invitation.token), method: :post do |f| %>
+          <%= f.submit "参加する", class: "btn btn-primary w-full" %>
+        <% end %>
+
+        <%= link_to "参加しない", root_path, class: "btn btn-ghost btn-sm w-full" %>
+
+      </div>
+    </div>
+  </div>
 </div>
