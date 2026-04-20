@@ -109,5 +109,5 @@ group :test do
   gem "selenium-webdriver"
 
   # minitest - テストの安定性向上のためv5に固定
-  gem "minitest", "~> 5.25"
+  gem "minitest", "~> 6.0"
 end
