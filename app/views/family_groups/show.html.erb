@@ -42,40 +42,41 @@
       </div>
     </div>
 
-    <!-- 招待リンク (最新の招待リンクが存在し、かつ有効期限が切れていない場合) -->
-    <div class="card bg-base-100 shadow-2xl border border-base-200">
-      <div class="card-body p-6 gap-4">
-        <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60">招待リンク</span>
 
-        <% if @latest_invitation && !@latest_invitation.expired? %>
-          <div class="flex items-center gap-2" data-controller="clipboard">
-            <input
-              type="text"
-              readonly
-              value="<%= invitation_url(@latest_invitation.token) %>"
-              data-clipboard-target="source"
-              class="input input-bordered input-sm bg-base-200/50 w-full text-xs" />
-            <button
-              type="button"
-              data-clipboard-target="button"
-              data-action="click->clipboard#copy"
-              class="btn btn-primary btn-sm shrink-0">
-              コピー
-            </button>
-          </div>
-          <p class="text-xs text-base-content/40">有効期限：<%= l(@latest_invitation.expires_at, format: :short) %></p>
-        <% end %>
+    <% if @is_owner %>
+      <!-- オーナーのみ招待リンク発行ボタンを表示 -->
+      <div class="card bg-base-100 shadow-2xl border border-base-200">
+        <div class="card-body p-6 gap-4">
+          <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60">招待リンク</span>
 
-        <!-- オーナーのみ招待リンク発行ボタンを表示 -->
-        <% if @is_owner %>
+          <% if @latest_invitation && !@latest_invitation.expired? %>
+            <div class="flex items-center gap-2" data-controller="clipboard">
+              <input
+                type="text"
+                readonly
+                value="<%= invitation_url(@latest_invitation.token) %>"
+                data-clipboard-target="source"
+                class="input input-bordered input-sm bg-base-200/50 w-full text-xs" />
+              <button
+                type="button"
+                data-clipboard-target="button"
+                data-action="click->clipboard#copy"
+                class="btn btn-primary btn-sm shrink-0">
+                コピー
+              </button>
+            </div>
+            <p class="text-xs text-base-content/40">有効期限：<%= l(@latest_invitation.expires_at, format: :short) %></p>
+          <% end %>
+
+        <!-- 招待リンク (最新の招待リンクが存在し、かつ有効期限が切れていない場合) -->
           <%= form_with url: invitations_path, method: :post do |f| %>
             <%= f.hidden_field :family_group_id, value: @family_group.id %>
             <%= f.submit @latest_invitation && !@latest_invitation.expired? ? "再発行する" : "招待リンクを発行する",
                   class: "btn btn-outline btn-sm w-full" %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <!-- 操作ボタン -->
     <div class="flex justify-between items-center">
