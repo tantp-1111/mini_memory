@@ -17,20 +17,20 @@
 
         <!-- テキスト -->
         <div class="flex flex-col gap-2">
-          <h1 class="text-xl font-bold tracking-tight">グループへの招待</h1>
+          <h1 class="text-xl font-bold tracking-tight"><%= t('invitation.show.title') %></h1>
           <p class="text-base-content/60 text-sm">
             <span class="font-semibold text-base-content"><%= @family_group.name %></span>
-            に招待されています
+              <%= t('invitation.show.invited_you') %>
           </p>
-          <p class="text-base-content/40 text-xs"><%= @family_group.users.count %>人が参加中</p>
+          <p class="text-base-content/40 text-xs"><%= t('invitation.show.people_joined', count: @family_group.users.count) %></p>
         </div>
 
         <!-- 参加ボタン -->
         <%= form_with url: join_invitation_path(@invitation.token), method: :post do |f| %>
-          <%= f.submit "参加する", class: "btn btn-primary w-full" %>
+          <%= f.submit t('invitation.show.join'), class: "btn btn-primary w-full" %>
         <% end %>
 
-        <%= link_to "参加しない", root_path, class: "btn btn-ghost btn-sm w-full" %>
+        <%= link_to t('invitation.show.not_join'), root_path, class: "btn btn-ghost btn-sm w-full" %>
 
       </div>
     </div>

@@ -86,7 +86,19 @@ ja:
         create_group: グループを作成
       show:
         invitation: 招待リンク
-        
+        copy: コピー
+        invitation_expires_at: 有効期限
+        reissue_invitation: 再発行する
+        generate_invitation: 招待リンクを発行する
+        return_to_mypage: マイページに戻る
+        disband_group: グループを解散する
+  invitation:
+    show:
+      title: グループへの招待
+      invited_you: に招待されています
+      people_joined: "%{count}人が参加中"
+      join: 参加する
+      not_join: 参加しない
   header:
     mypage: マイページ
     user_create: 新規登録
