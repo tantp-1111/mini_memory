@@ -15,7 +15,7 @@
       </div>
       <div>
         <h1 class="text-xl font-bold tracking-tight leading-tight"><%= @family_group.name %></h1>
-        <p class="text-base-content/50 text-xs"><%= @family_group.users.count %>人のメンバー</p>
+        <p class="text-base-content/50 text-xs"><%= t('mypage.family_group.member_count', count: @family_group.users.count) %></p>
       </div>
     </div>
 
@@ -32,9 +32,9 @@
                 <span class="text-sm font-medium"><%= ufg.user.name %></span>
               </div>
               <% if ufg.owner? %>
-                <span class="badge badge-primary badge-sm">オーナー</span>
+                <span class="badge badge-primary badge-sm"><%= t('mypage.family_group.owner_badge') %></span>
               <% else %>
-                <span class="badge badge-ghost badge-sm">メンバー</span>
+                <span class="badge badge-ghost badge-sm"><%= t('mypage.family_group.member_badge') %></span>
               <% end %>
             </li>
           <% end %>
@@ -42,18 +42,17 @@
       </div>
     </div>
 
-    <!-- 招待リンク -->
+    <!-- 招待リンク (最新の招待リンクが存在し、かつ有効期限が切れていない場合) -->
     <div class="card bg-base-100 shadow-2xl border border-base-200">
       <div class="card-body p-6 gap-4">
         <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60">招待リンク</span>
 
-        <% latest_invitation = @family_group.invitations.order(created_at: :desc).first %>
-        <% if latest_invitation && !latest_invitation.expired? %>
+        <% if @latest_invitation && !@latest_invitation.expired? %>
           <div class="flex items-center gap-2" data-controller="clipboard">
             <input
               type="text"
               readonly
-              value="<%= invitation_url(latest_invitation.token) %>"
+              value="<%= invitation_url(@latest_invitation.token) %>"
               data-clipboard-target="source"
               class="input input-bordered input-sm bg-base-200/50 w-full text-xs" />
             <button
@@ -64,14 +63,14 @@
               コピー
             </button>
           </div>
-          <p class="text-xs text-base-content/40">有効期限：<%= l(latest_invitation.expires_at, format: :short) %></p>
+          <p class="text-xs text-base-content/40">有効期限：<%= l(@latest_invitation.expires_at, format: :short) %></p>
         <% end %>
 
         <!-- オーナーのみ招待リンク発行ボタンを表示 -->
-        <% if @family_group.user_family_groups.find_by(user: current_user)&.owner? %>
+        <% if @is_owner %>
           <%= form_with url: invitations_path, method: :post do |f| %>
             <%= f.hidden_field :family_group_id, value: @family_group.id %>
-            <%= f.submit latest_invitation && !latest_invitation.expired? ? "再発行する" : "招待リンクを発行する",
+            <%= f.submit @latest_invitation && !@latest_invitation.expired? ? "再発行する" : "招待リンクを発行する",
                   class: "btn btn-outline btn-sm w-full" %>
           <% end %>
         <% end %>
@@ -87,7 +86,7 @@
         マイページへ戻る
       <% end %>
 
-      <% if @family_group.user_family_groups.find_by(user: current_user)&.owner? %>
+      <% if @is_owner %>
         <%= link_to family_group_path(@family_group),
               data: { turbo_method: :delete, turbo_confirm: "グループを解散しますか？この操作は取り消せません。" },
               class: "btn btn-error btn-outline btn-sm gap-2" do %>

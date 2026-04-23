@@ -2,7 +2,7 @@ class UserFamilyGroup < ApplicationRecord
   belongs_to :user
   belongs_to :family_group
 
-  enum role: { owner: 0, member: 1 }  # defaultはmember
+  enum :role, { owner: 0, member: 1 }  # defaultはmember
 
   validate :max_one_group, on: :create
 

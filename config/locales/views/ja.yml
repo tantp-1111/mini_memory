@@ -23,6 +23,7 @@ ja:
       delete: 削除
       return_to_list: 一覧に戻る
       login: ログイン
+      cancel: キャンセル
     label:
       name: 名前
       email: メールアドレス
@@ -64,10 +65,28 @@ ja:
     show:
       return_to_list: 一覧に戻る
   mypage:
-    title: マイページ
-    subtitle: アカウント情報を確認できます
+    account_title: プロフィール
+    account_subtitle: アカウント情報を確認できます
     user_name: ユーザー名
     avatar: アバター画像
+    family_group:
+      title: 家族グループ
+      subtitle: グループを作成・管理できます
+      member_count: "%{count}人のメンバー"
+      owner_badge: オーナー
+      member_badge: メンバー
+      view_details: グループの詳細を見る
+      not_joined: グループに参加していません
+      not_joined_subtitle: 家族グループに参加して、ミニメモリを共有しましょう
+      create_group: グループを作成
+      new:
+        title: 家族グループ新規作成
+        subtitle: 家族グループを作成して、ミニメモリを共有しましょう
+        name_placeholder: グループ名を入力..."例：田中家、山田ファミリー"
+        create_group: グループを作成
+      show:
+        invitation: 招待リンク
+        
   header:
     mypage: マイページ
     user_create: 新規登録

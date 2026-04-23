@@ -1,4 +1,5 @@
 class FamilyGroupsController < ApplicationController
+  before_action :set_family_group, only: [ :edit, :update, :show, :destroy ]
   before_action :authenticate_user!
 
   def new
@@ -8,6 +9,7 @@ class FamilyGroupsController < ApplicationController
   def create
     @family_group = FamilyGroup.new(family_group_params)
 
+    # グループ作成とオーナー登録をトランザクションでまとめる
     ActiveRecord::Base.transaction do
       @family_group.save!
       UserFamilyGroup.create!(user: current_user, family_group: @family_group, role: :owner)
@@ -20,8 +22,10 @@ class FamilyGroupsController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
+  def edit
+  end
+
   def update
-    @family_group = current_user.family_groups.find(params[:id])
     if @family_group.update(family_group_params)
       redirect_to @family_group, notice: "家族グループが更新されました"
     else
@@ -31,14 +35,22 @@ class FamilyGroupsController < ApplicationController
   end
 
   def show
-    @family_group = current_user.family_groups.find(params[:id])
+    # ログインユーザーのグループ内での役割を取得
+    @current_membership = @family_group.user_family_groups.find_by(user: current_user)
+    # オーナーかどうかを判定し、ビュー側で条件分岐できるようにインスタンス変数にセット
+    @is_owner = @current_membership&.owner?
+    # 最新の招待リンクを取得（存在する場合）
+    @latest_invitation = @family_group.invitations.order(created_at: :desc).first
   end
 
   def destroy
-    @family_group = current_user.family_groups.find(params[:id])
+    # オーナーのみグループ削除可能
     if @family_group.user_family_groups.find_by(user: current_user)&.owner?
-      @family_group.destroy
-      redirect_to dashboard_path, notice: "家族グループが削除されました"
+      if @family_group.destroy
+        redirect_to mypage_path, notice: "家族グループが削除されました"
+      else
+        redirect_to @family_group, alert: "家族グループの削除に失敗しました"
+      end
     else
       redirect_to @family_group, alert: "家族グループの削除はオーナーのみ可能です"
     end
@@ -48,5 +60,9 @@ class FamilyGroupsController < ApplicationController
 
   def family_group_params
     params.require(:family_group).permit(:name)
+  end
+
+  def set_family_group
+    @family_group = current_user.family_groups.find_by!(uuid: params[:uuid])
   end
 end

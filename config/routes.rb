@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   # 掲示板 - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :public_memories, param: :uuid, only: %i[index show]
 
-  # 家族グループ
-  resources :family_groups, only: %i[new create update show destroy]
+  # 家族グループ - uuidをURLパラメータとして使用するため、param: :uuidを指定
+  resources :family_groups, param: :uuid, only: %i[new create update show destroy]
 
   get "memory_game" => "memory_games#show", as: :memory_game
 

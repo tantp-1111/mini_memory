@@ -5,7 +5,7 @@ class Invitation < ApplicationRecord
 
   # 招待が期限切れかどうかを判断するメソッド
   def expired?
-    expires_at < Time.current
+    expires_at.nil? || expires_at < Time.current
   end
 
   private
