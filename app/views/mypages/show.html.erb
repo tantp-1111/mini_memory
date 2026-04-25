@@ -5,6 +5,7 @@
   </div>
 
   <div class="relative w-full max-w-2xl">
+    <!-- アカウントセクション -->
     <div class="flex items-center gap-3 mb-4">
       <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary">
@@ -12,8 +13,8 @@
         </svg>
       </div>
       <div>
-        <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('mypage.title') %></h1>
-        <p class="text-base-content/50 text-xs"><%= t('mypage.subtitle') %></p>
+        <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('mypage.account_title') %></h1>
+        <p class="text-base-content/50 text-xs"><%= t('mypage.account_subtitle') %></p>
       </div>
     </div>
 
@@ -48,5 +49,51 @@
         </div>
       </div>
     </div>
+
+    <!-- 家族グループセクション -->
+    <div class="flex items-center gap-3 mt-6 mb-4">
+      <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold tracking-tight leading-tight"><%= t('mypage.family_group.title') %></h2>
+        <p class="text-base-content/50 text-xs"><%= t('mypage.family_group.subtitle') %></p>
+      </div>
+    </div>
+
+    <% if @family_group %>
+      <!-- グループ参加済み -->
+      <div class="card bg-base-100 shadow-2xl border border-base-200">
+        <div class="card-body p-6 gap-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="font-semibold text-base"><%= @family_group.name %></p>
+              <p class="text-base-content/50 text-xs mt-0.5"><%= t('mypage.family_group.member_count', count: @family_group.users.count) %></p>
+            </div>
+            <% if @current_membership&.owner? %>
+              <span class="badge badge-primary badge-sm"><%= t('mypage.family_group.owner_badge') %></span>
+            <% else %>
+              <span class="badge badge-ghost badge-sm"><%= t('mypage.family_group.member_badge') %></span>
+            <% end %>
+          </div>
+
+          <div class="flex justify-end pt-1 border-t border-base-200">
+            <%= link_to t('mypage.family_group.view_details'), family_group_path(@family_group), class: "btn btn-primary btn-sm px-6" %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <!-- グループ未参加 -->
+      <div class="card bg-base-100 shadow-2xl border border-base-200">
+        <div class="card-body p-6 gap-4 items-center text-center">
+          <p class="text-base-content/50 text-sm"><%= t('mypage.family_group.not_joined') %></p>
+          <p class="text-base-content/40 text-xs"><%= t('mypage.family_group.not_joined_subtitle') %></p>
+            <%= link_to t('mypage.family_group.create_group'), new_family_group_path, class: "btn btn-primary btn-sm px-6" %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 </div>

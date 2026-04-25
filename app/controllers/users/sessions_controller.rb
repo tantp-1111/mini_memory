@@ -28,8 +28,9 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # サインイン後のリダイレクト先を指定
+  # 招待リンク経由の場合はstore_location_forで保存されたパスへ、それ以外はダッシュボードへ
   def after_sign_in_path_for(resource)
-    authenticated_root_path
+    stored_location_for(resource) || authenticated_root_path
   end
 
   # サインアウト後のリダイレクト先を指定
