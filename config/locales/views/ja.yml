@@ -82,7 +82,8 @@ ja:
       new:
         title: 家族グループ新規作成
         subtitle: 家族グループを作成して、ミニメモリを共有しましょう
-        name_placeholder: グループ名を入力..."例：田中家、山田ファミリー"
+        name_label: グループ名
+        name_placeholder: グループ名を入力 (例：田中家、山田ファミリー)
         create_group: グループを作成
       show:
         invitation: 招待リンク

@@ -4,8 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  family_group: one
+  token: "invite-token-one"
+  expires_at: <%= 1.day.from_now %>
 # column: value
 #
-two: {}
+two:
+  family_group: two
+  token: "invite-token-two"
+  expires_at: <%= 2.days.from_now %>
 # column: value

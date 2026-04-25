@@ -1,6 +1,6 @@
 class FamilyGroupsController < ApplicationController
-  before_action :set_family_group, only: [ :edit, :update, :show, :destroy ]
   before_action :authenticate_user!
+  before_action :set_family_group, only: [ :edit, :update, :show, :destroy ]
 
   def new
     @family_group = FamilyGroup.new
@@ -20,6 +20,8 @@ class FamilyGroupsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = "家族グループの作成に失敗しました"
     render :new, status: :unprocessable_entity
+  rescue ActiveRecord::RecordNotUnique # ユーザーが既にグループに所属している場合の例外
+    redirect_to mypage_path, alert: "既に家族グループに所属しています"
   end
 
   def edit
@@ -40,7 +42,7 @@ class FamilyGroupsController < ApplicationController
     # オーナーかどうかを判定し、ビュー側で条件分岐できるようにインスタンス変数にセット
     @is_owner = @current_membership&.owner?
     # 最新の招待リンクを取得（存在する場合）
-    @latest_invitation = @family_group.invitations.order(created_at: :desc).first
+    @latest_invitation = @family_group.invitations.where("expires_at > ?", Time.current).order(created_at: :desc).first
   end
 
   def destroy

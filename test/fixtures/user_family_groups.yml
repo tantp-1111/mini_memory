@@ -4,8 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  user: one
+  family_group: one
+  role: member
 # column: value
 #
-two: {}
+two:
+  user: two
+  family_group: two
+  role: member
 # column: value
