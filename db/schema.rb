@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_15_094956) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_20_145827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -43,6 +43,24 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_15_094956) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "family_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.index ["uuid"], name: "index_family_groups_on_uuid", unique: true
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "family_group_id", null: false
+    t.string "token", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_group_id"], name: "index_invitations_on_family_group_id"
+    t.index ["token"], name: "index_invitations_on_token", unique: true
+  end
+
   create_table "memories", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -54,6 +72,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_15_094956) do
     t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["user_id"], name: "index_memories_on_user_id"
     t.index ["uuid"], name: "index_memories_on_uuid", unique: true
+  end
+
+  create_table "user_family_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "family_group_id", null: false
+    t.integer "role", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_group_id"], name: "index_user_family_groups_on_family_group_id"
+    t.index ["user_id", "family_group_id"], name: "index_user_family_groups_on_user_id_and_family_group_id", unique: true
+    t.index ["user_id"], name: "index_user_family_groups_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,5 +103,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_15_094956) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "invitations", "family_groups"
   add_foreign_key "memories", "users"
+  add_foreign_key "user_family_groups", "family_groups"
+  add_foreign_key "user_family_groups", "users"
 end

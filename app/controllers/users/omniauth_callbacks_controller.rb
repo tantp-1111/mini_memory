@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.persisted?
       sign_in user, event: :authentication
       flash[:notice] = "ログインしました"
-      redirect_to authenticated_root_path
+      redirect_to stored_location_for(user) || authenticated_root_path
     else
       session["devise.line_data"] = request.env["omniauth.auth"].except(:extra)
       redirect_to new_user_session_path, alert: "ユーザー情報の取得に失敗しました。"
