@@ -4,16 +4,5 @@ class UserFamilyGroup < ApplicationRecord
 
   enum :role, { owner: 0, member: 1 }  # defaultはmember
 
-  validate :max_one_group, on: :create
-
-  private
-
-  def max_one_group
-    if user.user_family_groups.count >= 1
-    return if user_id.blank? # user_idがnilの場合はバリデーションをスキップ（関連するユーザーがいないため）
-
-    if UserFamilyGroup.exists?(user_id: user_id)
-    errors.add(:base, "ユーザーは1つの家族グループにしか所属できません")
-    end
-  end
+  validates :user_id, uniqueness: { message: "は1つの家族グループにしか所属できません" }
 end

@@ -38,18 +38,17 @@ class InvitationsController < ApplicationController
     # 招待リンクの有効性と期限切れのチェック
     if @invitation.nil? || @invitation.expired?
       redirect_to root_path, alert: "招待リンクが無効または期限切れです"
-      and return
     end
+
     # ログインしていない場合はURLを保存し、ログインページへリダイレクト
     unless user_signed_in?
       store_location_for(:user, invitation_path(params[:token]))
-      redirect_to new_user_session_path, alert: "参加するにはログインが必要です"
-      and return
+      return redirect_to new_user_session_path, alert: "参加するにはログインが必要です"
     end
+
     # すでにグループに所属しているユーザーは参加できないようにする
     if current_user.user_family_groups.exists?
       redirect_to mypage_path, alert: "すでにグループに参加しています"
-      and return
     end
   end
 end
