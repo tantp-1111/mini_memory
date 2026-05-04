@@ -1,16 +1,19 @@
 class MemoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_memory, only: %i[show edit update destroy]
 
   def index
-    @my_memories = current_user.memories.with_attached_image.order(created_at: :desc)
+    @my_memories = policy_scope(Memory).with_attached_image.order(created_at: :desc)
   end
 
   def new
     @memory = Memory.new
+    authorize @memory
   end
 
   def create
     @memory = current_user.memories.build(memory_params)
+    authorize @memory
 
     begin
       if params[:memory][:image].present?
@@ -33,12 +36,9 @@ class MemoriesController < ApplicationController
   end
 
   def edit
-    @memory = current_user.memories.find_by!(uuid: params[:uuid])
   end
 
   def update
-    @memory = current_user.memories.find_by!(uuid: params[:uuid])
-
     begin
       @memory.assign_attributes(memory_params.except(:image))
       # 画像がアップロードされている場合のみ画像処理を実行
@@ -62,18 +62,19 @@ class MemoriesController < ApplicationController
   end
 
   def destroy
-    memory = current_user.memories.find_by!(uuid: params[:uuid])
-    memory.destroy!
+    @memory.destroy!
     redirect_to memories_path, notice: t("defaults.flash_message.deleted", model: Memory.model_name.human)
   end
 
-
-
   def show
-    @memory = current_user.memories.find_by!(uuid: params[:uuid])
   end
 
   private
+
+  def set_memory
+    @memory = Memory.find_by!(uuid: params[:uuid])
+    authorize @memory
+  end
 
   def memory_params
     params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image)
