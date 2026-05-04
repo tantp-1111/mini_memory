@@ -6,9 +6,9 @@ class Api::MemoryGamesController < ApplicationController
 
   def show
     # シンプルなJOINでIDのみ取得（with_attached_imageを使わない）
-    base_ids = current_user.memories
-                           .joins(:image_attachment)
-                           .pluck(:id)
+    base_ids = policy_scope(Memory)
+                 .joins(:image_attachment)
+                 .pluck(:id)
 
     total = base_ids.count
 
@@ -21,9 +21,9 @@ class Api::MemoryGamesController < ApplicationController
     selected_ids = base_ids.sample(MAXIMUM_CARDS)
 
     # 選んだIDで画像付きレコードを取得
-    selected = current_user.memories
-                           .with_attached_image
-                           .where(id: selected_ids)
+    selected = policy_scope(Memory)
+                 .with_attached_image
+                 .where(id: selected_ids)
 
     cards = selected.map do |memory|
       {
