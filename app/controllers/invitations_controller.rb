@@ -23,7 +23,7 @@ class InvitationsController < ApplicationController
   def join
     @family_group = @invitation.family_group
     membership = UserFamilyGroup.new(user: current_user, family_group: @family_group, role: :member)
-    authorize membership
+    authorize membership, :create?
     membership.save!
     redirect_to mypage_path, notice: "#{@family_group.name}に参加しました"
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
