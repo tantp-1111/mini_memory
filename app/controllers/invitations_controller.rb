@@ -38,7 +38,7 @@ class InvitationsController < ApplicationController
 
     # 招待リンクの有効性と期限切れのチェック
     if @invitation.nil? || @invitation.expired?
-      redirect_to root_path, alert: "招待リンクが無効または期限切れです"
+      return redirect_to root_path, alert: "招待リンクが無効または期限切れです"
     end
 
     # ログインしていない場合はURLを保存し、ログインページへリダイレクト
