@@ -1,5 +1,7 @@
 class Api::MemoryGamesController < ApplicationController
   before_action :authenticate_user!
+  # policy_scope のみで authorize を呼ばないため verify_authorized を除外。
+  skip_after_action :verify_authorized
 
   MINIMUM_CARDS = 2
   MAXIMUM_CARDS = 8
