@@ -80,6 +80,9 @@ gem "cloudinary"
 # meta-tags - メタタグ管理
 gem "meta-tags"
 
+# Pundit - 認可（Policy ベース）
+gem "pundit"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -4,10 +4,12 @@ class FamilyGroupsController < ApplicationController
 
   def new
     @family_group = FamilyGroup.new
+    authorize @family_group
   end
 
   def create
     @family_group = FamilyGroup.new(family_group_params)
+    authorize @family_group
 
     # グループ作成とオーナー登録をトランザクションでまとめる
     ActiveRecord::Base.transaction do
@@ -20,7 +22,7 @@ class FamilyGroupsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = "家族グループの作成に失敗しました"
     render :new, status: :unprocessable_entity
-  rescue ActiveRecord::RecordNotUnique # ユーザーが既にグループに所属している場合の例外
+  rescue ActiveRecord::RecordNotUnique # race condition 等の防御的フォールバック
     redirect_to mypage_path, alert: "既に家族グループに所属しています"
   end
 
@@ -46,15 +48,10 @@ class FamilyGroupsController < ApplicationController
   end
 
   def destroy
-    # オーナーのみグループ削除可能
-    if @family_group.user_family_groups.find_by(user: current_user)&.owner?
-      if @family_group.destroy
-        redirect_to mypage_path, notice: "家族グループが削除されました"
-      else
-        redirect_to @family_group, alert: "家族グループの削除に失敗しました"
-      end
+    if @family_group.destroy
+      redirect_to mypage_path, notice: "家族グループが削除されました"
     else
-      redirect_to @family_group, alert: "家族グループの削除はオーナーのみ可能です"
+      redirect_to @family_group, alert: "家族グループの削除に失敗しました"
     end
   end
 
@@ -64,7 +61,9 @@ class FamilyGroupsController < ApplicationController
     params.require(:family_group).permit(:name)
   end
 
+  # 非メンバーには 404（存在を隠す）、メンバー以上には authorize で操作種別を判定する二段防衛。
   def set_family_group
-    @family_group = current_user.family_groups.find_by!(uuid: params[:uuid])
+    @family_group = policy_scope(FamilyGroup).find_by!(uuid: params[:uuid])
+    authorize @family_group
   end
 end

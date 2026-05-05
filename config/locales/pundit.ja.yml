@@ -1,0 +1,3 @@
+ja:
+  pundit:
+    not_authorized: 操作する権限がありません
