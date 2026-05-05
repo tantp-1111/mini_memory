@@ -1,6 +1,8 @@
 class MemoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_memory, only: %i[show edit update destroy]
+  # index は policy_scope のみで authorize を呼ばないため verify_authorized を除外。
+  skip_after_action :verify_authorized, only: :index
 
   def index
     @my_memories = policy_scope(Memory).with_attached_image.order(created_at: :desc)

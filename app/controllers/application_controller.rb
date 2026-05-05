@@ -6,8 +6,12 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!, unless: :devise_controller?
 
+  # 各アクションで authorize が呼ばれているかを検証する。
+  # 認可不要なアクションは個別コントローラで skip_after_action :verify_authorized する。
+  # Devise 系コントローラは認証ライブラリ側が責務を持つため一括除外。
+  after_action :verify_authorized, unless: :devise_controller?
+
   # Pundit::NotAuthorizedError を捕捉し、flash + 元のページへ戻すハンドリング。
-  # verify_authorized は意図的に有効化していない（既存コントローラへの段階導入のため）。
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   protected

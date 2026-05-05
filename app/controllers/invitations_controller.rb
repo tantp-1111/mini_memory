@@ -4,6 +4,8 @@ class InvitationsController < ApplicationController
   # 招待リンクのURLはログイン不要でアクセスできる
   skip_before_action :authenticate_user!, only: %i[show]
   before_action :set_and_validate_invitation, only: %i[show join]
+  # show は token 検証のみで Pundit を経由しない設計のため verify_authorized を除外。
+  skip_after_action :verify_authorized, only: :show
 
   # 招待リンクの発行（owner であることは InvitationPolicy#create? で検証）
   def create
