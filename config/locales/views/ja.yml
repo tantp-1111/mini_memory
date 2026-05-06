@@ -93,6 +93,14 @@ ja:
         generate_invitation: 招待リンクを発行する
         return_to_mypage: マイページに戻る
         disband_group: グループを解散する
+        promote_to_owner: オーナーにする
+        demote_to_member: メンバーにする
+        leave_group: グループから脱退する
+        promote_confirm: このメンバーをオーナーにしますか？
+        demote_confirm: このメンバーをメンバーに変更しますか？
+        leave_confirm: グループから脱退しますか？
+        role_updated: メンバーの役割を更新しました
+        left_group: グループから脱退しました
   invitation:
     show:
       title: グループへの招待
