@@ -39,11 +39,7 @@ class FamilyGroupsController < ApplicationController
   end
 
   def show
-    # ログインユーザーのグループ内での役割を取得
-    @current_membership = @family_group.user_family_groups.find_by(user: current_user)
-    # オーナーかどうかを判定し、ビュー側で条件分岐できるようにインスタンス変数にセット
-    @is_owner = @current_membership&.owner?
-    # 最新の招待リンクを取得（存在する場合）
+    # 最新の招待リンクを取得（存在する場合）。owner 判定は view 側で policy(...) を用いる。
     @latest_invitation = @family_group.invitations.where("expires_at > ?", Time.current).order(created_at: :desc).first
   end
 

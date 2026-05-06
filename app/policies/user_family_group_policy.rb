@@ -6,6 +6,10 @@ class UserFamilyGroupPolicy < ApplicationPolicy
   def update?  = group_owner?
   def destroy? = self_membership? || group_owner?
 
+  # 「自分自身の脱退」の可否（view のボタン表示判定で使用）。
+  # destroy? は owner kick も許可する permissive な定義のため、自己脱退の表示判定は分離する。
+  def leave? = self_membership?
+
   # 自分が属するグループのメンバーシップのみ可視。
   class Scope < ApplicationPolicy::Scope
     def resolve

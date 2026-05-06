@@ -26,16 +26,44 @@
 
         <ul class="flex flex-col gap-3">
           <% @family_group.user_family_groups.includes(:user).each do |ufg| %>
-            <li class="flex items-center justify-between">
+            <li class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div class="flex items-center gap-3">
                 <%= render "shared/user_avatar", user: ufg.user, size: :md %>
                 <span class="text-sm font-medium"><%= ufg.user.name %></span>
+                <% if ufg.owner? %>
+                  <span class="badge badge-primary badge-sm"><%= t('mypage.family_group.owner_badge') %></span>
+                <% else %>
+                  <span class="badge badge-ghost badge-sm"><%= t('mypage.family_group.member_badge') %></span>
+                <% end %>
               </div>
-              <% if ufg.owner? %>
-                <span class="badge badge-primary badge-sm"><%= t('mypage.family_group.owner_badge') %></span>
-              <% else %>
-                <span class="badge badge-ghost badge-sm"><%= t('mypage.family_group.member_badge') %></span>
-              <% end %>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <% if policy(ufg).update? %>
+                  <% if ufg.member? %>
+                    <%= button_to t('mypage.family_group.show.promote_to_owner'),
+                                  family_group_user_family_group_path(@family_group, ufg),
+                                  method: :patch,
+                                  params: { role: "owner" },
+                                  data: { turbo_confirm: t('mypage.family_group.show.promote_confirm') },
+                                  class: "btn btn-xs btn-outline btn-primary" %>
+                  <% else %>
+                    <%= button_to t('mypage.family_group.show.demote_to_member'),
+                                  family_group_user_family_group_path(@family_group, ufg),
+                                  method: :patch,
+                                  params: { role: "member" },
+                                  data: { turbo_confirm: t('mypage.family_group.show.demote_confirm') },
+                                  class: "btn btn-xs btn-outline" %>
+                  <% end %>
+                <% end %>
+
+                <% if policy(ufg).leave? %>
+                  <%= button_to t('mypage.family_group.show.leave_group'),
+                                family_group_user_family_group_path(@family_group, ufg),
+                                method: :delete,
+                                data: { turbo_confirm: t('mypage.family_group.show.leave_confirm') },
+                                class: "btn btn-xs btn-outline btn-error" %>
+                <% end %>
+              </div>
             </li>
           <% end %>
         </ul>
@@ -43,7 +71,7 @@
     </div>
 
 
-    <% if @is_owner %>
+    <% if policy(@family_group).update? %>
       <!-- オーナーのみ招待リンク発行ボタンを表示 -->
       <div class="card bg-base-100 shadow-2xl border border-base-200">
         <div class="card-body p-6 gap-4">
@@ -87,7 +115,7 @@
         <%= t('mypage.family_group.show.return_to_mypage') %>
       <% end %>
 
-      <% if @is_owner %>
+      <% if policy(@family_group).destroy? %>
         <%= link_to family_group_path(@family_group),
               data: { turbo_method: :delete, turbo_confirm: "グループを解散しますか？この操作は取り消せません。" },
               class: "btn btn-error btn-outline btn-sm gap-2" do %>
