@@ -3,11 +3,19 @@ class UserFamilyGroupsController < ApplicationController
   before_action :set_family_group
 
   # メンバーの役割変更（owner ⇄ member）。
+  # family_group 行を pessimistic lock することで、同時に複数の owner を
+  # member に降格して owner が 0 人になる race condition を防ぐ。
   def update
     @membership = @family_group.user_family_groups.find(params[:id])
     authorize @membership
 
-    if @membership.update(role: params[:role])
+    succeeded = false
+    ActiveRecord::Base.transaction do
+      @family_group.lock!
+      succeeded = @membership.update(role: params[:role])
+    end
+
+    if succeeded
       redirect_to @family_group, notice: t("mypage.family_group.show.role_updated")
     else
       redirect_to @family_group, alert: @membership.errors.full_messages.to_sentence
@@ -16,11 +24,18 @@ class UserFamilyGroupsController < ApplicationController
 
   # 自分自身の脱退のみ対象（owner kick は本機能では扱わない）。
   # current_user.user_family_groups で取得することで他人のメンバーシップ削除を弾く。
+  # update と同様に family_group 行をロックして同時脱退の race condition を防ぐ。
   def destroy
     @membership = current_user.user_family_groups.find(params[:id])
     authorize @membership
 
-    if @membership.destroy
+    succeeded = false
+    ActiveRecord::Base.transaction do
+      @family_group.lock!
+      succeeded = @membership.destroy
+    end
+
+    if succeeded
       redirect_to mypage_path, notice: t("mypage.family_group.show.left_group")
     else
       redirect_to @family_group, alert: @membership.errors.full_messages.to_sentence
