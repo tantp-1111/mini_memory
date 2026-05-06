@@ -2,7 +2,9 @@ class UserFamilyGroup < ApplicationRecord
   belongs_to :user
   belongs_to :family_group
 
-  enum :role, { owner: 0, member: 1 }  # defaultはmember
+  # validate: true により、enum に存在しない値の代入で ArgumentError を発生させる代わりに
+  # validation エラーとして扱う（params 経由で来る不正値で 500 になるのを防ぐ）。
+  enum :role, { owner: 0, member: 1 }, validate: true  # defaultはmember
 
   validates :user_id, uniqueness: { message: "は1つの家族グループにしか所属できません" }
 
