@@ -15,6 +15,8 @@ ja:
         memory_date: 思い出の日付
         visibility: 公開範囲
         image: 画像
+      user_family_group:
+        role: 役割
   enums:
     memory:
       visibility:
