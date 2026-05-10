@@ -5,7 +5,7 @@
 # PublicMemoriesController は公開情報を扱うため Pundit を経由しない設計（Memory.publicly_available を直接使用）。
 class MemoryPolicy < ApplicationPolicy
   def index?   = true
-  def show?    = record.published? || owner?
+  def show?    = record.published? || owner? || (record.unlisted? && family_member_of_owner?)
   def create?  = user.present?
   def update?  = owner?
   def destroy? = owner?
@@ -22,5 +22,12 @@ class MemoryPolicy < ApplicationPolicy
   def owner?
     return false if user.nil?
     record.user_id == user.id
+  end
+
+  # current_user の所属家族グループと record.user の所属家族グループに重複があるか。
+  # 「1 ユーザー 1 グループ」制約下では、実質「同じ家族グループに属しているか」の判定。
+  def family_member_of_owner?
+    return false if user.nil?
+    user.family_groups.where(id: record.user.family_groups.select(:id)).exists?
   end
 end
