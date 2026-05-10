@@ -22,12 +22,15 @@ class UserFamilyGroupsController < ApplicationController
     end
   end
 
-  # 自分自身の脱退のみ対象（owner kick は本機能では扱わない）。
-  # current_user.user_family_groups で取得することで他人のメンバーシップ削除を弾く。
-  # update と同様に family_group 行をロックして同時脱退の race condition を防ぐ。
+  # 自己脱退（self-leave）と owner による他メンバー除名（owner kick）の両方を扱う。
+  # 取得元はグループ全体に広げ、実権限判定は authorize（destroy?）で行う。
+  # update と同様に family_group 行をロックして同時操作の race condition を防ぐ。
   def destroy
-    @membership = current_user.user_family_groups.find(params[:id])
+    @membership = @family_group.user_family_groups.find(params[:id])
     authorize @membership
+
+    leaving_self = (@membership.user_id == current_user.id)
+    target_name = @membership.user.name
 
     succeeded = false
     ActiveRecord::Base.transaction do
@@ -36,7 +39,11 @@ class UserFamilyGroupsController < ApplicationController
     end
 
     if succeeded
-      redirect_to mypage_path, notice: t("mypage.family_group.show.left_group")
+      if leaving_self
+        redirect_to mypage_path, notice: t("mypage.family_group.show.left_group")
+      else
+        redirect_to @family_group, notice: t("mypage.family_group.show.kicked_member", name: target_name)
+      end
     else
       redirect_to @family_group, alert: @membership.errors.full_messages.to_sentence
     end
