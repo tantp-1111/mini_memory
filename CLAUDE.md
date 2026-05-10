@@ -279,6 +279,7 @@ CI 失敗時は原因を調査・修正してからマージ。
 - **画像は webp で保存:** `Memory` の画像は内部的に webp。表示・配信時も webp 前提
 - **認証ルーティング分岐:** 未ログインは `static_pages#top`、ログイン済みは `dashboard#top`（`authenticated :user do ... end` で分岐）
 - **React の使い所:** SPA ではなく **特定機能（神経衰弱ゲーム）でのみ使用**。通常画面は ERB + Stimulus + Turbo。データ取得は `namespace :api` 配下のコントローラ。安易に React 化せず Hotwire で実装できないか先に検討
+- **認可は Pundit ベース:** Policy + Scope + `authorize` / `policy_scope` で統一。`verify_authorized` 有効化済みで認可漏れを CI で検出。設計判断・公開 vs 機微情報の使い分け・race condition 対策などの詳細は [`docs/pundit-design.md`](docs/pundit-design.md) を参照
 
 ---
 
