@@ -96,11 +96,14 @@ ja:
         promote_to_owner: オーナーにする
         demote_to_member: メンバーにする
         leave_group: グループから脱退する
+        kick_member: 除名する
         promote_confirm: このメンバーをオーナーにしますか？
         demote_confirm: このメンバーをメンバーに変更しますか？
         leave_confirm: グループから脱退しますか？
+        kick_confirm: "%{name}さんを除名しますか？"
         role_updated: メンバーの役割を更新しました
         left_group: グループから脱退しました
+        kicked_member: "%{name}さんを除名しました"
   invitation:
     show:
       title: グループへの招待
