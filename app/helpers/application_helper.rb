@@ -58,4 +58,9 @@ module ApplicationHelper
   def active_if_memories_new
     action_name.in?(%w[new create]) ? active_if("memories") : ""
   end
+
+  # 新規投稿 FAB の表示可否。memory の投稿フォーム関連アクションでは出さない。
+  def show_new_memory_fab?
+    !(controller_name == "memories" && action_name.in?(%w[new create edit update]))
+  end
 end
