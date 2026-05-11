@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   # 掲示板 - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :public_memories, param: :uuid, only: %i[index show]
 
+  # 家族のミニメモリ - 家族メンバー横断のフィード（unlisted + published）。
+  # 詳細表示は既存の memories#show（MemoryPolicy#show? が家族メンバー閲覧を許可）に集約する。
+  resources :family_memories, only: %i[index]
+
   # 家族グループ - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :family_groups, param: :uuid, only: %i[new create update show destroy] do
     # メンバーシップ操作（役割変更・脱退）。member 中間テーブルのため id は数値 ID。
