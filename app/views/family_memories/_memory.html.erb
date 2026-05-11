@@ -1,0 +1,29 @@
+<div class="masonry-item">
+  <%= link_to memory_path(memory),
+      id: "memory-id-#{memory.id}",
+      class: "bg-base-100 block rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow" do %>
+
+    <!-- ユーザー名 -->
+    <div class="px-3 py-2 flex items-center gap-2 mt-1">
+      <%= render "shared/user_avatar", user: memory.user, size: :sm %>
+      <span class="text-xs text-base-content/60 truncate">
+        <%= memory.user&.name || "不明なユーザー" %>
+      </span>
+    </div>
+
+    <!-- 画像 -->
+    <div class="relative">
+        <%= image_tag memory.display_image,
+            alt: memory.title,
+            class: "w-full object-cover block" %>
+    </div>
+
+    <!-- タイトル -->
+    <div class="px-3 py-2">
+      <p class="font-semibold text-sm text-base-content truncate">
+        <%= memory.title %>
+      </p>
+    </div>
+
+  <% end %>
+</div>
