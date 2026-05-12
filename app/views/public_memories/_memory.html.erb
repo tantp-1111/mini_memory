@@ -7,7 +7,7 @@
     <div class="px-3 py-2 flex items-center gap-2 mt-1">
       <%= render "shared/user_avatar", user: memory.user, size: :sm %>
       <span class="text-xs text-base-content/60 truncate">
-        <%= memory.user&.name || "不明なユーザー" %>
+        <%= memory.user&.name || t("defaults.unknown_user") %>
       </span>
     </div>
 
