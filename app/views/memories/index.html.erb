@@ -1,12 +1,25 @@
-<div class="max-w-6xl mx-auto px-4 pt-6">
+<div class="max-w-6xl mx-auto px-4 pt-6 pb-24">
 
-  <!-- 背景装飾 -->
+  <!-- 背景装飾（わたしのミニメモリ: rose + amber - 温色 / パーソナル） -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10 bg-primary blur-3xl"></div>
-    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full opacity-10 bg-secondary blur-3xl"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-20 bg-rose-400 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full opacity-20 bg-amber-300 blur-3xl"></div>
   </div>
 
-  <!-- 掲示板一覧 -->
+  <!-- ヘッダー -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-rose-100 shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-rose-500">
+        <path d="M10.75 16.82A7.462 7.462 0 0 1 15 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0 0 18 15.06v-11a.75.75 0 0 0-.546-.721A9.006 9.006 0 0 0 15 3a8.963 8.963 0 0 0-4.25 1.065V16.82ZM9.25 4.065A8.963 8.963 0 0 0 5 3c-.85 0-1.673.118-2.454.339A.75.75 0 0 0 2 4.06v11a.75.75 0 0 0 .954.721A7.506 7.506 0 0 1 5 15.5c1.579 0 3.042.487 4.25 1.32V4.065Z" />
+      </svg>
+    </div>
+    <div>
+      <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('memories.index.title') %></h1>
+      <p class="text-base-content/50 text-xs"><%= t('memories.index.subtitle') %></p>
+    </div>
+  </div>
+
+  <!-- ミニメモリ一覧 -->
   <% if @my_memories.present? %>
     <div class="masonry">
       <%= render @my_memories %>

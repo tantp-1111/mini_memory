@@ -1,4 +1,14 @@
 ja:
+  family_memories:
+    index:
+      title: 家族のミニメモリ
+      subtitle: 家族メンバーが共有したミニメモリーを一覧で見られます
+      empty_no_group_title: 家族グループに所属していません
+      empty_no_group_subtitle: 家族グループに参加すると、メンバーが共有したミニメモリーを見られます
+      go_to_mypage: マイページへ
+      empty_no_memories: 家族メンバーのミニメモリーはまだありません
+      posted_by: "%{name}さんの投稿"
+      new_memory_fab_label: 新規投稿
   defaults:
     unknown_user: 不明なユーザー
     delete_confirm: 削除しますか？
@@ -53,6 +63,9 @@ ja:
         title: ログイン
         stay_logged_in: ログイン状態を保持する
   memories:
+    index:
+      title: わたしのミニメモリ
+      subtitle: あなたが投稿したミニメモリーの一覧です
     new:
       title: ミニメモリ新規投稿
       subtitle: 大切なモノをここに残しましょう
@@ -62,6 +75,9 @@ ja:
     show:
       return_to_list: 一覧に戻る
   public_memories:
+    index:
+      title: 掲示板
+      subtitle: 公開されたみんなのミニメモリーを見られます
     show:
       return_to_list: 一覧に戻る
   mypage:
@@ -119,11 +135,13 @@ ja:
     home: ホーム
     mini_memory: ミニメモリ
     new_memory: 新規投稿
+    family_memory: 家族のミニメモリ
     board: 掲示板
     enjoy: 楽しむ
   drawer:
     summary:
       mini_memory: 私のミニメモリ
+      family_mini_memory: 家族のミニメモリ
       everyone_mini_memory: みんなのミニメモリ
       account: アカウント
       others: その他
@@ -131,6 +149,7 @@ ja:
       create_memory: 新規投稿
       memory_index: ミニメモリ一覧
       enjoy: 楽しむ
+      family_memory_index: 家族のミニメモリ一覧
       board: 掲示板
       mypage: マイページ
       logout: ログアウト

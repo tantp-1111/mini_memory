@@ -1,5 +1,23 @@
-<div class="min-h-screen bg-base-200">
-<div class="max-w-6xl mx-auto px-4 pt-6">
+<div class="max-w-6xl mx-auto px-4 pt-6 pb-24">
+
+  <!-- 背景装飾（掲示板: emerald + teal - オープン / 爽やか） -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-20 bg-emerald-400 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full opacity-20 bg-teal-300 blur-3xl"></div>
+  </div>
+
+  <!-- ヘッダー -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-100 shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-emerald-500 fill-current">
+        <path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280Zm80-240v-280 280Z"/>
+      </svg>
+    </div>
+    <div>
+      <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('public_memories.index.title') %></h1>
+      <p class="text-base-content/50 text-xs"><%= t('public_memories.index.subtitle') %></p>
+    </div>
+  </div>
 
   <!-- 掲示板一覧 -->
   <% if @public_memories.present? %>
@@ -13,5 +31,4 @@
       <%= t('defaults.not_found') %>
     </div>
   <% end %>
-</div>
 </div>
