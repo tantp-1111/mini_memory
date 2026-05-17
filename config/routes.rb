@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   resources :memories, param: :uuid, only: %i[index new create show edit update destroy]
 
   # 掲示板 - uuidをURLパラメータとして使用するため、param: :uuidを指定
-  resources :public_memories, param: :uuid, only: %i[index show]
+  resources :public_memories, param: :uuid, only: %i[index show] do
+    # リアクション - 識別子に reaction_type(enum キー) を使う。
+    # POST   /public_memories/:public_memory_uuid/reactions                 → create
+    # DELETE /public_memories/:public_memory_uuid/reactions/:reaction_type  → destroy
+    resources :reactions, only: %i[create destroy], param: :reaction_type
+  end
 
   # 家族のミニメモリ - 家族メンバー横断のフィード（unlisted + published）。
   # 詳細表示は既存の memories#show（MemoryPolicy#show? が家族メンバー閲覧を許可）に集約する。
