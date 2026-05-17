@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_20_145827) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -74,6 +74,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_20_145827) do
     t.index ["uuid"], name: "index_memories_on_uuid", unique: true
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "memory_id", null: false
+    t.integer "reaction_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["memory_id"], name: "index_reactions_on_memory_id"
+    t.index ["user_id", "memory_id", "reaction_type"], name: "index_reactions_on_user_id_and_memory_id_and_reaction_type", unique: true
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "user_family_groups", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "family_group_id", null: false
@@ -105,6 +116,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_20_145827) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "invitations", "family_groups"
   add_foreign_key "memories", "users"
+  add_foreign_key "reactions", "memories"
+  add_foreign_key "reactions", "users"
   add_foreign_key "user_family_groups", "family_groups"
   add_foreign_key "user_family_groups", "users"
 end
