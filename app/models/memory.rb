@@ -8,6 +8,7 @@ class Memory < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_one_attached :image
+  has_many :reactions, dependent: :destroy
 
   # imageカスタムバリデーション
   validate :image_content_type
@@ -46,6 +47,29 @@ class Memory < ApplicationRecord
   # URLのパラメータとしてuuidを使用
   def to_param
     uuid
+  end
+
+  # user がこの memory の投稿者か（MemoryPolicy#owner? もこれを利用）
+  def owned_by?(user)
+    return false if user.nil?
+    user_id == user.id
+  end
+
+  # reaction関係
+  # リアクションの種類ごとの数を取得するメソッド
+  def reaction_count(reaction_type)
+    reactions.where(reaction_type: reaction_type).count
+  end
+
+  # 特定のユーザーがそのリアクションを押しているか確認
+  def reacted_by?(user, reaction_type)
+    reactions.exists?(user: user, reaction_type: reaction_type)
+  end
+
+  # user がこの memory にリアクション可能か（ログイン中 & 自分の投稿ではない）
+  def reactable_by?(user)
+    return false if user.nil?
+    !owned_by?(user)
   end
 
   private

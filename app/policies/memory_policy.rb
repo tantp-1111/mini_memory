@@ -9,6 +9,8 @@ class MemoryPolicy < ApplicationPolicy
   def create?  = user.present?
   def update?  = owner?
   def destroy? = owner?
+  # 公開投稿に対してリアクション可能か。判定ロジックは Memory#reactable_by? に集約。
+  def react?   = record.published? && record.reactable_by?(user)
 
   class Scope < ApplicationPolicy::Scope
     def resolve
@@ -20,8 +22,7 @@ class MemoryPolicy < ApplicationPolicy
   private
 
   def owner?
-    return false if user.nil?
-    record.user_id == user.id
+    record.owned_by?(user)
   end
 
   # current_user の所属家族グループと record.user の所属家族グループに重複があるか。
