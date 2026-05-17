@@ -19,6 +19,7 @@ class Reaction < ApplicationRecord
   private
 
   def cannot_react_to_own_memory
+    return if memory.nil? || user_id.nil?
     if memory.user_id == user_id
       errors.add(:base, "自分の投稿にはリアクションできません")
     end

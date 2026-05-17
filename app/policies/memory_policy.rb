@@ -10,7 +10,7 @@ class MemoryPolicy < ApplicationPolicy
   def update?  = owner?
   def destroy? = owner?
   # 公開投稿に対してリアクション可能か。判定ロジックは Memory#reactable_by? に集約。
-  def react?   = record.reactable_by?(user)
+  def react?   = record.published? && record.reactable_by?(user)
 
   class Scope < ApplicationPolicy::Scope
     def resolve

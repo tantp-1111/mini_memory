@@ -1,5 +1,6 @@
 class ReactionsController < ApplicationController
   before_action :set_memory
+  before_action :validate_reaction_type!, only: %i[create destroy]
 
   # リアクションを追加
   def create
@@ -15,6 +16,8 @@ class ReactionsController < ApplicationController
     else
       redirect_to public_memory_path(@memory), alert: reaction.errors.full_messages.join(", ")
     end
+  rescue ActiveRecord::RecordNotUnique
+    redirect_to public_memory_path(@memory), alert: "すでにそのリアクションは存在します"
   end
 
   # リアクションを削除
@@ -34,5 +37,10 @@ class ReactionsController < ApplicationController
   # ネスト元 public_memories が param: :uuid のため、params[:public_memory_uuid] で受け取る。
   def set_memory
     @memory = Memory.find_by!(uuid: params[:public_memory_uuid])
+  end
+
+  def validate_reaction_type!
+    return if Reaction.reaction_types.key?(params[:reaction_type])
+    redirect_to public_memory_path(`@memory`), alert: "不正なリアクション種別です"
   end
 end

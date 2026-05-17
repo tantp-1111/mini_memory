@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "memory_id", null: false
-    t.integer "reaction_type"
+    t.integer "reaction_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["memory_id"], name: "index_reactions_on_memory_id"
