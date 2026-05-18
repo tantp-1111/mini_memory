@@ -80,6 +80,13 @@ ja:
       subtitle: 公開されたみんなのミニメモリーを見られます
     show:
       return_to_list: 一覧に戻る
+  reactions:
+    alert:
+      already_exists: すでにそのリアクションは存在します
+      invalid_type: 不正なリアクション種別です
+    disabled_reason:
+      own_post: 自分の投稿にはリアクションできません
+      not_logged_in: ログインするとリアクションできます
   mypage:
     account_title: プロフィール
     account_subtitle: アカウント情報を確認できます
