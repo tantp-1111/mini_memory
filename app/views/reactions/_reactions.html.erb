@@ -1,5 +1,5 @@
 <%# 掲示板詳細でのリアクションボタン列。memory は必須ローカル変数。 %>
-<div class="flex items-center gap-2 flex-wrap">
+<div id="reactions_<%= memory.id %>" class="flex items-center gap-2 flex-wrap">
   <% Reaction.reaction_types.keys.each do |type| %>
     <% if memory.reactable_by?(current_user) %>
       <% if memory.reacted_by?(current_user, type) %>

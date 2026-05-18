@@ -19,9 +19,9 @@ module ReactionsHelper
   # ボタンが押せないときの理由（投稿者本人か未ログインかで出し分け）
   def disabled_reaction_title(memory)
     if memory.owned_by?(current_user)
-      "自分の投稿にはリアクションできません"
+      I18n.t("reactions.disabled_reason.own_post")
     else
-      "ログインするとリアクションできます"
+      I18n.t("reactions.disabled_reason.not_logged_in")
     end
   end
 end
