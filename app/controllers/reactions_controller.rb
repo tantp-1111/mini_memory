@@ -12,12 +12,21 @@ class ReactionsController < ApplicationController
     )
 
     if reaction.save
-      redirect_to public_memory_path(@memory)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to public_memory_path(@memory) }
+      end
     else
-      redirect_to public_memory_path(@memory), alert: reaction.errors.full_messages.join(", ")
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to public_memory_path(@memory), alert: reaction.errors.full_messages.join(", ") }
+      end
     end
   rescue ActiveRecord::RecordNotUnique
-    redirect_to public_memory_path(@memory), alert: "すでにそのリアクションは存在します"
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to public_memory_path(@memory), alert: t("reactions.alert.already_exists") }
+    end
   end
 
   # リアクションを削除
@@ -29,7 +38,10 @@ class ReactionsController < ApplicationController
     authorize reaction
 
     reaction.destroy!
-    redirect_to public_memory_path(@memory)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to public_memory_path(@memory) }
+    end
   end
 
   private
@@ -41,6 +53,6 @@ class ReactionsController < ApplicationController
 
   def validate_reaction_type!
     return if Reaction.reaction_types.key?(params[:reaction_type])
-    redirect_to public_memory_path(`@memory`), alert: "不正なリアクション種別です"
+    redirect_to public_memory_path(@memory), alert: t("reactions.alert.invalid_type")
   end
 end
