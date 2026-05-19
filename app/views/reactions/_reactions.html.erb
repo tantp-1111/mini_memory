@@ -1,0 +1,33 @@
+<%# 掲示板詳細でのリアクションボタン列。memory は必須ローカル変数。 %>
+<div id="reactions_<%= memory.id %>" class="flex items-center gap-2 flex-wrap">
+  <% Reaction.reaction_types.keys.each do |type| %>
+    <% if memory.reactable_by?(current_user) %>
+      <% if memory.reacted_by?(current_user, type) %>
+        <%= button_to public_memory_reaction_path(memory, type),
+                      method: :delete,
+                      class: reaction_button_class(true),
+                      form: { class: "inline-block" } do %>
+          <span><%= reaction_emoji(type) %></span>
+          <span class="text-xs"><%= memory.reaction_count(type) %></span>
+        <% end %>
+      <% else %>
+        <%= button_to public_memory_reactions_path(memory),
+                      method: :post,
+                      params: { reaction_type: type },
+                      class: reaction_button_class(false),
+                      form: { class: "inline-block" } do %>
+          <span><%= reaction_emoji(type) %></span>
+          <span class="text-xs"><%= memory.reaction_count(type) %></span>
+        <% end %>
+      <% end %>
+    <% else %>
+      <button type="button"
+              class="<%= reaction_button_class(memory.reacted_by?(current_user, type)) %>"
+              disabled
+              title="<%= disabled_reaction_title(memory) %>">
+        <span><%= reaction_emoji(type) %></span>
+        <span class="text-xs"><%= memory.reaction_count(type) %></span>
+      </button>
+    <% end %>
+  <% end %>
+</div>

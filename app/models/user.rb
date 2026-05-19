@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :memories, dependent: :destroy
   has_many :user_family_groups, dependent: :destroy
   has_many :family_groups, through: :user_family_groups
+  has_many :reactions, dependent: :destroy
 
   # バリデーション
   validates :name, presence: true

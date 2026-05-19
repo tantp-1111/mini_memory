@@ -3,6 +3,7 @@ ja:
     models:
       user: ユーザー
       memory: 思い出
+      reaction: リアクション
     attributes:
       user:
         email: メールアドレス
@@ -17,6 +18,14 @@ ja:
         image: 画像
       user_family_group:
         role: 役割
+      reaction:
+        reaction_type: リアクションの種類
+    errors:
+      models:
+        reaction:
+          attributes:
+            base:
+              own_post: 自分の投稿にはリアクションできません
   enums:
     memory:
       visibility:
