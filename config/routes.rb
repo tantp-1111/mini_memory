@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   resources :family_groups, param: :uuid, only: %i[new create update show destroy] do
     # メンバーシップ操作（役割変更・脱退）。member 中間テーブルのため id は数値 ID。
     resources :user_family_groups, only: %i[update destroy]
+
+    # こども管理 - uuidをURLパラメータとして使用するため、param: :uuidを指定
+    resources :children, param: :uuid, only: %i[index new create edit update destroy]
   end
 
   get "memory_game" => "memory_games#show", as: :memory_game
