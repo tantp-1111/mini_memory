@@ -9,10 +9,14 @@ class Memory < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_many :reactions, dependent: :destroy
+  has_many :memory_children, dependent: :destroy
+  has_many :children, through: :memory_children
 
   # imageカスタムバリデーション
   validate :image_content_type
   validate :image_size
+  # 紐付け可能なこどもは投稿者の家族グループに属するものに限定
+  validate :children_must_belong_to_user_family_group
 
   # enum公開範囲定義
   enum :visibility, {
@@ -91,5 +95,17 @@ class Memory < ApplicationRecord
   # default画像表示用メソッド
   def default_image
     "memory_placeholder.png"
+  end
+
+  # 紐付け対象のこどもは投稿者の家族グループ内に限る（フォーム改ざん防御）
+  def children_must_belong_to_user_family_group
+    return if children.empty?
+    return if user.nil?
+
+    user_group_ids = user.user_family_groups.pluck(:family_group_id)
+    invalid = children.reject { |c| user_group_ids.include?(c.family_group_id) }
+    return if invalid.empty?
+
+    errors.add(:children, :not_in_user_family_group)
   end
 end
