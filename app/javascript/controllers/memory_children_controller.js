@@ -14,7 +14,7 @@ export default class extends Controller {
   selectAll() {
     this.badgeTargets.forEach((badge) => {
       const childId = badge.dataset.childId
-      this.#select(badge, childId)
+      if (badge.dataset.selected !== "true") this.#select(badge, childId)
     })
   }
 
@@ -23,13 +23,15 @@ export default class extends Controller {
     badge.classList.remove("badge-outline")
     badge.dataset.selected = "true"
 
-    // input要素を動的に追加
-    const input = document.createElement("input")
-    input.type = "hidden"
-    input.name = "memory[child_ids][]"
-    input.value = childId
-    input.dataset.childId = childId
-    this.containerTarget.appendChild(input)
+    const existing = this.containerTarget.querySelector(`input[data-child-id="${childId}"]`)
+    if (!existing) {
+      const input = document.createElement("input")
+      input.type = "hidden"
+      input.name = "memory[child_ids][]"
+      input.value = childId
+      input.dataset.childId = childId
+      this.containerTarget.appendChild(input)
+    }
   }
 
   #deselect(badge, childId) {
