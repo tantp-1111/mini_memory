@@ -74,6 +74,10 @@ ja:
       subtitle: 内容を編集できます
     show:
       return_to_list: 一覧に戻る
+      children_label: こども
+    form:
+      children_label: こども (任意)
+      select_all_children: 全員
   public_memories:
     index:
       title: 掲示板
