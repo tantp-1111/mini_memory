@@ -53,6 +53,20 @@
         </span>
       </div>
 
+      <%# こども（掲示板/public_memories#show では描画されない） %>
+      <% if @memory.children.any? %>
+        <div>
+          <p class="text-xs font-bold tracking-widest text-base-content/40 mb-3">
+            <%= t('memories.show.children_label') %>
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <% @memory.children.each do |child| %>
+              <span class="badge badge-primary badge-lg"><%= child.name %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
       <%# エピソード %>
       <div>
         <p class="text-xs font-bold tracking-widest text-base-content/40 mb-3">

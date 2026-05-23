@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_20_143244) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_22_153523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -85,6 +85,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_20_143244) do
     t.index ["uuid"], name: "index_memories_on_uuid", unique: true
   end
 
+  create_table "memory_children", force: :cascade do |t|
+    t.bigint "memory_id", null: false
+    t.bigint "child_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_memory_children_on_child_id"
+    t.index ["memory_id", "child_id"], name: "index_memory_children_on_memory_id_and_child_id", unique: true
+    t.index ["memory_id"], name: "index_memory_children_on_memory_id"
+  end
+
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "memory_id", null: false
@@ -128,6 +138,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_20_143244) do
   add_foreign_key "children", "family_groups"
   add_foreign_key "invitations", "family_groups"
   add_foreign_key "memories", "users"
+  add_foreign_key "memory_children", "children"
+  add_foreign_key "memory_children", "memories"
   add_foreign_key "reactions", "memories"
   add_foreign_key "reactions", "users"
   add_foreign_key "user_family_groups", "family_groups"

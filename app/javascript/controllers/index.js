@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
+
+import MemoryChildrenController from "./memory_children_controller"
+application.register("memory-children", MemoryChildrenController)

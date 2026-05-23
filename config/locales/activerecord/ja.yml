@@ -34,6 +34,10 @@ ja:
           attributes:
             birthday:
               in_future: は未来の日付を指定できません
+        memory:
+          attributes:
+            children:
+              not_in_user_family_group: には所属していない家族グループのこどもを指定できません
   enums:
     memory:
       visibility:

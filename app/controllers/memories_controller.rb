@@ -11,6 +11,7 @@ class MemoriesController < ApplicationController
   def new
     @memory = Memory.new
     authorize @memory
+    @available_children = policy_scope(Child).order(:birthday)
   end
 
   def create
@@ -26,18 +27,21 @@ class MemoriesController < ApplicationController
         flash[:success] = t("defaults.flash_message.created", model: Memory.model_name.human)
         redirect_to memories_path
       else
+        @available_children = policy_scope(Child).order(:birthday)
         flash.now[:error] = t("defaults.flash_message.not_created", model: Memory.model_name.human)
         render :new, status: :unprocessable_entity
       end
 
     # モジュールで設定したエラーのキャッチ
     rescue ImageProcessable::ImageProcessingError => e
+      @available_children = policy_scope(Child).order(:birthday)
       flash.now[:error] = e.message
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @available_children = policy_scope(Child).order(:birthday)
   end
 
   def update
@@ -52,12 +56,14 @@ class MemoriesController < ApplicationController
         flash[:success] = t("defaults.flash_message.updated", model: Memory.model_name.human)
         redirect_to memories_path
       else
+        @available_children = policy_scope(Child).order(:birthday)
         flash.now[:error] = t("defaults.flash_message.not_updated", model: Memory.model_name.human)
         render :edit, status: :unprocessable_entity
       end
 
     # モジュールで設定したエラーのキャッチ
     rescue ImageProcessable::ImageProcessingError => e
+      @available_children = policy_scope(Child).order(:birthday)
       flash.now[:error] = e.message
       render :edit, status: :unprocessable_entity
     end
@@ -79,6 +85,9 @@ class MemoriesController < ApplicationController
   end
 
   def memory_params
-    params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image)
+    params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image, child_ids: []).tap do |whitelisted|
+      # 空文字列を除外
+      whitelisted[:child_ids]&.reject!(&:blank?)
+    end
   end
 end
