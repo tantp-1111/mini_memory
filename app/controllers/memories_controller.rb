@@ -85,7 +85,7 @@ class MemoriesController < ApplicationController
   end
 
   def memory_params
-    params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image, child_ids: []).tap do |whitelisted|
+    params.require(:memory).permit(:title, :description, :memory_date, :visibility, :image, :tag_list_input, child_ids: []).tap do |whitelisted|
       # 空文字列を除外
       whitelisted[:child_ids]&.reject!(&:blank?)
     end

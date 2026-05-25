@@ -75,9 +75,13 @@ ja:
     show:
       return_to_list: 一覧に戻る
       children_label: こども
+      tags_label: タグ
     form:
       children_label: こども (任意)
       select_all_children: 全員
+      tag_list_label: タグ (任意)
+      tag_list_placeholder: "例: 石, お花屋さん, 帰り道"
+      tag_list_hint: カンマ区切りで最大10個まで。30文字を超えるタグは反映されません
   public_memories:
     index:
       title: 掲示板
