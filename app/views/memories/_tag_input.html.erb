@@ -5,8 +5,9 @@
       <%= t("memories.form.tag_list_label") %>
     </span>
   <% end %>
+  <%# バリデーション失敗時はユーザー入力(tag_list_input)を優先表示。通常時は DB の tags から組み立てる %>
   <%= f.text_field :tag_list_input,
-        value: f.object.tags.map(&:name).join(", "),
+        value: f.object.tag_list_input.presence || f.object.tags.map(&:name).join(", "),
         placeholder: t("memories.form.tag_list_placeholder"),
         class: "input input-bordered input-sm bg-base-200/50 focus:bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
   <p class="text-xs text-base-content/50 mt-1"><%= t("memories.form.tag_list_hint") %></p>
