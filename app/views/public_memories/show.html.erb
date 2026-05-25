@@ -53,6 +53,20 @@
         </span>
       </div>
 
+      <%# タグ %>
+      <% if @memory.tags.any? %>
+        <div>
+          <p class="text-xs font-bold tracking-widest text-base-content/40 mb-3">
+            <%= t('memories.show.tags_label') %>
+          </p>
+          <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm text-secondary">
+            <% @memory.tags.each do |tag| %>
+              <span>#<%= tag.name %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
       <%# エピソード %>
       <div>
         <p class="text-xs font-bold tracking-widest text-base-content/40 mb-3">

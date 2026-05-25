@@ -5,6 +5,7 @@ ja:
       memory: 思い出
       reaction: リアクション
       child: こども
+      tag: タグ
     attributes:
       user:
         email: メールアドレス
@@ -24,6 +25,8 @@ ja:
       child:
         name: 名前
         birthday: 生年月日
+      tag:
+        name: タグ名
     errors:
       models:
         reaction:
