@@ -38,7 +38,9 @@ module ApplicationHelper
   end
 
   def ogp_image_url
-    if @memory&.image&.attached?
+    # @memory が未保存(new record)だと signed_id を取得できないため persisted? を必須にする。
+    # 例: 投稿バリデーション失敗で render :new された場合、画像 attach 済みでも未保存
+    if @memory&.persisted? && @memory.image.attached?
       return rails_blob_url(@memory.image, only_path: false)
     end
     image_url("minimemory_ogp.png")
