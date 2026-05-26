@@ -100,6 +100,9 @@ class MemoriesController < ApplicationController
   # webp 変換した画像を blob として即時アップロードして memory に attach する。
   # blob を即 persist + storage upload しておくことで、バリデーション失敗で
   # render :new/:edit になった場合もプレビューが再表示できる。
+  #
+  # ActiveStorage の create_and_upload! が投げる例外は ImageProcessable::ImageProcessingError
+  # にラップして、create/update 側の rescue に接続する。
   def attach_processed_image!(memory)
     processed = ImageProcessable.process_and_transform_image(params[:memory][:image], 854)
     blob = ActiveStorage::Blob.create_and_upload!(
@@ -108,5 +111,8 @@ class MemoriesController < ApplicationController
       content_type: processed.content_type
     )
     memory.image.attach(blob)
+  rescue ActiveStorage::Error, ActiveRecord::RecordInvalid => e
+    Rails.logger.error "Image upload error: #{e.message}"
+    raise ImageProcessable::ImageProcessingError, "画像の保存中にエラーが発生しました: #{e.message}"
   end
 end
