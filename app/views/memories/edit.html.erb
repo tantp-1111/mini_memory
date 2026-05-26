@@ -124,6 +124,9 @@
               <!-- ファイル名表示（新規選択時） -->
               <p id="file-name" class="hidden text-xs text-base-content/50 text-center truncate px-2"></p>
 
+              <%# バリデーション失敗時に新規選択画像(in-memory attachment) を保持。
+                  id は file_field と衝突させないため別名にする(label[for] が hidden を拾うのを防ぐ) %>
+              <%= f.hidden_field :image, value: @memory.image.signed_id, id: "memory_image_signed_id" if @memory.image.attached? && @memory.image.blob&.persisted? %>
               <%= f.file_field :image,
                     id: "memory_image",
                     direct_upload: true,
