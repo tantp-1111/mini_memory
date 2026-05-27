@@ -1,0 +1,75 @@
+<div class="min-h-screen bg-base-200 flex justify-center py-6 px-4">
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10 bg-primary blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full opacity-10 bg-secondary blur-3xl"></div>
+  </div>
+
+  <div class="relative w-full max-w-2xl">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t("children.index.title") %></h1>
+        <p class="text-base-content/50 text-xs"><%= t("children.index.subtitle", group_name: @family_group.name) %></p>
+      </div>
+      <% if policy(Child.new(family_group: @family_group)).create? %>
+        <%= link_to new_family_group_child_path(@family_group), class: "btn btn-primary btn-sm" do %>
+          + <%= t("children.index.add") %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% unless policy(Child.new(family_group: @family_group)).create? %>
+      <div class="alert alert-info alert-soft text-xs mb-4">
+        <%= t("children.index.member_notice") %>
+      </div>
+    <% end %>
+
+    <% if @children.empty? %>
+      <div class="card bg-base-100 shadow-2xl border border-base-200">
+        <div class="card-body p-6 gap-2 items-center text-center">
+          <p class="text-base-content/50 text-sm"><%= t("children.index.empty") %></p>
+        </div>
+      </div>
+    <% else %>
+      <div class="grid gap-3">
+        <% @children.each do |child| %>
+          <div class="card bg-base-100 shadow-xl border border-base-200">
+            <div class="card-body p-4 flex-row items-center gap-3">
+              <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-semibold text-base truncate"><%= child.name %></p>
+                <% if child.birthday.present? %>
+                  <p class="text-base-content/50 text-xs">
+                    <%= l(child.birthday, format: :long) %>
+                  </p>
+                <% end %>
+              </div>
+              <% if policy(child).update? %>
+                <%= link_to t("helpers.submit.edit"), edit_family_group_child_path(@family_group, child), class: "btn btn-ghost btn-xs" %>
+              <% end %>
+              <% if policy(child).destroy? %>
+                <%= button_to t("helpers.submit.delete"),
+                              family_group_child_path(@family_group, child),
+                              method: :delete,
+                              form: { data: { turbo_confirm: t("defaults.delete_confirm") } },
+                              class: "btn btn-ghost btn-xs text-error" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="flex justify-end mt-4">
+      <%= link_to t("children.index.back_to_mypage"), mypage_path, class: "btn btn-ghost btn-sm" %>
+    </div>
+  </div>
+</div>

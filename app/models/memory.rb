@@ -9,10 +9,25 @@ class Memory < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_many :reactions, dependent: :destroy
+  has_many :memory_children, dependent: :destroy
+  has_many :children, through: :memory_children
+  has_many :memory_tags, dependent: :destroy
+  has_many :tags, through: :memory_tags
 
   # imageカスタムバリデーション
   validate :image_content_type
   validate :image_size
+  # 紐付け可能なこどもは投稿者の家族グループに属するものに限定
+  validate :children_must_belong_to_user_family_group
+
+  # フォームのカンマ区切り入力を受け取るための仮想 attribute
+  attr_accessor :tag_list_input
+
+  # メモリーが保存された後に、tag_list_input をもとに tags 関連を同期する
+  after_save :sync_tags_from_input
+
+  TAG_LIMIT = 10
+  TAG_MAX_LENGTH = 30
 
   # enum公開範囲定義
   enum :visibility, {
@@ -91,5 +106,33 @@ class Memory < ApplicationRecord
   # default画像表示用メソッド
   def default_image
     "memory_placeholder.png"
+  end
+
+  # 紐付け対象のこどもは投稿者の家族グループ内に限る（フォーム改ざん防御）
+  def children_must_belong_to_user_family_group
+    return if children.empty?
+    return if user.nil?
+
+    user_group_ids = user.user_family_groups.pluck(:family_group_id)
+    invalid = children.reject { |c| user_group_ids.include?(c.family_group_id) }
+    return if invalid.empty?
+
+    errors.add(:children, :not_in_user_family_group)
+  end
+
+  # カンマ区切り入力をパースしてタグを同期する（after_save で呼ばれる）。
+  # - 前後 strip + 重複除外
+  # - 最大 TAG_LIMIT(10) 件まで採用
+  # - TAG_MAX_LENGTH(30) 字超のタグは静かに無視（投稿そのものを失敗させない）
+  def sync_tags_from_input
+    return unless @tag_list_input.is_a?(String)
+    return if user.nil?
+
+    names = @tag_list_input.split(",").map(&:strip).reject(&:blank?).uniq
+    names = names.first(TAG_LIMIT)
+    names = names.reject { |n| n.length > TAG_MAX_LENGTH }
+
+    new_tags = names.map { |name| user.tags.find_or_create_by!(name: name) }
+    self.tags = new_tags
   end
 end

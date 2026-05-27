@@ -1,0 +1,41 @@
+<%# 投稿者の家族グループに属するこどもをバッジ形式で選択する UI %>
+<% if @available_children.present? %>
+  <div class="form-control gap-1" data-controller="memory-children">
+    <div class="flex items-center justify-between">
+      <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60">
+        <%= t("memories.form.children_label") %>
+      </span>
+      <button type="button"
+              data-action="click->memory-children#selectAll"
+              class="btn btn-ghost btn-xs">
+        <%= t("memories.form.select_all_children") %>
+      </button>
+    </div>
+
+    <div class="flex flex-wrap gap-2 pt-1">
+      <% @available_children.each do |child| %>
+        <% selected = @memory.children.include?(child) %>
+        <button type="button"
+                data-action="click->memory-children#toggle"
+                data-memory-children-target="badge"
+                data-child-id="<%= child.id %>"
+                data-selected="<%= selected %>"
+                class="badge badge-lg gap-1 cursor-pointer <%= selected ? 'badge-primary' : 'badge-outline' %>">
+          <%= child.name %>
+        </button>
+      <% end %>
+    </div>
+
+    <!-- hidden inputを格納するコンテナ -->
+    <div data-memory-children-target="container">
+      <%# 空配列を送信するための要素 %>
+      <input type="hidden" name="memory[child_ids][]" value="">
+      <% @memory.children.each do |child| %>
+        <input type="hidden"
+               name="memory[child_ids][]"
+               value="<%= child.id %>"
+               data-child-id="<%= child.id %>">
+      <% end %>
+    </div>
+  </div>
+<% end %>

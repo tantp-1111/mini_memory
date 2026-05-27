@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :user_family_groups, dependent: :destroy
   has_many :family_groups, through: :user_family_groups
   has_many :reactions, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   # バリデーション
   validates :name, presence: true

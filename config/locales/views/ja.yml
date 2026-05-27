@@ -74,6 +74,14 @@ ja:
       subtitle: 内容を編集できます
     show:
       return_to_list: 一覧に戻る
+      children_label: こども
+      tags_label: タグ
+    form:
+      children_label: こども (任意)
+      select_all_children: 全員
+      tag_list_label: タグ (任意)
+      tag_list_placeholder: "例: 石, お花屋さん, 帰り道"
+      tag_list_hint: カンマ区切りで最大10個まで。30文字を超えるタグは反映されません
   public_memories:
     index:
       title: 掲示板
@@ -87,11 +95,34 @@ ja:
     disabled_reason:
       own_post: 自分の投稿にはリアクションできません
       not_logged_in: ログインするとリアクションできます
+  children:
+    index:
+      title: こども一覧
+      subtitle: "「%{group_name}」のこどもを管理できます"
+      add: こどもを追加
+      empty: まだこどもが登録されていません
+      member_notice: こどもの追加・編集はグループのオーナーのみ可能です
+      back_to_mypage: マイページに戻る
+    new:
+      title: こども新規登録
+      subtitle: 家族グループにこどもを追加します
+    edit:
+      title: こども編集
+      subtitle: こどもの情報を編集します
+    form:
+      name_placeholder: こどもの名前を入力
   mypage:
     account_title: プロフィール
     account_subtitle: アカウント情報を確認できます
     user_name: ユーザー名
     avatar: アバター画像
+    children:
+      title: こども
+      subtitle: 家族で共有するこどもを管理できます
+      count: "%{count}人登録されています"
+      view_list: こども一覧を見る
+      requires_group: こどもの登録には家族グループへの所属が必要です
+      requires_group_subtitle: 家族グループを作成または参加してください
     family_group:
       title: 家族グループ
       subtitle: グループを作成・管理できます

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_24_073155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "children", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "family_group_id", null: false
+    t.string "name", null: false
+    t.date "birthday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_group_id"], name: "index_children_on_family_group_id"
+    t.index ["uuid"], name: "index_children_on_uuid", unique: true
   end
 
   create_table "family_groups", force: :cascade do |t|
@@ -74,6 +85,26 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
     t.index ["uuid"], name: "index_memories_on_uuid", unique: true
   end
 
+  create_table "memory_children", force: :cascade do |t|
+    t.bigint "memory_id", null: false
+    t.bigint "child_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_memory_children_on_child_id"
+    t.index ["memory_id", "child_id"], name: "index_memory_children_on_memory_id_and_child_id", unique: true
+    t.index ["memory_id"], name: "index_memory_children_on_memory_id"
+  end
+
+  create_table "memory_tags", force: :cascade do |t|
+    t.bigint "memory_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["memory_id", "tag_id"], name: "index_memory_tags_on_memory_id_and_tag_id", unique: true
+    t.index ["memory_id"], name: "index_memory_tags_on_memory_id"
+    t.index ["tag_id"], name: "index_memory_tags_on_tag_id"
+  end
+
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "memory_id", null: false
@@ -83,6 +114,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
     t.index ["memory_id"], name: "index_reactions_on_memory_id"
     t.index ["user_id", "memory_id", "reaction_type"], name: "index_reactions_on_user_id_and_memory_id_and_reaction_type", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_tags_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "user_family_groups", force: :cascade do |t|
@@ -114,10 +154,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_16_160637) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "children", "family_groups"
   add_foreign_key "invitations", "family_groups"
   add_foreign_key "memories", "users"
+  add_foreign_key "memory_children", "children"
+  add_foreign_key "memory_children", "memories"
+  add_foreign_key "memory_tags", "memories"
+  add_foreign_key "memory_tags", "tags"
   add_foreign_key "reactions", "memories"
   add_foreign_key "reactions", "users"
+  add_foreign_key "tags", "users"
   add_foreign_key "user_family_groups", "family_groups"
   add_foreign_key "user_family_groups", "users"
 end

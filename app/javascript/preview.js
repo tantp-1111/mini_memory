@@ -1,45 +1,60 @@
-document.addEventListener('turbo:load', () => {
-    if (document.URL.match(/\/memories\/new/) || document.URL.match(/\/memories\/\d+\/edit/)) {
+// 直近で生成した object URL を保持し、不要になったタイミングで revoke してメモリリークを防ぐ
+let currentObjectUrl = null;
 
-            const imageContainer = document.getElementById('new-image');
-            const imageInput = document.getElementById('memory_image');
-
-            // 要素が存在しない場合は処理を中断
-            if (!imageContainer || !imageInput) return;
-
-            // 画像表示用の関数
-            const createImageHTML = (blob) => {
-                // const imageElement = document.getElementById('new-image'); //ビューで指定したnew-imageのdiv要素を代入
-                const blobImage = document.createElement('img'); //img要素を作成
-                blobImage.setAttribute('src', blob); //imgのsrc属性にblob
-                blobImage.classList.add('h-full', 'w-auto', 'block', 'mx-auto', 'mt-2'); //画像のスタイル調整（Tailwind CSS）
-                imageContainer.appendChild(blobImage); //div要素にimg要素
-            };
-
-            // 画像が選択されたときのイベント
-            imageInput.addEventListener('change', (e) =>{
-                imageContainer.innerHTML = ""; //画像を一旦クリアする
-                const file = e.target.files[0]; //フォームで選択したファイルを取得
-                const blob =window.URL.createObjectURL(file); //選択したファイルのURLを取得
-                createImageHTML(blob); //画像表示用の関数を実行
-                // ▼ ファイル名を表示するエリアを取得して、ファイル名をセットして表示
-                const fileNameEl = document.getElementById('file-name');
-                if (fileNameEl) {
-                    fileNameEl.textContent = file.name;
-                    fileNameEl.classList.remove('hidden');
-                }
-            });
-
+function revokeCurrentObjectUrl() {
+    if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+        currentObjectUrl = null;
     }
+}
+
+// 画像プレビューを生成して new-image コンテナに差し替える
+function renderPreview(file) {
+    const imageContainer = document.getElementById('new-image');
+    if (!imageContainer) return;
+
+    // 既存 img (ERB 描画/JS 追加) を全て削除し、前回の object URL を解放する
+    imageContainer.innerHTML = '';
+    revokeCurrentObjectUrl();
+
+    currentObjectUrl = window.URL.createObjectURL(file);
+
+    const blobImage = document.createElement('img');
+    blobImage.src = currentObjectUrl;
+    blobImage.dataset.jsPreview = 'true'; // JS で動的に追加した preview を識別するマーク
+    blobImage.classList.add('h-full', 'w-auto', 'block', 'mx-auto', 'mt-2');
+    imageContainer.appendChild(blobImage);
+
+    const fileNameEl = document.getElementById('file-name');
+    if (fileNameEl) {
+        fileNameEl.textContent = file.name;
+        fileNameEl.classList.remove('hidden');
+    }
+}
+
+// document レベルで delegation することで、Turbo が body を置き換えた後でも
+// 新しい input 要素に対して同じハンドラが有効に動く
+// (turbo:load 内での addEventListener では再レンダリング後の要素を拾えないため)
+document.addEventListener('change', (e) => {
+    if (e.target.id !== 'memory_image') return;
+    const file = e.target.files[0];
+    if (!file) return;
+    renderPreview(file);
 });
 
-            // キャッシュ削除
-            document.addEventListener('turbo:before-cache', () => {
-                const previews = document.getElementById('new-image');
-                if (previews) previews.innerHTML = "";
-                const fileNameEl = document.getElementById('file-name');
-                if (fileNameEl) {
-                    fileNameEl.textContent = "";
-                    fileNameEl.classList.add('hidden');
-                }
-            });
+// バックボタンキャッシュの clean up
+// ERB が描画した既存画像は残し、JS で追加した preview のみクリアする
+// 残っている object URL もここで revoke する
+document.addEventListener('turbo:before-cache', () => {
+    revokeCurrentObjectUrl();
+
+    const previews = document.getElementById('new-image');
+    if (previews) {
+        previews.querySelectorAll('img[data-js-preview]').forEach((el) => el.remove());
+    }
+    const fileNameEl = document.getElementById('file-name');
+    if (fileNameEl) {
+        fileNameEl.textContent = '';
+        fileNameEl.classList.add('hidden');
+    }
+});

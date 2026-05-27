@@ -24,6 +24,8 @@ class UserFamilyGroup < ApplicationRecord
   end
 
   def ensure_at_least_one_owner_remains_after_leave
+    # 親 FamilyGroup の dependent: :destroy による削除時は、個別脱退用のガードを発火させない
+    return if destroyed_by_association
     return unless owner?
     return if other_owners_exist?
 
