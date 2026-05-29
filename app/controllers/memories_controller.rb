@@ -5,7 +5,8 @@ class MemoriesController < ApplicationController
   skip_after_action :verify_authorized, only: :index
 
   def index
-    @my_memories = policy_scope(Memory).with_attached_image.order(created_at: :desc)
+    @q = policy_scope(Memory).ransack(params[:q])
+    @my_memories = @q.result(distinct: true).with_attached_image.order(created_at: :desc)
   end
 
   def new

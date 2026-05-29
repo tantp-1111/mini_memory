@@ -83,6 +83,9 @@ gem "meta-tags"
 # Pundit - 認可（Policy ベース）
 gem "pundit"
 
+# Ransack - 検索クエリビルダー
+gem "ransack"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

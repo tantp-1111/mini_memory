@@ -1,0 +1,11 @@
+<%# Memory 一覧画面で再利用するキーワード検索フォーム。
+    title または description の部分一致(ILIKE)で絞り込む。
+    呼び出し側で q (Ransack::Search オブジェクト) と url (検索結果を表示する index path) を渡す。 %>
+<%= search_form_for q, url: url, method: :get, html: { class: "mb-4" } do |f| %>
+  <div class="flex gap-2">
+    <%= f.search_field :title_or_description_cont,
+          placeholder: t("memories.search.placeholder"),
+          class: "input input-bordered input-sm bg-base-200/50 focus:bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
+    <%= f.submit t("memories.search.submit"), class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>
