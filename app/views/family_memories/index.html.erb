@@ -31,17 +31,21 @@
         <%= link_to t('family_memories.index.go_to_mypage'), mypage_path, class: "btn btn-primary btn-sm mt-2" %>
       </div>
     </div>
-  <% elsif @memories.blank? %>
-    <!-- 所属しているが投稿なし -->
-    <div class="text-center text-base-content/60 mt-8">
-      <%= t('family_memories.index.empty_no_memories') %>
-    </div>
   <% else %>
-    <!-- 家族フィード一覧（掲示板と同じカードスタイル） -->
-    <div class="masonry">
-      <%= render partial: "family_memories/memory",
-                 collection: @memories,
-                 as: :memory %>
-    </div>
+    <%= render "shared/memory_search_form", q: @q, url: family_memories_path %>
+
+    <% if @memories.blank? %>
+      <!-- 所属しているが投稿なし(または検索ヒットなし) -->
+      <div class="text-center text-base-content/60 mt-8">
+        <%= t('family_memories.index.empty_no_memories') %>
+      </div>
+    <% else %>
+      <!-- 家族フィード一覧（掲示板と同じカードスタイル） -->
+      <div class="masonry">
+        <%= render partial: "family_memories/memory",
+                   collection: @memories,
+                   as: :memory %>
+      </div>
+    <% end %>
   <% end %>
 </div>

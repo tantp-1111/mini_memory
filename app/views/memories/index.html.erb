@@ -19,6 +19,8 @@
     </div>
   </div>
 
+  <%= render "shared/memory_search_form", q: @q, url: memories_path %>
+
   <!-- ミニメモリ一覧 -->
   <% if @my_memories.present? %>
     <div class="masonry">

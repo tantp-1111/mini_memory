@@ -19,6 +19,8 @@
     </div>
   </div>
 
+  <%= render "shared/memory_search_form", q: @q, url: public_memories_path %>
+
   <!-- 掲示板一覧 -->
   <% if @public_memories.present? %>
     <div class="masonry">

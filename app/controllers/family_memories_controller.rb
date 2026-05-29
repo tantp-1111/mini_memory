@@ -4,7 +4,8 @@ class FamilyMemoriesController < ApplicationController
   skip_after_action :verify_authorized
 
   def index
-    @memories = policy_scope(Memory, policy_scope_class: FamilyFeedMemoryPolicy::Scope)
+    @q = policy_scope(Memory, policy_scope_class: FamilyFeedMemoryPolicy::Scope).ransack(params[:q])
+    @memories = @q.result(distinct: true)
                   .with_attached_image
                   .includes(:user)
                   .order(created_at: :desc)

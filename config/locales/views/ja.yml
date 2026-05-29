@@ -82,6 +82,9 @@ ja:
       tag_list_label: タグ (任意)
       tag_list_placeholder: "例: 石, お花屋さん, 帰り道"
       tag_list_hint: カンマ区切りで最大10個まで。30文字を超えるタグは反映されません
+    search:
+      placeholder: タイトル・本文で検索
+      submit: 検索
   public_memories:
     index:
       title: 掲示板
