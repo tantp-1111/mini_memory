@@ -7,6 +7,7 @@ ja:
       empty_no_group_subtitle: 家族グループに参加すると、メンバーが共有したミニメモリーを見られます
       go_to_mypage: マイページへ
       empty_no_memories: 家族メンバーのミニメモリーはまだありません
+      empty_no_search_results: 検索条件に一致する投稿が見つかりませんでした
       posted_by: "%{name}さんの投稿"
       new_memory_fab_label: 新規投稿
   defaults:

@@ -35,9 +35,14 @@
     <%= render "shared/memory_search_form", q: @q, url: family_memories_path %>
 
     <% if @memories.blank? %>
-      <!-- 所属しているが投稿なし(または検索ヒットなし) -->
+      <%# 検索条件が空ではない時はヒット 0 件、それ以外は「投稿がまだない」と出し分け。
+          空欄送信(?q[...]=) は ransack が無視するので values の present? で判定する。 %>
       <div class="text-center text-base-content/60 mt-8">
-        <%= t('family_memories.index.empty_no_memories') %>
+        <% if params[:q]&.values&.any?(&:present?) %>
+          <%= t('family_memories.index.empty_no_search_results') %>
+        <% else %>
+          <%= t('family_memories.index.empty_no_memories') %>
+        <% end %>
       </div>
     <% else %>
       <!-- 家族フィード一覧（掲示板と同じカードスタイル） -->
