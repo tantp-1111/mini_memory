@@ -45,9 +45,9 @@ class Memory < ApplicationRecord
     %w[title description]
   end
 
-  # 関連先検索は現状未使用のため空。将来タグ/こども絞り込みを追加するときに tags / children を許可する。
+  # tags 経由のタグクリック絞り込みを許可。children は次回 PR で追加予定。
   def self.ransackable_associations(_auth_object = nil)
-    %w[]
+    %w[tags]
   end
 
   # 定数

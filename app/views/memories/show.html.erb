@@ -75,7 +75,9 @@
           </p>
           <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm text-secondary">
             <% @memory.tags.each do |tag| %>
-              <span>#<%= tag.name %></span>
+              <%= link_to "##{tag.name}",
+                    memories_path(q: { tags_name_eq: tag.name }),
+                    class: "hover:underline" %>
             <% end %>
           </div>
         </div>
