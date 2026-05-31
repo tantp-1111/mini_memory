@@ -10,11 +10,11 @@ class MemoryPolicy < ApplicationPolicy
   def update?  = owner?
   def destroy? = owner?
   # /family_memories/:uuid 用。private_only は対象外。
-  # 投稿者本人(自分の投稿も家族フィードに並ぶため) と同じ家族グループメンバーが OK。
+  # owner ケースも family_member_of_owner? に委ねることで、家族グループ未所属の
+  # 本人が一覧 (FamilyFeedScope = 0 件) と詳細で挙動が食い違うのを防ぐ。
   def family_show?
     return false if user.nil?
     return false unless record.unlisted? || record.published?
-    return true if owner?
     family_member_of_owner?
   end
   # 公開投稿に対してリアクション可能か。判定ロジックは Memory#reactable_by? に集約。
