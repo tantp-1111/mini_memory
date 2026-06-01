@@ -45,9 +45,9 @@ class Memory < ApplicationRecord
     %w[title description]
   end
 
-  # tags 経由のタグクリック絞り込みを許可。children は次回 PR で追加予定。
+  # show ページからのタグ/こどもクリック絞り込みを許可。
   def self.ransackable_associations(_auth_object = nil)
-    %w[tags]
+    %w[tags children]
   end
 
   # 定数
