@@ -13,20 +13,25 @@
       「これは検索条件の集合体」と視覚的に伝える %>
   <div class="bg-base-200/50 border border-base-300 rounded-lg p-3 flex flex-col gap-3">
     <% if children.any? %>
-      <%# こども絞り込み (標準 checkbox - 「フォームの選択肢」とひと目で分かるよう
-          ボタン風スタイルではなく chip 風 form コントロールにする) %>
-      <% selected_child_uuids = (params.dig(:q, :children_uuid_in) || []) %>
-      <div class="flex flex-wrap gap-x-4 gap-y-2">
-        <% children.each do |child| %>
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox"
-                   name="q[children_uuid_in][]"
-                   value="<%= child.uuid %>"
-                   <%= "checked" if selected_child_uuids.include?(child.uuid) %>
-                   class="checkbox checkbox-primary checkbox-sm" />
-            <span class="text-sm"><%= child.name %></span>
-          </label>
-        <% end %>
+      <%# 絞り込み検索ラベル + こども チェックボックス
+          (標準 checkbox を使い「フォームの選択肢」とひと目で分かるようにする) %>
+      <div>
+        <p class="text-xs font-bold tracking-widest text-base-content/60 mb-2">
+          <%= t("memories.search.filter_label") %>
+        </p>
+        <% selected_child_uuids = (params.dig(:q, :children_uuid_in) || []) %>
+        <div class="flex flex-wrap gap-x-4 gap-y-2">
+          <% children.each do |child| %>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox"
+                     name="q[children_uuid_in][]"
+                     value="<%= child.uuid %>"
+                     <%= "checked" if selected_child_uuids.include?(child.uuid) %>
+                     class="checkbox checkbox-primary checkbox-sm" />
+              <span class="text-sm"><%= child.name %></span>
+            </label>
+          <% end %>
+        </div>
       </div>
     <% end %>
 

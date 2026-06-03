@@ -86,6 +86,7 @@ ja:
     search:
       placeholder: タイトル・本文・タグで検索
       submit: 検索
+      filter_label: 絞り込み検索
   public_memories:
     index:
       title: 掲示板
