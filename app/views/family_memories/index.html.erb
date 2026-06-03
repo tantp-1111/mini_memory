@@ -32,7 +32,7 @@
       </div>
     </div>
   <% else %>
-    <%= render "shared/memory_search_form", q: @q, url: family_memories_path %>
+    <%= render "shared/memory_search_form", q: @q, url: family_memories_path, children: @available_children %>
 
     <% if @memories.blank? %>
       <%# 検索条件が空ではない時はヒット 0 件、それ以外は「投稿がまだない」と出し分け。

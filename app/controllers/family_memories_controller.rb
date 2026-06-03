@@ -10,6 +10,7 @@ class FamilyMemoriesController < ApplicationController
                   .includes(:user)
                   .order(created_at: :desc)
     @has_family_group = current_user.family_groups.exists?
+    @available_children = policy_scope(Child).order(:birthday)
   end
 
   def show
