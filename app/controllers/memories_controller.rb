@@ -7,6 +7,7 @@ class MemoriesController < ApplicationController
   def index
     @q = policy_scope(Memory).ransack(params[:q])
     @my_memories = @q.result(distinct: true).with_attached_image.order(created_at: :desc)
+    @available_children = policy_scope(Child).order(:birthday)
   end
 
   def new

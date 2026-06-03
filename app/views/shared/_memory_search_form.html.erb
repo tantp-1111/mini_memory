@@ -1,11 +1,48 @@
-<%# Memory 一覧画面で再利用するキーワード検索フォーム。
-    title / description / tags.name の部分一致(ILIKE) OR で絞り込む。
-    呼び出し側で q (Ransack::Search オブジェクト) と url (検索結果を表示する index path) を渡す。 %>
+<%# Memory 一覧画面で再利用するキーワード検索 + こども絞り込みフォーム。
+    title / description / tags.name の部分一致(ILIKE) OR で絞り込み、
+    こどもチェックボックスで children_uuid_in の AND 条件を追加する。
+    呼び出し側で以下を渡す:
+      q        : Ransack::Search オブジェクト
+      url      : 検索結果を表示する index path
+      children : (省略可) 家族グループ所属こどもの ActiveRecord::Relation。
+                 未指定 / 空なら toggle section は非表示
+                 (/public_memories ではこども情報を扱わないので不要) %>
+<% children = local_assigns[:children] || [] %>
 <%= search_form_for q, url: url, method: :get, html: { class: "mb-4" } do |f| %>
-  <div class="flex gap-2">
+  <%# こども選択 + キーワード入力 + 検索ボタンを 1 つのカードにまとめて
+      「これは検索条件の集合体」と視覚的に伝える %>
+  <div class="bg-base-200/50 border border-base-300 rounded-lg p-3 flex flex-col gap-3">
+    <% if children.any? %>
+      <%# 絞り込み検索ラベル + こども チェックボックス
+          (標準 checkbox を使い「フォームの選択肢」とひと目で分かるようにする) %>
+      <div>
+        <p class="text-xs font-bold tracking-widest text-base-content/60 mb-2">
+          <%= t("memories.search.filter_label") %>
+        </p>
+        <% selected_child_uuids = (params.dig(:q, :children_uuid_in) || []) %>
+        <div class="flex flex-wrap gap-x-4 gap-y-2">
+          <% children.each do |child| %>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox"
+                     name="q[children_uuid_in][]"
+                     value="<%= child.uuid %>"
+                     <%= "checked" if selected_child_uuids.include?(child.uuid) %>
+                     class="checkbox checkbox-primary checkbox-sm" />
+              <span class="text-sm"><%= child.name %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%# キーワード入力 %>
     <%= f.search_field :title_or_description_or_tags_name_cont,
           placeholder: t("memories.search.placeholder"),
-          class: "input input-bordered input-sm bg-base-200/50 focus:bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
-    <%= f.submit t("memories.search.submit"), class: "btn btn-primary btn-sm" %>
+          class: "input input-bordered input-sm bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
+
+    <%# 検索ボタンは下段に。右寄せでフォームの締めくくり感を出す %>
+    <div class="flex justify-end">
+      <%= f.submit t("memories.search.submit"), class: "btn btn-primary btn-sm px-6" %>
+    </div>
   </div>
 <% end %>
