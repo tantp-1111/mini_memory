@@ -1,21 +1,43 @@
 # Memory に対する認可ルール。
-# 公開済み (published) 投稿は所有者以外も閲覧可能、それ以外は所有者のみ操作可能。
-#
-# Scope は MemoriesController（認証必須・自分の投稿一覧）向けに「自分の投稿のみ」を返す。
-# PublicMemoriesController は公開情報を扱うため Pundit を経由しない設計（Memory.publicly_available を直接使用）。
+# 文脈ごとに使うべきメソッド/スコープが異なる:
+# - 投稿者本人の編集動線(/memories/:uuid) → show? / update? / destroy?
+# - 家族メンバー閲覧(/family_memories/:uuid) → family_show? + FamilyFeedScope
+# - 公開掲示板(/public_memories/:uuid) は Memory.publicly_available を直接使い Pundit を経由しない
 class MemoryPolicy < ApplicationPolicy
   def index?   = true
-  def show?    = record.published? || owner? || (record.unlisted? && family_member_of_owner?)
+  def show?    = owner?
   def create?  = user.present?
   def update?  = owner?
   def destroy? = owner?
+  # /family_memories/:uuid 用。private_only は対象外。
+  # owner ケースも family_member_of_owner? に委ねることで、家族グループ未所属の
+  # 本人が一覧 (FamilyFeedScope = 0 件) と詳細で挙動が食い違うのを防ぐ。
+  def family_show?
+    return false if user.nil?
+    return false unless record.unlisted? || record.published?
+    family_member_of_owner?
+  end
   # 公開投稿に対してリアクション可能か。判定ロジックは Memory#reactable_by? に集約。
   def react?   = record.published? && record.reactable_by?(user)
 
+  # /memories index 用 - 自分の投稿のみ。
   class Scope < ApplicationPolicy::Scope
     def resolve
       return scope.none if user.nil?
       scope.where(user: user)
+    end
+  end
+
+  # /family_memories index 用 - 家族メンバー横断 (unlisted + published)。
+  # コントローラ側で policy_scope(Memory, policy_scope_class: MemoryPolicy::FamilyFeedScope) と明示。
+  # 家族グループ未所属の場合は user.family_groups が空 → subquery が空 → 結果 0 件。
+  class FamilyFeedScope < ApplicationPolicy::Scope
+    def resolve
+      return scope.none if user.nil?
+      family_user_ids = UserFamilyGroup
+                          .where(family_group_id: user.family_groups.select(:id))
+                          .select(:user_id)
+      scope.where(user_id: family_user_ids, visibility: [ :unlisted, :published ])
     end
   end
 

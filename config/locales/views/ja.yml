@@ -7,6 +7,7 @@ ja:
       empty_no_group_subtitle: 家族グループに参加すると、メンバーが共有したミニメモリーを見られます
       go_to_mypage: マイページへ
       empty_no_memories: 家族メンバーのミニメモリーはまだありません
+      empty_no_search_results: 検索条件に一致する投稿が見つかりませんでした
       posted_by: "%{name}さんの投稿"
       new_memory_fab_label: 新規投稿
   defaults:
@@ -82,6 +83,10 @@ ja:
       tag_list_label: タグ (任意)
       tag_list_placeholder: "例: 石, お花屋さん, 帰り道"
       tag_list_hint: カンマ区切りで最大10個まで。30文字を超えるタグは反映されません
+    search:
+      placeholder: タイトル・本文・タグで検索
+      submit: 検索
+      filter_label: 絞り込み検索
   public_memories:
     index:
       title: 掲示板

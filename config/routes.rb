@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   end
 
   # 家族のミニメモリ - 家族メンバー横断のフィード（unlisted + published）。
-  # 詳細表示は既存の memories#show（MemoryPolicy#show? が家族メンバー閲覧を許可）に集約する。
-  resources :family_memories, only: %i[index]
+  # show を独立させることで、タグクリック等の遷移先文脈を URL prefix で表現する。
+  resources :family_memories, param: :uuid, only: %i[index show]
 
   # 家族グループ - uuidをURLパラメータとして使用するため、param: :uuidを指定
   resources :family_groups, param: :uuid, only: %i[new create update show destroy] do

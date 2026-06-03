@@ -8,7 +8,8 @@ class PublicMemoriesController < ApplicationController
 
   # publishedのみ取得
   def index
-    @public_memories = Memory.publicly_available.with_attached_image.includes(:user).order(created_at: :desc)
+    @q = Memory.publicly_available.ransack(params[:q])
+    @public_memories = @q.result(distinct: true).with_attached_image.includes(:user).order(created_at: :desc)
   end
 
   def show

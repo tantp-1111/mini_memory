@@ -39,6 +39,17 @@ class Memory < ApplicationRecord
   # 公開投稿のみを取得するスコープ
   scope :publicly_available, -> { where(visibility: :published) }
 
+  # Ransack で検索可能なカラムの allow-list。明示しないカラムは検索クエリから弾かれる。
+  # 認可で守るべき情報(user_id, visibility 等)を意図せず晒さないため最小権限で運用する。
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description]
+  end
+
+  # show ページからのタグ/こどもクリック絞り込みを許可。
+  def self.ransackable_associations(_auth_object = nil)
+    %w[tags children]
+  end
+
   # 定数
   # 画像はwebpで保存される - 注意!
   ACCEPT_CONTENT_TYPE = [ "image/png", "image/jpg", "image/jpeg", "image/webp" ].freeze
