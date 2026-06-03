@@ -2,10 +2,16 @@
     title / description / tags.name の部分一致(ILIKE) OR で絞り込む。
     呼び出し側で q (Ransack::Search オブジェクト) と url (検索結果を表示する index path) を渡す。 %>
 <%= search_form_for q, url: url, method: :get, html: { class: "mb-4" } do |f| %>
-  <div class="flex gap-2">
+  <%# フォーム全体をカードで括って「検索条件の集合体」と視覚的に伝える %>
+  <div class="bg-base-200/50 border border-base-300 rounded-lg p-3 flex flex-col gap-3">
+    <%# キーワード入力 %>
     <%= f.search_field :title_or_description_or_tags_name_cont,
           placeholder: t("memories.search.placeholder"),
-          class: "input input-bordered input-sm bg-base-200/50 focus:bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
-    <%= f.submit t("memories.search.submit"), class: "btn btn-primary btn-sm" %>
+          class: "input input-bordered input-sm bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
+
+    <%# 検索ボタンは下段に。右寄せでフォームの締めくくり感を出す %>
+    <div class="flex justify-end">
+      <%= f.submit t("memories.search.submit"), class: "btn btn-primary btn-sm px-6" %>
+    </div>
   </div>
 <% end %>
