@@ -273,6 +273,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth :line, ENV["LINE_LOGIN_KEY"], ENV["LINE_LOGIN_SECRET"], scope: "profile openid email"
 
+  config.omniauth :google_oauth2, ENV["GOOGLE_OAUTH_CLIENT_ID"], ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
