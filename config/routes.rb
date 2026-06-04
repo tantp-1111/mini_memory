@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   end
 
   root "static_pages#top"
+  get "contact", to: "static_pages#contact"
+  get "terms",   to: "static_pages#terms"
+  get "privacy", to: "static_pages#privacy"
 
   # deviseをカスタマイズ
   devise_for :users, controllers: {
