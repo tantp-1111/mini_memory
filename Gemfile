@@ -65,8 +65,11 @@ gem "tailwindcss-rails"
 gem "devise"
 gem "devise-i18n"
 
+# Omniauth - サードパーティ認証の統合
 gem "omniauth-line"
 gem "omniauth-rails_csrf_protection"
+
+gem "omniauth-google-oauth2"
 
 # dotenv-rails - 環境変数の管理 (LINE_CHANNEL_ID, SECRET etc.)
 gem "dotenv-rails"

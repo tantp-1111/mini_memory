@@ -7,20 +7,24 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to omniauth_authorize_path(resource_name, :line),
-        method: :post,
-        data: { turbo: false },
-        form: { class: "w-full max-w-sm mx-auto" },
-        class: "relative bg-[#06C755] text-white font-bold py-3 px-6 rounded flex items-center justify-center gap-2 w-full overflow-hidden group" do %>
+  <%= button_to omniauth_authorize_path(resource_name, :line),
+      method: :post,
+      data: { turbo: false },
+      form: { class: "w-full flex justify-center" } do %>
 
-      <span class="relative z-0 flex items-center gap-2">
-        <img src="/line_icon.png" class="w-5 h-5">
-          <%= local_assigns[:button_text] || "LINEでログイン" %>
-      </span>
+    <%= image_tag "line_login_btn.png",
+      alt: "LINEでログイン",
+      class: "w-40 h-auto transition-opacity duration-200 hover:opacity-80" %>
+  <% end %>
 
-      <span class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition z-10"></span>
-    <% end %>
+  <%= button_to omniauth_authorize_path(resource_name, :google_oauth2),
+      method: :post,
+      data: { turbo: false },
+      form: { class: "w-full flex justify-center mt-4" } do %>
+
+    <%= image_tag "google_login_btn.png",
+      alt: "Googleでログイン",
+      class: "w-40 h-auto transition-opacity duration-200 hover:opacity-80" %>
   <% end %>
 <% end %>
 

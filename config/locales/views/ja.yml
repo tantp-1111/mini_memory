@@ -198,6 +198,6 @@ ja:
       logout: ログアウト
       user_create: 新規登録
       login: ログイン
-      terms_of_service: 利用規約(工事中)
-      privacy_policy: プライバシーポリシー(工事中)
-      contact: お問い合わせ(工事中)
+      terms_of_service: 利用規約
+      privacy_policy: プライバシーポリシー
+      contact: お問い合わせ

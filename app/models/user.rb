@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: %i[line]
+         :omniauthable, omniauth_providers: %i[line google_oauth2]
 
   # 定数
   ACCEPTED_CONTENT_TYPES = [ "image/png", "image/jpg", "image/jpeg" ].freeze
@@ -29,25 +29,28 @@ class User < ApplicationRecord
   validate :avatar_size
 
 
-  # OmniauthでLINEログインしたときに呼ばれるメソッド - 初回登録&二回目以降のログイン両方で使用
+  # Omniauth ログイン時に呼ばれるメソッド（LINE / Google 共通）
+  # 初回登録&二回目以降のログイン両方で使用
+  #
+  # email/name は LINE で欠落することがあるため fallback を用意
+  # （Google は通常欠けないが、スコープ拒否等のケースに備えて防御的に同じ処理）
   def self.from_omniauth(auth)
     user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
+    return user unless user.new_record?
 
-    if user.new_record?
-      user.email =
-      auth.info.email.presence ||
-      "#{auth.uid}-#{auth.provider}@example.com"
-
-      user.name =
-      auth.info.name.presence ||
-      "LINEユーザー"
-
-      user.password = Devise.friendly_token[0, 20]
-
-      user.save
-    end
-
+    user.email    = auth.info.email.presence || "#{auth.uid}-#{auth.provider}@example.com"
+    user.name     = auth.info.name.presence  || default_name_for(auth.provider)
+    user.password = Devise.friendly_token[0, 20]
+    user.save
     user
+  end
+
+  # provider 別のデフォルト表示名
+  def self.default_name_for(provider)
+    {
+      "line" => "LINEユーザー",
+      "google_oauth2" => "Googleユーザー"
+    }.fetch(provider, "ユーザー")
   end
 
   # アバター画像が添付されているかを判定
