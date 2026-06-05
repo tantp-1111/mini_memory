@@ -4,25 +4,47 @@ RailsAdmin.config do |config|
   ### Popular gems integration
 
   ## == Devise ==
-  # config.authenticate_with do
-  #   warden.authenticate! scope: :user
-  # end
-  # config.current_user_method(&:current_user)
+  # ログイン必須にする（未ログインは /users/sign_in にリダイレクト）
+  config.authenticate_with do
+    warden.authenticate! scope: :user
+  end
+  config.current_user_method(&:current_user)
 
-  ## == CancanCan ==
-  # config.authorize_with :cancancan
+  ## == 認可 ==
+  # admin? が true のユーザーのみアクセス可。それ以外はトップへ戻す
+  config.authorize_with do
+    redirect_to main_app.root_path unless current_user&.admin?
+  end
 
-  ## == Pundit ==
-  # config.authorize_with :pundit
+  ## == 管理対象モデル ==
+  # 表示するモデルを明示的に限定（書き漏れたモデルは管理画面に出ない＝安全側）
+  config.included_models = %w[User Memory FamilyGroup Child Tag Reaction]
 
-  ## == PaperTrail ==
-  # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-
-  ### More at https://github.com/railsadminteam/rails_admin/wiki/Base-configuration
-
-  ## == Gravatar integration ==
-  ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
+  ## == ナビゲーションラベル ==
+  config.model "User" do
+    label "ユーザー"
+    label_plural "ユーザー"
+  end
+  config.model "Memory" do
+    label "ミニメモリ"
+    label_plural "ミニメモリ"
+  end
+  config.model "FamilyGroup" do
+    label "家族グループ"
+    label_plural "家族グループ"
+  end
+  config.model "Child" do
+    label "こども"
+    label_plural "こども"
+  end
+  config.model "Tag" do
+    label "タグ"
+    label_plural "タグ"
+  end
+  config.model "Reaction" do
+    label "リアクション"
+    label_plural "リアクション"
+  end
 
   config.actions do
     dashboard                     # mandatory
