@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   # ログインしているユーザーとそうでないユーザーでルートを分ける
   # ログインしているユーザーはダッシュボードのトップへ、そうでないユーザーは静的ページのトップへ
   authenticated :user do

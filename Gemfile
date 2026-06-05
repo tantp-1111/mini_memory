@@ -89,6 +89,12 @@ gem "pundit"
 # Ransack - 検索クエリビルダー
 gem "ransack"
 
+# rails_admin - 管理画面（運営者向け CRUD UI）
+gem "rails_admin", "~> 3.0"
+
+# sassc-rails - rails_admin のスタイル（SCSS）コンパイル用
+gem "sassc-rails"
+
 group :development, :test do
   # debug - デバッグツール
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
