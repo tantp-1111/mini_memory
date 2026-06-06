@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
-  <footer class="fixed bottom-0 w-full px-4 py-4">
-    <div class="dock bg-base-100 text-neutral dock-xs md:dock-xl">
+  <footer class="fixed bottom-0 w-full">
+    <div class="dock bg-base-100 text-neutral dock-md md:dock-xl">
       <%# ホームボタン %>
       <%= link_to root_path, class: "flex flex-col items-center justify-center text-xs #{active_if("dashboard")}" do %>
         <span class="text-xl">
