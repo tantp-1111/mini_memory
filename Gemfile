@@ -56,7 +56,7 @@ gem "bootsnap", require: false
 
 # image_processing - 画像処理とバリアント生成
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
 
 # Tailwind CSS - ユーティリティファーストなCSSフレームワーク
 gem "tailwindcss-rails"
@@ -88,6 +88,12 @@ gem "pundit"
 
 # Ransack - 検索クエリビルダー
 gem "ransack"
+
+# rails_admin - 管理画面（運営者向け CRUD UI）
+gem "rails_admin", "~> 3.0"
+
+# sassc-rails - rails_admin のスタイル（SCSS）コンパイル用
+gem "sassc-rails"
 
 group :development, :test do
   # debug - デバッグツール
