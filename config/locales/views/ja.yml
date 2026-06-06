@@ -1,7 +1,7 @@
 ja:
   family_memories:
     index:
-      title: 家族のミニメモリ
+      title: 家族メモリ
       subtitle: 家族メンバーが共有したミニメモリーを一覧で見られます
       empty_no_group_title: 家族グループに所属していません
       empty_no_group_subtitle: 家族グループに参加すると、メンバーが共有したミニメモリーを見られます
@@ -178,13 +178,13 @@ ja:
     home: ホーム
     mini_memory: ミニメモリ
     new_memory: 新規投稿
-    family_memory: 家族のミニメモリ
+    family_memory: 家族メモリ
     board: 掲示板
     enjoy: 楽しむ
   drawer:
     summary:
       mini_memory: 私のミニメモリ
-      family_mini_memory: 家族のミニメモリ
+      family_mini_memory: 家族メモリ
       everyone_mini_memory: みんなのミニメモリ
       account: アカウント
       others: その他
@@ -192,7 +192,7 @@ ja:
       create_memory: 新規投稿
       memory_index: ミニメモリ一覧
       enjoy: 楽しむ
-      family_memory_index: 家族のミニメモリ一覧
+      family_memory_index: 家族メモリ一覧
       board: 掲示板
       mypage: マイページ
       logout: ログアウト
