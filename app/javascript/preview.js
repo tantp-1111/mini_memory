@@ -47,6 +47,11 @@ function renderAvatarPreview(file) {
     const container = document.getElementById('avatar-preview');
     if (!container) return;
 
+    // Turbo back キャッシュ復帰時に元の表示（添付済み画像 or placeholder）を戻せるよう原 HTML を保持
+    if (!container.dataset.originalHtml) {
+        container.dataset.originalHtml = container.innerHTML;
+    }
+
     revokeCurrentObjectUrl();
     currentObjectUrl = window.URL.createObjectURL(file);
 
@@ -90,5 +95,12 @@ document.addEventListener('turbo:before-cache', () => {
     if (fileNameEl) {
         fileNameEl.textContent = '';
         fileNameEl.classList.add('hidden');
+    }
+
+    // アバタープレビューは原 HTML を退避していれば戻す
+    const avatarPreview = document.getElementById('avatar-preview');
+    if (avatarPreview?.dataset.originalHtml) {
+        avatarPreview.innerHTML = avatarPreview.dataset.originalHtml;
+        delete avatarPreview.dataset.originalHtml;
     }
 });
