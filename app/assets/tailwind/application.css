@@ -2,3 +2,14 @@
 @plugin "daisyui" {
   themes: autumn --default, night;
 }
+
+/* autumn テーマの赤系をロゴカラー（黄緑・黄）で上書き
+   - primary（暗い赤）   → #87B63B（ロゴの葉/茎の黄緑）
+   - secondary（明るい赤）→ #FFAA22（ロゴの実の黄）
+   - content はコントラスト確保のため明色背景にダーク文字 */
+[data-theme="autumn"] {
+  --color-primary: #87B63B;
+  --color-primary-content: #1f2937;
+  --color-secondary: #FFAA22;
+  --color-secondary-content: #1f2937;
+}
