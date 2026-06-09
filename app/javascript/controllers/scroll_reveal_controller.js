@@ -20,7 +20,7 @@ export default class extends Controller {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
-          setTimeout(() => this.reveal(), this.delayValue)
+          this.timerId = setTimeout(() => this.reveal(), this.delayValue)
           this.observer.unobserve(entry.target)
         })
       },
@@ -31,6 +31,7 @@ export default class extends Controller {
 
   disconnect() {
     this.observer?.disconnect()
+    if (this.timerId) clearTimeout(this.timerId)
   }
 
   reveal() {
