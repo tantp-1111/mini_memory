@@ -96,8 +96,11 @@ gem "ransack"
 # rails_admin - 管理画面（運営者向け CRUD UI）
 gem "rails_admin", "~> 3.0"
 
-# sassc-rails - rails_admin のスタイル（SCSS）コンパイル用
-gem "sassc-rails"
+# dartsass-sprockets - rails_admin のスタイル（SCSS）コンパイル用
+# sassc-rails (libsass) は 2020 年からメンテ停止しており、
+# CSS Color Level 4 構文（rgb(from ...) など）で precompile が失敗するため、
+# Dart Sass (公式実装) ベースの dartsass-sprockets に置き換える
+gem "dartsass-sprockets"
 
 group :development, :test do
   # debug - デバッグツール
