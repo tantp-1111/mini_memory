@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   # ログインしているユーザーとそうでないユーザーでルートを分ける
   # ログインしているユーザーはダッシュボードのトップへ、そうでないユーザーは静的ページのトップへ
   authenticated :user do
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
     resources :reactions, only: %i[create destroy], param: :reaction_type
   end
 
-  # 家族のミニメモリ - 家族メンバー横断のフィード（unlisted + published）。
+  # 家族メモリ - 家族メンバー横断のフィード（unlisted + published）。
   # show を独立させることで、タグクリック等の遷移先文脈を URL prefix で表現する。
   resources :family_memories, param: :uuid, only: %i[index show]
 

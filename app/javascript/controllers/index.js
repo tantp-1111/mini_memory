@@ -12,3 +12,6 @@ application.register("clipboard", ClipboardController)
 
 import MemoryChildrenController from "./memory_children_controller"
 application.register("memory-children", MemoryChildrenController)
+
+import ScrollRevealController from "./scroll_reveal_controller"
+application.register("scroll-reveal", ScrollRevealController)

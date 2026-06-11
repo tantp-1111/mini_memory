@@ -19,6 +19,7 @@
         <summary><%= t('drawer.summary.family_mini_memory') %></summary>
         <ul>
           <li><%= link_to t('drawer.list.family_memory_index'), family_memories_path %></li>
+          <li><%= link_to t('drawer.list.family_group_settings'), mypage_path %></li>
         </ul>
       </details>
     </li>
@@ -61,7 +62,13 @@
     </details>
   </li>
 
-  <li class="mt-auto text-center text-sm opacity-60 py-4">
-    © Mini memory
+  <% if user_signed_in? && current_user.admin? %>
+    <li>
+      <%= link_to t('drawer.list.admin_panel'), rails_admin_path, target: "_blank", rel: "noopener" %>
+    </li>
+  <% end %>
+
+  <li class="mt-auto text-center text-xs opacity-50 py-4">
+    © 2026 minimemory
   </li>
 </ul>
