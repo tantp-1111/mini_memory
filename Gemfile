@@ -58,6 +58,10 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
 
+# ruby-vips - image_processing の Vips バックエンドに必要
+# image_processing 2.x から runtime 依存ではなくなったため明示
+gem "ruby-vips", "~> 2.0"
+
 # Tailwind CSS - ユーティリティファーストなCSSフレームワーク
 gem "tailwindcss-rails"
 
