@@ -153,4 +153,62 @@ RSpec.describe Memory, type: :model do
     end
   end
 
+  describe "#sync_tags_from_input (after_save)" do
+    let(:user) { create(:user) }
+
+    it "tag_list_input が nil なら何もしない（early return）" do
+      memory = create(:memory, user: user, tag_list_input: nil)
+      expect(memory.tags).to be_empty
+    end
+
+    it "空文字または空白のみは 0 件" do
+      memory = create(:memory, user: user, tag_list_input: "")
+      expect(memory.tags).to be_empty
+    end
+
+    it "空白カンマのみの入力も 0 件（reject(&:blank?)）" do
+      memory = create(:memory, user: user, tag_list_input: "  ,  ,  ")
+      expect(memory.tags).to be_empty
+    end
+
+    it "カンマ区切り入力からタグを作成する" do
+      memory = create(:memory, user: user, tag_list_input: "どんぐり,葉っぱ,折り紙")
+      expect(memory.tags.map(&:name)).to contain_exactly("どんぐり", "葉っぱ", "折り紙")
+    end
+
+    it "各タグの前後の空白は strip される" do
+      memory = create(:memory, user: user, tag_list_input: " どんぐり , 葉っぱ ")
+      expect(memory.tags.map(&:name)).to contain_exactly("どんぐり", "葉っぱ")
+    end
+
+    it "重複したタグは除外される" do
+      memory = create(:memory, user: user, tag_list_input: "どんぐり,どんぐり,葉っぱ")
+      expect(memory.tags.map(&:name)).to contain_exactly("どんぐり", "葉っぱ")
+    end
+
+    it "TAG_LIMIT (10) を超える分は無視される" do
+      names = (1..15).map { |n| "tag#{n}" }
+      memory = create(:memory, user: user, tag_list_input: names.join(","))
+      expect(memory.tags.count).to eq(Memory::TAG_LIMIT)
+      expect(memory.tags.map(&:name)).to contain_exactly(*names.first(Memory::TAG_LIMIT))
+    end
+
+    it "TAG_MAX_LENGTH (30) を超えるタグは黙って無視される" do
+      long_name = "あ" * (Memory::TAG_MAX_LENGTH + 1)
+      memory = create(:memory, user: user, tag_list_input: "#{long_name},短いタグ")
+      expect(memory.tags.map(&:name)).to contain_exactly("短いタグ")
+    end
+
+    it "作成されたタグは投稿者の user に紐付く" do
+      memory = create(:memory, user: user, tag_list_input: "テスト")
+      expect(memory.tags.first.user).to eq(user)
+    end
+
+    it "既存タグがあれば再作成せず参照する（find_or_create_by!）" do
+      user.tags.create!(name: "既存")
+      expect {
+        create(:memory, user: user, tag_list_input: "既存,新規")
+      }.to change { user.tags.count }.by(1) # 新規 1 件のみ追加
+    end
+  end
 end
