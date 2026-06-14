@@ -2,7 +2,7 @@ class Reaction < ApplicationRecord
   belongs_to :user
   belongs_to :memory
 
-  enum reaction_type: {
+  enum :reaction_type, {
     thumbs_up: 0,
     clap: 1,
     heart: 2,
