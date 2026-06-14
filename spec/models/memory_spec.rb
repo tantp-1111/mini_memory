@@ -80,4 +80,77 @@ RSpec.describe Memory, type: :model do
       expect(memory.to_param).to eq(memory.uuid)
     end
   end
+
+  describe "image の content_type バリデーション" do
+    let(:memory) { build(:memory) }
+
+    it "factory デフォルトの PNG は valid" do
+      expect(memory).to be_valid
+    end
+
+    it "JPEG / WEBP も valid" do
+      %w[image/jpeg image/webp].each do |type|
+        m = build(:memory)
+        m.image.attach(
+          io: Rails.root.join("spec/fixtures/files/test_image_200x200.png").open,
+          filename: "test.#{type.split('/').last}",
+          content_type: type
+        )
+        expect(m).to be_valid, "#{type} should be valid"
+      end
+    end
+
+    it "許可外の content_type は invalid" do
+      memory.image.attach(
+        io: StringIO.new("malicious payload"),
+        filename: "evil.exe",
+        content_type: "application/octet-stream"
+      )
+      expect(memory).not_to be_valid
+      expect(memory.errors[:image]).to include("はJPEG、JPG、PNGのみアップロード可能です")
+    end
+  end
+
+  describe "image の size バリデーション" do
+    let(:memory) { build(:memory) }
+
+    it "10MB ちょうどは valid" do
+      allow(memory.image.blob).to receive(:byte_size).and_return(Memory::MAX_IMAGE_SIZE)
+      expect(memory).to be_valid
+    end
+
+    it "10MB を超える image は invalid" do
+      allow(memory.image.blob).to receive(:byte_size).and_return(Memory::MAX_IMAGE_SIZE + 1)
+      expect(memory).not_to be_valid
+      expect(memory.errors[:image]).to include("は10MB以下にしてください")
+    end
+  end
+
+  describe "children_must_belong_to_user_family_group バリデーション" do
+    let(:user) { create(:user) }
+    let(:family_group) { create(:family_group) }
+    before { create(:user_family_group, user: user, family_group: family_group) }
+
+    it "children が空なら valid" do
+      memory = build(:memory, user: user)
+      expect(memory).to be_valid
+    end
+
+    it "user の家族グループに属する children なら valid" do
+      child = create(:child, family_group: family_group)
+      memory = build(:memory, user: user)
+      memory.children = [ child ]
+      expect(memory).to be_valid
+    end
+
+    it "user の家族グループに属さない children を紐付けると invalid" do
+      other_group = create(:family_group)
+      other_child = create(:child, family_group: other_group)
+      memory = build(:memory, user: user)
+      memory.children = [ other_child ]
+      expect(memory).not_to be_valid
+      expect(memory.errors[:children]).to be_present
+    end
+  end
+
 end
