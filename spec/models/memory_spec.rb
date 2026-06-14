@@ -68,4 +68,16 @@ RSpec.describe Memory, type: :model do
       expect(memory.reactable_by?(nil)).to be false
     end
   end
+
+  describe "factory" do
+    # factory はデフォルトで image を attach するので create でも save できる
+    it "create(:memory) で永続化できる" do
+      expect { create(:memory) }.to change(Memory, :count).by(1)
+    end
+
+    it "create(:memory) は uuid を URL パラメータとして返す" do
+      memory = create(:memory)
+      expect(memory.to_param).to eq(memory.uuid)
+    end
+  end
 end
