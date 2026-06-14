@@ -21,6 +21,17 @@ module Myapp
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # RSpec をデフォルトのテストフレームワークに設定
+    # fixture は factory_bot で代替するため生成しない
+    config.generators do |g|
+      g.test_framework :rspec,
+        fixtures: false,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
