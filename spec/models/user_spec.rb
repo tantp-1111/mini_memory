@@ -172,4 +172,106 @@ RSpec.describe User, type: :model do
       expect(User.default_name_for("twitter")).to eq("ユーザー")
     end
   end
+
+  describe ".from_omniauth" do
+    # omniauth の auth ハッシュは Hashie::Mash でメソッドアクセスできる構造のため、
+    # OpenStruct で必要なメソッドだけ持つ偽物を作って模す（テストモードより軽量）。
+    def build_auth(provider:, uid:, email:, name:)
+      OpenStruct.new(
+        provider: provider,
+        uid: uid,
+        info: OpenStruct.new(email: email, name: name)
+      )
+    end
+
+    context "新規ユーザーで email / name が揃っているとき" do
+      let(:auth) do
+        build_auth(provider: "line", uid: "U1234567890",
+                   email: "taro@example.com", name: "山田太郎")
+      end
+
+      it "新規 User を作成する" do
+        expect { User.from_omniauth(auth) }.to change(User, :count).by(1)
+      end
+
+      it "auth.info.email をそのまま使う" do
+        user = User.from_omniauth(auth)
+        expect(user.email).to eq("taro@example.com")
+      end
+
+      it "auth.info.name をそのまま使う" do
+        user = User.from_omniauth(auth)
+        expect(user.name).to eq("山田太郎")
+      end
+
+      it "provider と uid が保存される" do
+        user = User.from_omniauth(auth)
+        expect(user.provider).to eq("line")
+        expect(user.uid).to eq("U1234567890")
+      end
+    end
+
+    context "新規ユーザーで email が欠落しているとき" do
+      let(:auth) do
+        build_auth(provider: "line", uid: "U1234567890",
+                   email: nil, name: "山田太郎")
+      end
+
+      # Devise の :database_authenticatable は保存前に email を downcase するため、
+      # 期待値も小文字にする（LINE の uid は大文字始まりだが結果は全て小文字）
+      it "uid-provider@example.com を fallback として使う（downcase 後）" do
+        user = User.from_omniauth(auth)
+        expect(user.email).to eq("u1234567890-line@example.com")
+      end
+    end
+
+    context "新規ユーザーで name が欠落しているとき" do
+      let(:auth) do
+        build_auth(provider: "line", uid: "U1234567890",
+                   email: "taro@example.com", name: nil)
+      end
+
+      it "provider 別のデフォルト名（LINEユーザー）に fallback する" do
+        user = User.from_omniauth(auth)
+        expect(user.name).to eq("LINEユーザー")
+      end
+    end
+
+    context "新規ユーザーで google_oauth2 から name が欠落しているとき" do
+      let(:auth) do
+        build_auth(provider: "google_oauth2", uid: "google-uid-123",
+                   email: "hanako@example.com", name: nil)
+      end
+
+      it "Googleユーザー に fallback する" do
+        user = User.from_omniauth(auth)
+        expect(user.name).to eq("Googleユーザー")
+      end
+    end
+
+    context "既存ユーザーで provider/uid が一致するとき" do
+      let!(:existing_user) do
+        create(:user,
+               provider: "line",
+               uid: "U1234567890",
+               email: "existing@example.com",
+               name: "既存名")
+      end
+
+      let(:auth) do
+        build_auth(provider: "line", uid: "U1234567890",
+                   email: "ignored@example.com", name: "無視される名前")
+      end
+
+      it "新規作成せず既存ユーザーを返す" do
+        expect { User.from_omniauth(auth) }.not_to change(User, :count)
+      end
+
+      it "既存ユーザーの email / name を上書きしない" do
+        user = User.from_omniauth(auth)
+        expect(user.email).to eq("existing@example.com")
+        expect(user.name).to eq("既存名")
+      end
+    end
+  end
 end
