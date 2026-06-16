@@ -158,4 +158,18 @@ RSpec.describe User, type: :model do
       expect(user.errors[:avatar]).to include("は5MB以下にしてください")
     end
   end
+
+  describe ".default_name_for" do
+    it "line provider は LINEユーザー を返す" do
+      expect(User.default_name_for("line")).to eq("LINEユーザー")
+    end
+
+    it "google_oauth2 provider は Googleユーザー を返す" do
+      expect(User.default_name_for("google_oauth2")).to eq("Googleユーザー")
+    end
+
+    it "未知の provider はフォールバックで ユーザー を返す" do
+      expect(User.default_name_for("twitter")).to eq("ユーザー")
+    end
+  end
 end
