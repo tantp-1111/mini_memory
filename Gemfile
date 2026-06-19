@@ -114,6 +114,13 @@ group :development, :test do
   # RuboCop Rails Omakase - Railsのコードスタイル統一
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # RSpec - テストフレームワーク（CLAUDE.md で標準として規定）
+  gem "rspec-rails"
+
+  # factory_bot_rails - テストデータ生成
+  # console でも factory を呼びたいので development グループにも含める
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -132,4 +139,7 @@ group :test do
 
   # minitest - テストの安定性向上のためv5に固定
   gem "minitest", "~> 5.25"
+
+  # shoulda-matchers - Rails 慣用テストの一行記法
+  gem "shoulda-matchers", "~> 6.0"
 end
