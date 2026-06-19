@@ -82,6 +82,24 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: bundle exec rspec
 
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/.last_run.json ]; then
+            LINE=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json")).dig("result","line")')
+            BRANCH=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json")).dig("result","branch")')
+            {
+              echo "## Coverage"
+              echo ""
+              echo "| Metric | Coverage |"
+              echo "| --- | --- |"
+              echo "| Line   | ${LINE}% |"
+              echo "| Branch | ${BRANCH}% |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "coverage/.last_run.json not found — RSpec may have failed before SimpleCov could finalize." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v6
         if: failure()
