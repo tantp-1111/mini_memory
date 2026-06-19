@@ -141,5 +141,5 @@ group :test do
   gem "minitest", "~> 5.25"
 
   # shoulda-matchers - Rails 慣用テストの一行記法
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 8.0"
 end
