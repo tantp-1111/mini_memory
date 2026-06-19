@@ -439,7 +439,7 @@ GEM
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
-    rubyzip (3.2.2)
+    rubyzip (3.4.0)
     sass-embedded (1.100.0-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
     sass-embedded (1.100.0-aarch64-linux-musl)
@@ -459,7 +459,7 @@ GEM
     sassc-embedded (1.80.8)
       sass-embedded (~> 1.80)
     securerandom (0.4.1)
-    selenium-webdriver (4.40.0)
+    selenium-webdriver (4.45.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
