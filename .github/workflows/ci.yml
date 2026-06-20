@@ -83,8 +83,14 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Build CSS / JS assets
+      # stylesheet_link_tag "tailwind" は app/assets/builds/tailwind.css を読み込む。
+      # この成果物は tailwindcss-rails gem 提供の tailwindcss:build タスクで生成され、
+      # npm run build:css (出力先: application.css) とは別物のため両方走らせる必要がある。
+      - name: Build assets
+        env:
+          RAILS_ENV: test
         run: |
+          bin/rails tailwindcss:build
           npm run build:css
           npm run build
 
