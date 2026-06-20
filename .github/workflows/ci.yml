@@ -69,6 +69,25 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # ローカルでは bin/dev / yarn build が app/assets/builds/ を生成しているが、
+      # CI ではビルド成果物が .gitignore で除外されているため明示的にビルドする。
+      # これを行わないと stylesheet_link_tag "tailwind" が
+      # 代替で application.tailwind.css (SCSS) を読み込み、
+      # dartsass-sprockets が Tailwind 出力を SCSS として parse して失敗する。
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Build CSS / JS assets
+        run: |
+          npm run build:css
+          npm run build
+
       - name: Run tests
         env:
           RAILS_ENV: test
