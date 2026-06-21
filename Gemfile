@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0"
 
 # Sprockets - アセットパイプラインの管理
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -141,5 +141,9 @@ group :test do
   gem "minitest", "~> 5.25"
 
   # shoulda-matchers - Rails 慣用テストの一行記法
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 8.0"
+
+  # SimpleCov - テストカバレッジ計測
+  # spec_helper.rb の冒頭で require して start させる必要があるため require: false
+  gem "simplecov", require: false
 end

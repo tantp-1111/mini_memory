@@ -69,6 +69,31 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # ローカルでは bin/dev / yarn build が app/assets/builds/ を生成しているが、
+      # CI ではビルド成果物が .gitignore で除外されているため明示的にビルドする。
+      # これを行わないと stylesheet_link_tag "tailwind" が
+      # 代替で application.tailwind.css (SCSS) を読み込み、
+      # dartsass-sprockets が Tailwind 出力を SCSS として parse して失敗する。
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm install
+
+      # stylesheet_link_tag "tailwind" は app/assets/builds/tailwind.css を読み込む。
+      # この成果物は tailwindcss-rails gem 提供の tailwindcss:build タスクで生成され、
+      # npm run build:css (出力先: application.css) とは別物のため両方走らせる必要がある。
+      - name: Build assets
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails tailwindcss:build
+          npm run build:css
+          npm run build
+
       - name: Run tests
         env:
           RAILS_ENV: test
@@ -81,6 +106,24 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: bundle exec rspec
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/.last_run.json ]; then
+            LINE=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json")).dig("result","line")')
+            BRANCH=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json")).dig("result","branch")')
+            {
+              echo "## Coverage"
+              echo ""
+              echo "| Metric | Coverage |"
+              echo "| --- | --- |"
+              echo "| Line   | ${LINE}% |"
+              echo "| Branch | ${BRANCH}% |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "coverage/.last_run.json not found — RSpec may have failed before SimpleCov could finalize." >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v6
