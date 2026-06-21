@@ -101,45 +101,6 @@ jobs:
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 
-      # ===== 診断ステップ (CI で Sass エラーが起きる原因を特定する用) =====
-      - name: Diagnose - filesystem
-        if: always()
-        run: |
-          echo "=== app/assets/builds/ ==="
-          ls -la app/assets/builds/ || true
-          echo ""
-          echo "=== app/assets/stylesheets/ ==="
-          ls -la app/assets/stylesheets/ || true
-          echo ""
-          echo "=== built tailwind.css head ==="
-          head -c 300 app/assets/builds/tailwind.css || true
-          echo ""
-          echo "=== built application.css head ==="
-          head -c 300 app/assets/builds/application.css || true
-
-      - name: Diagnose - sprockets resolution
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: |
-          bundle exec rails runner '
-            puts "=== assets.paths ==="
-            Rails.application.config.assets.paths.each { |p| puts p }
-            puts ""
-            puts "=== Sprockets resolve tailwind ==="
-            puts Rails.application.assets.resolve("tailwind").to_s
-            puts ""
-            puts "=== Sprockets resolve application ==="
-            puts Rails.application.assets.resolve("application").to_s
-            puts ""
-            puts "=== Find asset tailwind processors ==="
-            asset = Rails.application.assets.find_asset("tailwind")
-            puts "pathname:    #{asset&.pathname}"
-            puts "content_type: #{asset&.content_type}"
-            puts "first 300 chars of source:"
-            puts asset&.source&.byteslice(0, 300)
-          '
-
       - name: Run RSpec
         env:
           RAILS_ENV: test
