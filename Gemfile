@@ -141,7 +141,7 @@ group :test do
   gem "minitest", "~> 5.25"
 
   # shoulda-matchers - Rails 慣用テストの一行記法
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 8.0"
 
   # SimpleCov - テストカバレッジ計測
   # spec_helper.rb の冒頭で require して start させる必要があるため require: false
