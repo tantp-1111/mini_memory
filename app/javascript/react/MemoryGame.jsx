@@ -141,7 +141,9 @@ const ScoreBoard = ({ moves, pairs, total, onReset }) => (
 const ClearModal = ({ moves, total, onReset }) => {
   // クリア時に画面両端から紙吹雪を約 1.5 秒間連続発射する。
   // requestAnimationFrame ループはモーダル unmount 時に active フラグで停止させる。
+  // prefers-reduced-motion 設定のユーザーには紙吹雪を発射しない。
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     let active = true
     const end = Date.now() + 1500
     const colors = ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1", "#ee5a6f", "#a55eea"]
@@ -157,8 +159,8 @@ const ClearModal = ({ moves, total, onReset }) => {
 
   return (
     <div className="modal modal-open">
-      <div className="modal-box text-center animate-pop-in">
-        <div className="text-7xl mb-3 inline-block animate-bounce">🎉</div>
+      <div className="modal-box text-center motion-safe:animate-pop-in">
+        <div className="text-7xl mb-3 inline-block motion-safe:animate-bounce">🎉</div>
         <h3 className="font-bold text-3xl mb-2 text-primary">やったね！</h3>
         <p className="text-base-content/80 text-lg mb-4">
           ぜんぶ あわせられたね！
