@@ -434,6 +434,11 @@ braces@^3.0.3:
   dependencies:
     fill-range "^7.1.1"
 
+canvas-confetti@^1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/canvas-confetti/-/canvas-confetti-1.9.4.tgz#4412a5daa96afd0b4d70ecd66b65ce8db3022b2b"
+  integrity sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw==
+
 daisyui@^5.5.14:
   version "5.5.14"
   resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-5.5.14.tgz#818487da886730f6338f51d0414c32159c297cad"
