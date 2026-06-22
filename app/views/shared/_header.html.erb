@@ -10,7 +10,10 @@
 
   <!-- 中央タイトル -->
   <div class="navbar-center">
-    <%= link_to "minimemory", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to root_path, class: "btn btn-ghost gap-2" do %>
+      <%= image_tag "/minimemory_icon.svg", alt: "", aria: { hidden: true }, class: "h-8 w-auto" %>
+      <span class="text-xl">minimemory</span>
+    <% end %>
   </div>
 
   <!-- ユーザーアイコン -->
