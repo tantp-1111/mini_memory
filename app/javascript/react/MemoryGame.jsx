@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from "react"
+import confetti from "canvas-confetti"
 
 // ── ユーティリティ ──────────────────────────────
 const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5)
@@ -137,30 +138,56 @@ const ScoreBoard = ({ moves, pairs, total, onReset }) => (
 )
 
 // ── クリアモーダル ──────────────────────────────
-const ClearModal = ({ moves, total, onReset }) => (
-  <div className="modal modal-open">
-    <div className="modal-box text-center">
-      <div className="text-6xl mb-4">🎉</div>
-      <h3 className="font-bold text-2xl mb-1">クリア！</h3>
-      <p className="text-base-content/70 mb-4">
-        <span className="text-primary font-bold text-xl">{moves}</span>
-        {" "}手でクリアしました！
-      </p>
-      <div className="divider" />
-      <p className="text-sm text-base-content/50 mb-4">
-        使用した思い出: {total}件
-      </p>
-      <div className="modal-action justify-center gap-3">
-        <button className="btn btn-primary" onClick={onReset}>
-          もう一度
-        </button>
-        <a href="/memories" className="btn btn-ghost">
-          投稿一覧へ
-        </a>
+const ClearModal = ({ moves, total, onReset }) => {
+  // クリア時に画面両端から紙吹雪を約 1.5 秒間連続発射する。
+  // requestAnimationFrame ループはモーダル unmount 時に active フラグで停止させる。
+  useEffect(() => {
+    let active = true
+    const end = Date.now() + 1500
+    const colors = ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1", "#ee5a6f", "#a55eea"]
+    const tick = () => {
+      if (!active) return
+      confetti({ particleCount: 5, angle: 60,  spread: 55, origin: { x: 0 }, colors })
+      confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors })
+      if (Date.now() < end) requestAnimationFrame(tick)
+    }
+    tick()
+    return () => { active = false }
+  }, [])
+
+  return (
+    <div className="modal modal-open">
+      <div className="modal-box text-center animate-pop-in">
+        <div className="text-7xl mb-3 inline-block animate-bounce">🎉</div>
+        <h3 className="font-bold text-3xl mb-2 text-primary">やったね！</h3>
+        <p className="text-base-content/80 text-lg mb-4">
+          ぜんぶ あわせられたね！
+        </p>
+
+        <div className="bg-base-200 rounded-2xl px-6 py-4 mb-4 inline-block">
+          <p className="text-xs text-base-content/60 mb-1">てすう</p>
+          <p className="text-4xl font-bold text-primary leading-none">
+            {moves}
+            <span className="text-base font-normal text-base-content/70"> てで クリア</span>
+          </p>
+        </div>
+
+        <p className="text-sm text-base-content/50 mb-5">
+          おもいでをつかったよ: {total}まい
+        </p>
+
+        <div className="modal-action justify-center gap-3">
+          <button className="btn btn-primary" onClick={onReset}>
+            もういちど あそぶ
+          </button>
+          <a href="/memories" className="btn btn-ghost">
+            おもいでをみる
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 // ── 投稿不足 ────────────────────────────────────
 const InsufficientAlert = ({ needed }) => (
@@ -334,8 +361,8 @@ export default function MemoryGame() {
 
   return (
     <div className="min-h-screen bg-base-200 flex flex-col items-center py-10 px-4">
-      <h1 className="text-3xl font-bold mb-2">ミニメモリー神経衰弱🃏</h1>
-      <p className="text-base-content/60 mb-8">あなたのミニメモリーをカードゲームで振り返ろう</p>
+      <h1 className="text-3xl font-bold mb-2">おもいでカードあわせ✨</h1>
+      <p className="text-base-content/60 mb-8">おなじカードを みつけてみよう！</p>
 
       {status === "loading" && (
         <span className="loading loading-spinner loading-lg text-primary" />
