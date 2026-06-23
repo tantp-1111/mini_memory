@@ -142,7 +142,7 @@ https://minimemory.jp/
 | CI/CD | GitHub Actions（Brakeman / RuboCop / RSpec / SimpleCov ） |
 | ホスティング | Render |
 
-## ✅技術選定の理由
+### ✅技術選定の理由
 
   #### 言語 / FW: Ruby / Ruby on Rails
   Rails の「設定より規約」という原則により、アプリケーションの細かな設定を大幅に減らし、開発時間を短縮できると考え採用しました。Web アプリケーションに必要な標準機能が一通り揃っており、個人開発でも迅速にアプリケーションを構築できる点も理由のひとつです。
