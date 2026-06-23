@@ -76,7 +76,7 @@ https://minimemory.jp/
 ### 🍃捨てられないモノの思い出記録機能
 | 思い出の作成 | 思い出の詳細 |
 |:--:|:--:|
-| <img src="https://i.gyazo.com/4d049e6a8f3184cf5886d4d72df569c0.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/abcedd9d2df2a739ee0459a5dcd44695.gif" alt="Image from Gyazo" width="320"/> |
+| <img src="https://i.gyazo.com/4d049e6a8f3184cf5886d4d72df569c0.gif" alt="Image from Gyazo" width="320"/> | <img src="app/assets/images/minimemory_show_normal.png" width="320"> |
 
 写真・タイトル・エピソード・日付を 1 件の思い出として記録できます。公開範囲を「非公開 / 家族グループ公開 / 全体公開」から選べます。画像は webp 形式に変換して Active Storage + Cloudinaryに保存しており、画質を保ちながらデータ容量を抑えています。<br>詳細画面の URL には UUID を使用し、連番 ID が外部に漏れない設計にしています。
 
@@ -107,9 +107,9 @@ https://minimemory.jp/
 ### 👧家族グループに紐づく子ども設定機能
 | 子ども作成 | 思い出への紐付け |
 |:--:|:--:|
-| <img src="https://i.gyazo.com/9c10bdd33c2320d42ff59972f617a330.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/1e6f0ae14603b9169e58efde9e2532c7.gif" alt="Image from Gyazo" width="384"/> |
+| <img src="https://i.gyazo.com/9c10bdd33c2320d42ff59972f617a330.gif" alt="Image from Gyazo" width="320"/> | <img src="app/assets/images/minimemory_show_child.png" width="320"> |
 
-家族グループに紐づく「子ども」を登録できます。<br>思い出の作成時に子どもと紐付けて記録できます。
+家族グループに紐づく「子ども」を登録できます。<br>思い出の作成または編集時に子どもと紐付けて記録できます。
 
 ### 🎮楽しく思い出を振り返るゲーム機能
 | おもいでカードあわせ（神経衰弱） | クリア画面 |
