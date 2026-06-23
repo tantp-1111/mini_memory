@@ -19,22 +19,22 @@
 ## 🌱サービス概要
 〜持ちきれない小さな思い出を写真とことばで残そう〜
 
-子育て中に増えていく「捨てられないけど保管しきれない小さな思い出の品」を、写真とエピソードで記録するアプリです。
+子育て中に増えていく「捨てられないけれど保管しきれない小さな思い出の品」を、写真とエピソードで記録するアプリです。
 
-どんぐり、葉っぱ、折り紙、らくがき。子どもの成長とともに増えていく、手放しにくい小さな宝物たちを、そのときの子どもの様子と一緒にデジタルで残せます。
+どんぐり、葉っぱ、折り紙、らくがき。子どもの成長とともに増えていく、手放しにくい小さな宝物たちを、そのときのエピソードと一緒にデジタルで残せます。
 
-罪悪感なくモノの整理をしながら、大切な思い出はちゃんとここに。
+罪悪感なくモノの整理をしながら、大切な思い出はちゃんとここに残しましょう。
 
 ## 🌍サービスURL
 https://minimemory.jp/
 
 ## 📝サービス開発の背景
 
-普段子どもを育てていると、子どもが拾ってきたどんぐりやずっと握りしめていた葉っぱ、子どもの気の向くままに書いた落書き、折り紙や小さなおもちゃなど「取っておくほどではないけど捨てられない」モノが日々増えていきます。
+普段子どもを育てていると、子どもが拾ってきたどんぐりやずっと握りしめていた葉っぱ、子どもの気の向くままに書いた落書き、折り紙や小さなおもちゃなど「取っておくほどではないけれど捨てられない」モノが日々増えていきます。
 
-しかし、取っておいても後から見返したとき「どうしてこれを取っておいたのか」「その時の子どもの様子や感情」を忘れてしまうことが多くありました。せっかく取っておきたい」と思った瞬間の気持ちが思い出せないまま、結局捨ててしまうことが何度もありました。
+しかし、取っておいたとしても後から見返したとき「どうしてこれを取っておいたのか」「その時の子どもの様子や感情」を忘れてしまうことが多くありました。せっかく「取っておきたい」と思った瞬間の気持ちが思い出せないまま、結局捨ててしまうことが何度もありました。
 
-取っておくほどではないけど捨てられない理由は、
+取っておくほどではないけれど捨てられない理由は、
 
 - 子どもにとっては宝物であるから
 - そのモノにはその時感じた子どもの小さな思い出があるから
@@ -50,77 +50,74 @@ https://minimemory.jp/
 
 ## 🎯ターゲット層の理由
 
-子育て世帯では、子どもが拾ってくる小さなモノや作品が日々増え続け、住居スペースを圧迫します。
+子育て世帯では、子どもから渡される小さなモノや作品が日々増え続け、住居スペースを圧迫します。
 
-一方で、片付けや断捨離を主軸にしたサービスは「捨てる」ことが目的になっており、思い出ごと記録するという発想がありません。子ども写真アルバムも、子ども自身の写真にフォーカスしているため、「モノ」を起点に思い出を残す手段が欠けています。
+一方で、片付けや断捨離を主軸にしたサービスは「捨てる」ことが目的になっており、モノの思い出ごと記録するという発想がありません。子ども写真アルバムも、子ども自身にフォーカスしているため、モノを起点に思い出を残す手段が欠けています。
 
 「写真と一緒にそのモノの背景まで残せる」というニーズに応えるサービスは、現状ほとんど存在しません。
 
 ## 📈ユーザー獲得方法
 
 - 子育て中の保護者を中心としたコミュニティ（X、ブログ、子育てメディア）で発信します。
-- 公開された思い出を登録不要で閲覧できる「みんなの思い出」を OGP 対応にし、SNS でのシェア拡散からの流入を狙います。
-- LINE ログインに対応することで、子育て世代の登録ハードルを下げます。
+- 公開された思い出を登録不要で閲覧できる「掲示板」の投稿を OGP 対応にし、SNS でのシェア拡散からの流入を狙います。
+- LINE や Google ログインに対応することで、子育て世代の登録ハードルを下げます。
 
 ## 機能紹介
 ### 👤ユーザー機能
 | 新規登録 / ログイン | 名前 / アカウント画像変更 |
 |:--:|:--:|
-| <a href="https://gyazo.com/2e105ff49f93b8c24d9fa1b6047ed815"><img src="https://i.gyazo.com/2e105ff49f93b8c24d9fa1b6047ed815.gif" alt="Image from Gyazo" width="330"/></a> | <a href="https://gyazo.com/c2a41d00b421b7922eaeb02039cb277e"><img src="https://i.gyazo.com/c2a41d00b421b7922eaeb02039cb277e.gif" alt="Image from Gyazo" width="330"/></a> |
-| <p align="left"> メールアドレスとパスワードで新規登録ができます。登録後は自動でログイン処理が行われ、すぐにサービスを利用することができます。<br>LINE または Googleログインも可能です。 | <p align="left"> 登録後、いつでも名前とアカウント画像を変更できます。
+| <img src="https://i.gyazo.com/2e105ff49f93b8c24d9fa1b6047ed815.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/c2a41d00b421b7922eaeb02039cb277e.gif" alt="Image from Gyazo" width="320"/> |
+| <p align="left"> メールアドレスとパスワードで新規登録ができます。<br>登録後は自動でログイン処理が行われ、すぐにサービスを利用することができます。<br>LINE または Google ログインも可能です。</p> | <p align="left"> 登録後、いつでも名前とアカウント画像を変更できます。</p>|
 
 ### 🍃捨てられないモノの思い出記録機能
 | 思い出の作成 | 思い出の詳細 |
 |:--:|:--:|
-| <a href="https://gyazo.com/4d049e6a8f3184cf5886d4d72df569c0"><img src="https://i.gyazo.com/4d049e6a8f3184cf5886d4d72df569c0.gif" alt="Image from Gyazo" width="328"/></a> | <a href="https://gyazo.com/63af366c40850cd5d2991935e02d7362"><img src="https://i.gyazo.com/63af366c40850cd5d2991935e02d7362.gif" alt="Image from Gyazo" width="332"/></a> |
-| <p align="left">写真・タイトル・エピソード・日付を 1 件の思い出として記録できます。<br>公開範囲を「非公開 / 家族グループ公開 / 全体公開」から選べます。<br>画像は webp 形式に変換して Active Storage + Cloudinaryに保存しており、画質を保ちながらデータ容量を抑えています。<br> | <p align="left">詳細画面の URL には UUID を使用し、連番 ID が外部に漏れない設計にしています。</p> |
+| <img src="https://i.gyazo.com/4d049e6a8f3184cf5886d4d72df569c0.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/63af366c40850cd5d2991935e02d7362.gif" alt="Image from Gyazo" width="320"/> |
+| <p align="left">写真・タイトル・エピソード・日付を 1 件の思い出として記録できます。<br>公開範囲を「非公開 / 家族グループ公開 / 全体公開」から選べます。<br>画像は webp 形式に変換して Active Storage + Cloudinaryに保存しており、画質を保ちながらデータ容量を抑えています。</p> | <p align="left">詳細画面の URL には UUID を使用し、連番 ID が外部に漏れない設計にしています。</p> |
 
 #### 🖼️思い出を見るための 3 つの一覧機能
 | ミニメモリ | 家族メモリ | 掲示板 |
 |:--:|:--:|:--:|
-| <a href="https://gyazo.com/acc4e8fe88670ae559b562b0663bddcc"><img src="https://i.gyazo.com/acc4e8fe88670ae559b562b0663bddcc.png" alt="Image from Gyazo" width="481"/></a> | <a href="https://gyazo.com/2246203475880a313ce38ff6ca6c3e1c"><img src="https://i.gyazo.com/2246203475880a313ce38ff6ca6c3e1c.png" alt="Image from Gyazo" width="482"/></a> | <a href="https://gyazo.com/5a1653572acec66a887939f0e343f52d"><img src="https://i.gyazo.com/5a1653572acec66a887939f0e343f52d.png" alt="Image from Gyazo" width="482"/></a> |
+| <img src="https://i.gyazo.com/acc4e8fe88670ae559b562b0663bddcc.png" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/2246203475880a313ce38ff6ca6c3e1c.png" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/5a1653572acec66a887939f0e343f52d.png" alt="Image from Gyazo" width="320"/> |
 | <p align="left">自分が投稿した思い出を、公開範囲を問わずすべて閲覧できます。</p> | <p align="left">同じ家族グループに所属するメンバーが投稿した思い出のうち、家族グループ公開・全体公開のものを閲覧できます。</p> | <p align="left">全体公開に設定された思い出を、ログインしていなくても閲覧できます。</p> |
-
-
 
 ### 🧑‍🧑‍🧒家族グループ作成機能
 | 家族グループの作成 | メンバー招待 |
 |:--:|:--:|
-| <a href="https://gyazo.com/f2aee7dfe9101750c909aa0b7a357a0b"><img src="https://i.gyazo.com/f2aee7dfe9101750c909aa0b7a357a0b.gif" alt="Image from Gyazo" width="328"/></a> | <a href="https://gyazo.com/fd4c9877322de69407faa0462ba1545a"><img src="https://i.gyazo.com/fd4c9877322de69407faa0462ba1545a.gif" alt="Image from Gyazo" width="328"/></a> |
-| <p align="left">・ユーザーは家族グループを作成可能です（1 ユーザー 1 家族グループ制）。| ・招待リンクを発行して、家族メンバーを招待できます。 |
+| <img src="https://i.gyazo.com/f2aee7dfe9101750c909aa0b7a357a0b.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/fd4c9877322de69407faa0462ba1545a.gif" alt="Image from Gyazo" width="320"/> |
+| <p align="left">ユーザーは家族グループを作成可能です（1 ユーザー 1 家族グループ制）。</p>| <p align="left">招待リンクを発行して、家族メンバーを招待できます。</p> |
 
 | 家族グループに参加 | ロール変更・自己脱退・強制退会 |
 |:--:|:--:|
-| <a href="https://gyazo.com/7368308da51391c0d46c0ea18cb7171b"><img src="https://i.gyazo.com/7368308da51391c0d46c0ea18cb7171b.gif" alt="Image from Gyazo" width="332"/></a> | <a href="https://gyazo.com/5f00f55e07910e6b258dc01fa7153304"><img src="https://i.gyazo.com/5f00f55e07910e6b258dc01fa7153304.gif" alt="Image from Gyazo" width="326"/></a> |
-| <p align="left">招待リンクを開くと、対象の家族グループに参加するかどうかを選択できます。</p> | <p align="left">オーナー権限を持つメンバーは、他メンバーのロール変更（オーナー / メンバー）と強制退会を行えます。自己脱退はすべてのメンバーが行えますが、最後のオーナーは脱退できません。</p> |
-
+| <img src="https://i.gyazo.com/7368308da51391c0d46c0ea18cb7171b.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/5f00f55e07910e6b258dc01fa7153304.gif" alt="Image from Gyazo" width="320"/> |
+| <p align="left">招待リンクを開くと、対象の家族グループに参加するかどうかを選択できます。</p> | <p align="left">オーナー権限を持つメンバーは、他メンバーのロール変更（オーナー / メンバー）と強制退会を行えます。<br>自己脱退はすべてのメンバーが行えますが、最後のオーナーは脱退できません。</p> |
 
 ### 👧家族グループに紐づく子ども設定機能
-| 子ども作成 | 投稿に紐付け |
+| 子ども作成 | 思い出への紐付け |
 |:--:|:--:|
-| <a href="https://gyazo.com/9c10bdd33c2320d42ff59972f617a330"><img src="https://i.gyazo.com/9c10bdd33c2320d42ff59972f617a330.gif" alt="Image from Gyazo" width="334"/></a> | <a href="https://gyazo.com/4c4648de56479aa36bebab3e6ae7b535"><img src="https://i.gyazo.com/4c4648de56479aa36bebab3e6ae7b535.gif" alt="Image from Gyazo" width="332"/></a> |
+| <img src="https://i.gyazo.com/9c10bdd33c2320d42ff59972f617a330.gif" alt="Image from Gyazo" width="320"/> | <img src="https://i.gyazo.com/4c4648de56479aa36bebab3e6ae7b535.gif" alt="Image from Gyazo" width="320"/> |
 | <p align="left">家族グループに紐づく「子ども」を登録できます。</p> | <p align="left">思い出の作成時に「誰の思い出か」を子どもと紐付けて記録できます。</p> |
 
 ### 🎮楽しく思い出を振り返るゲーム機能
 | おもいでカードあわせ（神経衰弱） | クリア画面 |
 |:--:|:--:|
-|<a href="https://gyazo.com/40c4cac13b88301a87731a5c6915453d"><img src="https://i.gyazo.com/40c4cac13b88301a87731a5c6915453d.gif" alt="Image from Gyazo" width="332"/></a>| <a href="https://gyazo.com/aec993d76e93721519fff1c857881ebc"><img src="https://i.gyazo.com/aec993d76e93721519fff1c857881ebc.gif" alt="Image from Gyazo" width="330"/></a> |
-| <p align="left">記録した思い出をカードあわせで振り返れます。お子さんと一緒に遊びながら、楽しく思い出をたどることができます。</p> | <p align="left">すべてのペアを揃えると紙吹雪が舞い、達成感を味わえる演出にしています。</p> |
+|<img src="https://i.gyazo.com/40c4cac13b88301a87731a5c6915453d.gif" alt="Image from Gyazo" width="320"/>| <img src="https://i.gyazo.com/aec993d76e93721519fff1c857881ebc.gif" alt="Image from Gyazo" width="320"/> |
+| <p align="left">記録した思い出をカードあわせにして遊ぶことができます。<br>お子さんと一緒に遊びながら、楽しく思い出を振り返ることができます。</p> | <p align="left">すべてのペアを揃えると紙吹雪が舞い、達成感を味わえる演出にしています。</p> |
 
 ### 🔍その他機能
 | リアクション機能 |
 |:--:|
-| <a href="https://gyazo.com/b3c39a538277d58a564184d63782a1a0"><img src="https://i.gyazo.com/b3c39a538277d58a564184d63782a1a0.gif" alt="Image from Gyazo" width="334"/></a> |
+| <img src="https://i.gyazo.com/b3c39a538277d58a564184d63782a1a0.gif" alt="Image from Gyazo" width="320"/> |
 | <p align="left">掲示板に投稿された他ユーザーの思い出に対して、5 種類のリアクションを送ることができます。</p> |
 
 | X共有機能 |
 | :--:|
-| <a href="https://gyazo.com/a21a5d4a9b751ac2b362f72a4fc29b93"><img src="https://i.gyazo.com/a21a5d4a9b751ac2b362f72a4fc29b93.gif" alt="Image from Gyazo" width="332"/></a> |
+| <img src="https://i.gyazo.com/a21a5d4a9b751ac2b362f72a4fc29b93.gif" alt="Image from Gyazo" width="320"/> |
 | <p align="left">自分の思い出はもちろん、他のユーザーの思い出も気に入ったものを X (旧 Twitter) で共有できます。</p> |
 
 | 検索機能 |
 | :--:|
-| <a href="https://gyazo.com/370bbbb1fa8bc738b3477fa69523226a"><img src="https://i.gyazo.com/370bbbb1fa8bc738b3477fa69523226a.gif" alt="Image from Gyazo" width="388"/></a> |
+| <img src="https://i.gyazo.com/370bbbb1fa8bc738b3477fa69523226a.gif" alt="Image from Gyazo" width="320"/> |
 | <p align="left">子ども別、またはキーワードで思い出を検索できます。</p> |
 
 
