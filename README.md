@@ -114,7 +114,7 @@ https://minimemory.jp/
 ### 🎮楽しく思い出を振り返るゲーム機能
 | おもいでカードあわせ（神経衰弱） | クリア画面 |
 |:--:|:--:|
-|<img src="https://i.gyazo.com/40c4cac13b88301a87731a5c6915453d.gif" alt="Image from Gyazo" width="320"/>| <img src="https://i.gyazo.com/84b7f9461e97dba0f743b1e6f9da03c2.gif" alt="Image from Gyazo" width="320"/> |
+|<img src="https://i.gyazo.com/40c4cac13b88301a87731a5c6915453d.gif" alt="Image from Gyazo" width="320"/>| <img src="https://i.gyazo.com/335ab8e58f0070c875b688f84600ab47.png" alt="Image from Gyazo" width="320"/> |
 
 記録した思い出をカードあわせにして遊ぶことができます。お子さんと一緒に遊びながら、楽しく思い出を振り返ることができます。<br>すべてのペアを揃えると紙吹雪が舞い、達成感を味わえる演出にしています。
 
