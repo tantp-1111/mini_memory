@@ -23,7 +23,7 @@
           <%= render "shared/error_messages", object: resource %>
 
           <div id="avatar-preview" class="flex flex-col items-center gap-2">
-            <% if resource.avatar.attached? %>
+            <% if resource.avatar.attached? && resource.avatar.blob&.persisted? %>
               <div class="avatar">
                 <div class="w-20 h-20 rounded-full overflow-hidden">
                   <%= image_tag resource.avatar, class: "w-full h-full object-cover", alt: resource.name %>

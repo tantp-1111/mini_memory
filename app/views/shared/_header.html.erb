@@ -1,4 +1,4 @@
-<header class="navbar bg-base-100 shadow-sm">
+<header class="navbar bg-base-100 shadow-sm sticky top-0 z-50">
   <div class="navbar-start">
     <!-- drawer トリガー -->
     <label for="drawer-menu" class="btn btn-ghost btn-circle">
@@ -10,7 +10,10 @@
 
   <!-- 中央タイトル -->
   <div class="navbar-center">
-    <%= link_to "minimemory", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to root_path, class: "btn btn-ghost gap-2" do %>
+      <%= image_tag "/minimemory_icon.svg", alt: "", aria: { hidden: true }, class: "h-8 w-auto" %>
+      <span class="text-xl">minimemory</span>
+    <% end %>
   </div>
 
   <!-- ユーザーアイコン -->

@@ -14,7 +14,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "minimemory",
-      title: (content_for?(:title) ? content_for(:title) : "捨てられない思い出を記録するアプリ"),
+      title: (content_for?(:title) ? content_for(:title) : "小さな思い出を記録するアプリ"),
       reverse: true,
       charset: "utf-8",
       description: "minimemoryを使えば、捨てられない小さなモノの大切な思い出を簡単に記録して共有できます。",
