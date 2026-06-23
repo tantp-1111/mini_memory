@@ -1,12 +1,23 @@
 # ミニメモリー
 
-〜こどもの小さな宝物を、思い出ごと残す〜
 
-https://minimemory.jp/
+![app image](app/assets/images/app_image.png)
 
-![OGP image](app/assets/images/OGP_image.png)
+## 目次
+- [サービス概要](#サービス概要)
+- [サービスURL](#サービスurl)
+- [サービス開発の背景](#サービス開発の背景)
+- [ターゲット層](#ターゲット層)
+- [ターゲット層の理由](#ターゲット層の理由)
+- [ユーザー獲得方法](#ユーザー獲得方法)
+- [機能紹介](#機能紹介)
+- [技術スタック](#技術スタック)
+- [技術選定の理由](#技術選定の理由)
+- [画面遷移図](#画面遷移図)
+- [ER図](#er図)
 
-## ■サービス概要
+## 🌱サービス概要
+〜持ちきれない小さな思い出を写真とことばで残そう〜
 
 子育て中に増えていく「捨てられないけど保管しきれない小さな思い出の品」を、写真とエピソードで記録するアプリです。
 
@@ -14,11 +25,14 @@ https://minimemory.jp/
 
 罪悪感なくモノの整理をしながら、大切な思い出はちゃんとここに。
 
-## ■開発背景
+## 🌍サービスURL
+https://minimemory.jp/
+
+## 📝サービス開発の背景
 
 普段子どもを育てていると、子どもが拾ってきたどんぐりやずっと握りしめていた葉っぱ、子どもの気の向くままに書いた落書き、折り紙や小さなおもちゃなど「取っておくほどではないけど捨てられない」モノが日々増えていきます。
 
-しかし取っておいたとしても後々見返した時、どうしてこれを取っておいたのか、その時の子どもの様子や感情など忘れてしまうことが多く、折角その時は「取っておきたい」思い出だったのにも関わらず、その思い出を思い出せないまま捨ててしまうことが多々ありました。
+しかし、取っておいても後から見返したとき「どうしてこれを取っておいたのか」「その時の子どもの様子や感情」を忘れてしまうことが多くありました。せっかく取っておきたい」と思った瞬間の気持ちが思い出せないまま、結局捨ててしまうことが何度もありました。
 
 取っておくほどではないけど捨てられない理由は、
 
@@ -28,13 +42,13 @@ https://minimemory.jp/
 
 そんな「捨てる罪悪感」を軽減し、モノの整理と同時に子どもとそのモノにまつわる思い出の記録を両立させたいと思い、このアプリを作りました。
 
-## ■ターゲット層
+## 🎯ターゲット層
 
 - モノにまつわる子どもの思い出を全て残したいけど、物理的に保管しきれない方
 - モノにまつわる小さな思い出をあとから振り返りたい方
 - 「捨てたいけど捨てられない」罪悪感に悩んでいる子育て中の保護者
 
-## ■ターゲット層の理由
+## 🎯ターゲット層の理由
 
 子育て世帯では、子どもが拾ってくる小さなモノや作品が日々増え続け、住居スペースを圧迫します。
 
@@ -42,70 +56,80 @@ https://minimemory.jp/
 
 「写真と一緒にそのモノの背景まで残せる」というニーズに応えるサービスは、現状ほとんど存在しません。
 
-## ■ユーザー獲得方法
+## 📈ユーザー獲得方法
 
-- 子育て中の保護者を中心としたコミュニティ（X、ブログ、子育てメディア）で発信
-- 公開された思い出を登録不要で閲覧できる「みんなの思い出」を OGP 対応にし、SNS でのシェア拡散からの流入を狙う
-- LINE ログインに対応することで、子育て世代の登録ハードルを下げる
+- 子育て中の保護者を中心としたコミュニティ（X、ブログ、子育てメディア）で発信します。
+- 公開された思い出を登録不要で閲覧できる「みんなの思い出」を OGP 対応にし、SNS でのシェア拡散からの流入を狙います。
+- LINE ログインに対応することで、子育て世代の登録ハードルを下げます。
 
-## ■主要な機能
+## 機能紹介
+### 👤ユーザー機能
+| 新規登録 / ログイン | 名前 / アカウント画像変更 |
+|:--:|:--:|
+| <a href="https://gyazo.com/2e105ff49f93b8c24d9fa1b6047ed815"><img src="https://i.gyazo.com/2e105ff49f93b8c24d9fa1b6047ed815.gif" alt="Image from Gyazo" width="330"/></a> | <a href="https://gyazo.com/c2a41d00b421b7922eaeb02039cb277e"><img src="https://i.gyazo.com/c2a41d00b421b7922eaeb02039cb277e.gif" alt="Image from Gyazo" width="330"/></a> |
+| <p align="left"> メールアドレスとパスワードで新規登録ができます。登録後は自動でログイン処理が行われ、すぐにサービスを利用することができます。<br>LINE または Googleログインも可能です。 | <p align="left"> 登録後、いつでも名前とアカウント画像を変更できます。
+
+### 🍃捨てられないモノの思い出記録機能
+| 思い出の作成 | 思い出の詳細 |
+|:--:|:--:|
+| <a href="https://gyazo.com/4d049e6a8f3184cf5886d4d72df569c0"><img src="https://i.gyazo.com/4d049e6a8f3184cf5886d4d72df569c0.gif" alt="Image from Gyazo" width="328"/></a> | <a href="https://gyazo.com/63af366c40850cd5d2991935e02d7362"><img src="https://i.gyazo.com/63af366c40850cd5d2991935e02d7362.gif" alt="Image from Gyazo" width="332"/></a> |
+| <p align="left">写真・タイトル・エピソード・日付を 1 件の思い出として記録できます。<br>公開範囲を「非公開 / 家族グループ公開 / 全体公開」から選べます。<br>画像は webp 形式に変換して Active Storage + Cloudinaryに保存しており、画質を保ちながらデータ容量を抑えています。<br> | <p align="left">詳細画面の URL には UUID を使用し、連番 ID が外部に漏れない設計にしています。</p> |
+
+#### 🖼️思い出を見るための 3 つの一覧機能
+| ミニメモリ | 家族メモリ | 掲示板 |
+|:--:|:--:|:--:|
+| <a href="https://gyazo.com/acc4e8fe88670ae559b562b0663bddcc"><img src="https://i.gyazo.com/acc4e8fe88670ae559b562b0663bddcc.png" alt="Image from Gyazo" width="481"/></a> | <a href="https://gyazo.com/2246203475880a313ce38ff6ca6c3e1c"><img src="https://i.gyazo.com/2246203475880a313ce38ff6ca6c3e1c.png" alt="Image from Gyazo" width="482"/></a> | <a href="https://gyazo.com/5a1653572acec66a887939f0e343f52d"><img src="https://i.gyazo.com/5a1653572acec66a887939f0e343f52d.png" alt="Image from Gyazo" width="482"/></a> |
+| <p align="left">自分が投稿した思い出を、公開範囲を問わずすべて閲覧できます。</p> | <p align="left">同じ家族グループに所属するメンバーが投稿した思い出のうち、家族グループ公開・全体公開のものを閲覧できます。</p> | <p align="left">全体公開に設定された思い出を、ログインしていなくても閲覧できます。</p> |
 
 
 
-### 思い出の記録
+### 🧑‍🧑‍🧒家族グループ作成機能
+| 家族グループの作成 | メンバー招待 |
+|:--:|:--:|
+| <a href="https://gyazo.com/f2aee7dfe9101750c909aa0b7a357a0b"><img src="https://i.gyazo.com/f2aee7dfe9101750c909aa0b7a357a0b.gif" alt="Image from Gyazo" width="328"/></a> | <a href="https://gyazo.com/fd4c9877322de69407faa0462ba1545a"><img src="https://i.gyazo.com/fd4c9877322de69407faa0462ba1545a.gif" alt="Image from Gyazo" width="328"/></a> |
+| <p align="left">・ユーザーは家族グループを作成可能です（1 ユーザー 1 家族グループ制）。| ・招待リンクを発行して、家族メンバーを招待できます。 |
 
-<a href="https://gyazo.com/e5329f0b0036fbe63b9e6e6698e04492"><img src="https://i.gyazo.com/e5329f0b0036fbe63b9e6e6698e04492.gif" alt="Image from Gyazo" width="600"/></a>
+| 家族グループに参加 | ロール変更・自己脱退・強制退会 |
+|:--:|:--:|
+| <a href="https://gyazo.com/7368308da51391c0d46c0ea18cb7171b"><img src="https://i.gyazo.com/7368308da51391c0d46c0ea18cb7171b.gif" alt="Image from Gyazo" width="332"/></a> | <a href="https://gyazo.com/5f00f55e07910e6b258dc01fa7153304"><img src="https://i.gyazo.com/5f00f55e07910e6b258dc01fa7153304.gif" alt="Image from Gyazo" width="326"/></a> |
+| <p align="left">招待リンクを開くと、対象の家族グループに参加するかどうかを選択できます。</p> | <p align="left">オーナー権限を持つメンバーは、他メンバーのロール変更（オーナー / メンバー）と強制退会を行えます。自己脱退はすべてのメンバーが行えますが、最後のオーナーは脱退できません。</p> |
 
-- 写真・タイトル・エピソード・どの子の思い出か・日付を記録
-- 公開範囲を設定（非公開／家族のみ公開／公開）
-- 画像は webp で保存（Active Storage + Cloudinary）
-- UUID ベースの URL で連番 ID を外部に露出しない
 
--------
+### 👧家族グループに紐づく子ども設定機能
+| 子ども作成 | 投稿に紐付け |
+|:--:|:--:|
+| <a href="https://gyazo.com/9c10bdd33c2320d42ff59972f617a330"><img src="https://i.gyazo.com/9c10bdd33c2320d42ff59972f617a330.gif" alt="Image from Gyazo" width="334"/></a> | <a href="https://gyazo.com/4c4648de56479aa36bebab3e6ae7b535"><img src="https://i.gyazo.com/4c4648de56479aa36bebab3e6ae7b535.gif" alt="Image from Gyazo" width="332"/></a> |
+| <p align="left">家族グループに紐づく「子ども」を登録できます。</p> | <p align="left">思い出の作成時に「誰の思い出か」を子どもと紐付けて記録できます。</p> |
 
-### ユーザー機能
+### 🎮楽しく思い出を振り返るゲーム機能
+| おもいでカードあわせ（神経衰弱） | クリア画面 |
+|:--:|:--:|
+|<a href="https://gyazo.com/40c4cac13b88301a87731a5c6915453d"><img src="https://i.gyazo.com/40c4cac13b88301a87731a5c6915453d.gif" alt="Image from Gyazo" width="332"/></a>| <a href="https://gyazo.com/aec993d76e93721519fff1c857881ebc"><img src="https://i.gyazo.com/aec993d76e93721519fff1c857881ebc.gif" alt="Image from Gyazo" width="330"/></a> |
+| <p align="left">記録した思い出をカードあわせで振り返れます。お子さんと一緒に遊びながら、楽しく思い出をたどることができます。</p> | <p align="left">すべてのペアを揃えると紙吹雪が舞い、達成感を味わえる演出にしています。</p> |
 
-<a href="https://gyazo.com/2dd99207e43b6a4b387f5e17398164e2"><img src="https://i.gyazo.com/2dd99207e43b6a4b387f5e17398164e2.gif" alt="Image from Gyazo" width="512"/></a>
+### 🔍その他機能
+| リアクション機能 |
+|:--:|
+| <a href="https://gyazo.com/b3c39a538277d58a564184d63782a1a0"><img src="https://i.gyazo.com/b3c39a538277d58a564184d63782a1a0.gif" alt="Image from Gyazo" width="334"/></a> |
+| <p align="left">掲示板に投稿された他ユーザーの思い出に対して、5 種類のリアクションを送ることができます。</p> |
 
-- メール認証によるユーザー登録・ログイン（Devise）
-- LINE または Googleログインも可能
+| X共有機能 |
+| :--:|
+| <a href="https://gyazo.com/a21a5d4a9b751ac2b362f72a4fc29b93"><img src="https://i.gyazo.com/a21a5d4a9b751ac2b362f72a4fc29b93.gif" alt="Image from Gyazo" width="332"/></a> |
+| <p align="left">自分の思い出はもちろん、他のユーザーの思い出も気に入ったものを X (旧 Twitter) で共有できます。</p> |
 
--------
+| 検索機能 |
+| :--:|
+| <a href="https://gyazo.com/370bbbb1fa8bc738b3477fa69523226a"><img src="https://i.gyazo.com/370bbbb1fa8bc738b3477fa69523226a.gif" alt="Image from Gyazo" width="388"/></a> |
+| <p align="left">子ども別、またはキーワードで思い出を検索できます。</p> |
 
-### 家族グループ
 
-<a href="https://gyazo.com/0c3fad8dc655de4b046c2ac7b17eb948"><img src="https://i.gyazo.com/0c3fad8dc655de4b046c2ac7b17eb948.gif" alt="Image from Gyazo" width="600"/></a>
 
-- 家族グループの作成・参加・退出
-- グループメンバー間で思い出を共有
-- 1 ユーザー 1 家族グループ制（uniqueness 制約あり）
-
--------
-
-### みんなの思い出（公開する思い出）
-
-<a href="https://gyazo.com/d6ef7b57d406dafbac212f18f7fb2a72"><img src="https://i.gyazo.com/d6ef7b57d406dafbac212f18f7fb2a72.gif" alt="Image from Gyazo" width="600"/></a>
-
-- 全ユーザーに向けて思い出を公開
-- ユーザー登録なしでも閲覧可能
-- OGP 対応で SNS シェアからの流入に対応
-- 他人の投稿に対するリアクション機能
-
--------
-
-### 神経衰弱ゲーム
-
-<a href="https://gyazo.com/aba69f0aafb36d532870e02ba582fbeb"><img src="https://i.gyazo.com/aba69f0aafb36d532870e02ba582fbeb.gif" alt="Image from Gyazo" width="600"/></a>
-
-- 残した思い出を神経衰弱ゲームで振り返り
-- React で実装
-- お子さんと一緒に遊びながら、自然と思い出話のきっかけに
-
-## ■技術スタック
+## 🔧技術スタック
 
 | カテゴリ | 技術 |
 | --- | --- |
-| 言語 / FW | Ruby 3.3.6 / Ruby on Rails 7.2.2 |
+| 言語 / FW | Ruby 3.3.6 / Ruby on Rails 8.1.3 |
 | 認証 | Devise / omniauth-line（LINE ログイン） |
 | 認可 | Pundit |
 | フロント | Hotwire (Turbo + Stimulus) / React 19（神経衰弱のみ） |
@@ -113,17 +137,49 @@ https://minimemory.jp/
 | DB | PostgreSQL 17（本番: Neon） |
 | 画像保存 | Active Storage + Cloudinary（webp 保存） |
 | 国際化 | rails-i18n + devise-i18n |
-| テスト | RSpec / Capybara + Selenium（headless Chrome） |
-| コンテナ | Docker (compose.yml + Dockerfile.dev) |
-| CI/CD | GitHub Actions（Brakeman / RuboCop / RSpec / SimpleCov 90%+） |
-| 環境変数 | dotenv-rails |
+| テスト | RSpec |
+| 開発環境 | Docker |
+| CI/CD | GitHub Actions（Brakeman / RuboCop / RSpec / SimpleCov ） |
 | ホスティング | Render |
 
-## ■画面遷移図
+## ✅技術選定の理由
+
+  #### 言語 / FW: Ruby / Ruby on Rails
+  Rails の「設定より規約」という原則により、アプリケーションの細かな設定を大幅に減らし、開発時間を短縮できると考え採用しました。Web アプリケーションに必要な標準機能が一通り揃っており、個人開発でも迅速にアプリケーションを構築できる点も理由のひとつです。
+
+  #### 認証: Devise + OmniAuth
+  Devise は Rails での認証機能を短期間で実装でき、実装・運用実績が豊富で、複数のモジュールを通じて機能拡張がしやすいという点から採用しました。ターゲットである子育て世代に浸透している LINE と Google の外部認証との連携がOmniAuth 経由で容易に行える点も理由の一つです。
+
+  #### 認可: Pundit
+  権限判定ロジックをコントローラーやモデルから Policy に分離して管理できるため、コードの可読性と保守性の向上につながると考え採用しました。家族グループ単位の公開範囲制御という、本サービス固有の認可要件にもフィットしています。
+
+  #### DB: PostgreSQL（本番環境: Neon）
+  信頼性が高く、Rails との相性も良いため採用しました。本番環境ではサーバーレス型 PostgreSQL サービスである Neon を採用し、必要に応じてスケール可能な構成にすることで、インフラ管理コストを抑えています。
+
+  #### フロント: Hotwire (Turbo + Stimulus) / 一部 React
+  Hotwire でサーバーサイドレンダリングを基本にし、フォーム再描画やリアクション更新は Turbo Stream で部分更新する方式により、SPA 風のユーザー体験を実現しました。SPA を採用する場合と比較し、コストを抑えつつ開発効率と保守性を両立できる点も採用理由の一つです。一方で、神経衰弱ゲームのように状態管理が複雑な機能は Hotwire のみでは実装が複雑化する可能性があったため、React を部分的に採用し、コンポーネントベースでの状態管理を行う構成にしました。
+
+  #### CSS: Tailwind CSS + daisyUI
+  Tailwind のユーティリティクラスと daisyUI のコンポーネントを組み合わせることで、ボタンやフォームなどの UI を効率的に実装でき、デザインの統一性を保ちながら開発速度を向上できる点から採用しました。
+
+  #### 画像保存: Active Storage（本番環境: Cloudinary）
+  Active Storage を用いることで Rails 標準の仕組みに沿ってファイルを管理できます。本番環境では Cloudinary と組み合わせ、画像処理時に webp に変換することで、写真メインのサービスでも転送量を抑えつつ表示速度を向上できる構成にしました。
+
+  #### ホスティングサービス: Render
+  Rails アプリのデプロイが容易で、開発当初は無料枠を活用しコストを抑えた運用が可能であったため採用しました。
+
+  #### 開発環境: Docker
+  本番環境との整合性を保ち、環境構築を容易にするため採用しました。
+
+  #### CI/CD: GitHub Actions
+  Render へのデプロイ自動化に加えて、Brakeman（セキュリティ静的解析）/ RuboCop（スタイル）/ RSpec + SimpleCov（テスト・カバレッジ）を CI 上で走らせ、品質ゲートをワークフローに統一しました。
+
+
+## 画面遷移図
 
 https://www.figma.com/design/Bkcr6pD16cOWottqsE4RwW/%E3%83%9F%E3%83%8B%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=nNqf2re7BqmkHzf6-1
 
-## ■ER図
+## ER図
 
 ![ER Diagram](app/assets/images/ER_diagram.png)
 
