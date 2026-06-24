@@ -13,5 +13,8 @@ application.register("memory-children", MemoryChildrenController)
 import ScrollRevealController from "./scroll_reveal_controller"
 application.register("scroll-reveal", ScrollRevealController)
 
-import ImagePreviewController from "./image_preview_controller"
-application.register("image-preview", ImagePreviewController)
+import MemoryImagePreviewController from "./memory_image_preview_controller"
+application.register("memory-image-preview", MemoryImagePreviewController)
+
+import AvatarPreviewController from "./avatar_preview_controller"
+application.register("avatar-preview", AvatarPreviewController)

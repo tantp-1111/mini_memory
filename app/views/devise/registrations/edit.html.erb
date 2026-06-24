@@ -19,11 +19,11 @@
 
     <div class="card bg-base-100 shadow-2xl border border-base-200">
       <div class="card-body p-6 gap-4">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, data: { controller: "image-preview", "image-preview-variant-value": "avatar" } }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, data: { controller: "avatar-preview" } }) do |f| %>
           <%= render "shared/error_messages", object: resource %>
 
           <div id="avatar-preview"
-               data-image-preview-target="container"
+               data-avatar-preview-target="container"
                class="flex flex-col items-center gap-2">
             <% if resource.avatar.attached? && resource.avatar.blob&.persisted? %>
               <div class="avatar">
@@ -47,7 +47,7 @@
             <%= f.file_field :avatar,
                   accept: "image/png,image/jpg,image/jpeg",
                   class: "file-input file-input-bordered file-input-sm w-full",
-                  data: { action: "change->image-preview#render" } %>
+                  data: { action: "change->avatar-preview#render" } %>
           </div>
 
           <div class="form-control gap-1">
