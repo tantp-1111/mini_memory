@@ -100,6 +100,7 @@
             <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60"><%= t('helpers.label.image') %></span>
 
             <label for="memory_image"
+              data-controller="memory-image-preview"
               class="group flex flex-col gap-2 border-2 border-dashed border-base-300 hover:border-primary rounded-xl px-5 py-3 cursor-pointer transition-all duration-200 hover:bg-primary/5 bg-base-200/30">
 
               <%# アップロードアイコン & テキスト %>
@@ -116,13 +117,18 @@
               </div>
 
               <%# ▼ プレビュー エリア（JS がファイル選択時に blob URL の img を挿入する） ▼ %>
-              <div id="new-image" class="w-full rounded-lg overflow-hidden empty:hidden [&:not(:empty)]:h-32"></div>
+              <div id="new-image"
+                   data-memory-image-preview-target="container"
+                   class="w-full rounded-lg overflow-hidden empty:hidden [&:not(:empty)]:h-32"></div>
               <%# ▼ ファイル名表示エリア ▼ %>
-                <p id="file-name" class="hidden text-xs text-base-content/50 text-center truncate px-2"></p>
+              <p id="file-name"
+                 data-memory-image-preview-target="fileName"
+                 class="hidden text-xs text-base-content/50 text-center truncate px-2"></p>
 
               <%= f.file_field :image,
                     id: "memory_image",
-                    class: "hidden" %>
+                    class: "hidden",
+                    data: { action: "change->memory-image-preview#render" } %>
             </label>
           </div>
 
