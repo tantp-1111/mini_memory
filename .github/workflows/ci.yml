@@ -75,7 +75,7 @@ jobs:
       # 代替で application.tailwind.css (SCSS) を読み込み、
       # dartsass-sprockets が Tailwind 出力を SCSS として parse して失敗する。
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: npm
