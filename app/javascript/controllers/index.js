@@ -18,3 +18,6 @@ application.register("memory-image-preview", MemoryImagePreviewController)
 
 import AvatarPreviewController from "./avatar_preview_controller"
 application.register("avatar-preview", AvatarPreviewController)
+
+import ProcessingModalController from "./processing_modal_controller"
+application.register("processing-modal", ProcessingModalController)
