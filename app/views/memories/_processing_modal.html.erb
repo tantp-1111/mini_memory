@@ -1,0 +1,9 @@
+<%# フォーム送信中(同期の画像処理の数秒間)だけ表示するスピナー付きモーダル。
+    processing-modal controller が turbo:submit-start / submit-end で開閉する。 %>
+<div data-processing-modal-target="modal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-base-100 rounded-2xl px-8 py-6 flex flex-col items-center gap-3 shadow-xl">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+    <span class="text-sm text-base-content/70"><%= t("memories.processing_modal.message") %></span>
+  </div>
+</div>

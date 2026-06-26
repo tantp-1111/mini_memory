@@ -87,6 +87,8 @@ ja:
       placeholder: タイトル・本文・タグで検索
       submit: 検索
       filter_label: 絞り込み検索
+    processing_modal:
+      message: 画像を処理しています…
   public_memories:
     index:
       title: 掲示板
