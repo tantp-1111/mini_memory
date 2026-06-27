@@ -24,7 +24,9 @@
     <!-- メインカード -->
     <div class="card bg-base-100 shadow-2xl border border-base-200">
       <div class="card-body p-6 gap-4">
-        <%= form_with model: @memory do |f| %>
+        <%= form_with model: @memory,
+              data: { controller: "processing-modal",
+                      action: "turbo:submit-start->processing-modal#show turbo:submit-end->processing-modal#hide" } do |f| %>
           <%# バリデーション失敗時に turbo_stream で中身だけ差し替えるため id 付きコンテナで囲む %>
           <div id="error_explanation_container">
             <%= render 'shared/error_messages', object: f.object %>
@@ -145,6 +147,7 @@
             <%= f.submit nil, class: "btn btn-primary btn-sm px-6" %>
           </div>
 
+          <%= render "memories/processing_modal" %>
         <% end %>
       </div>
     </div>
