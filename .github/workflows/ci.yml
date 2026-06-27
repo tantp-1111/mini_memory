@@ -75,7 +75,7 @@ jobs:
       # 代替で application.tailwind.css (SCSS) を読み込み、
       # dartsass-sprockets が Tailwind 出力を SCSS として parse して失敗する。
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: npm
@@ -94,12 +94,12 @@ jobs:
           npm run build:css
           npm run build
 
-      - name: Run tests
+      - name: Prepare test database
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: bin/rails db:test:prepare
 
       - name: Run RSpec
         env:

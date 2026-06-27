@@ -1,0 +1,20 @@
+<%# 家族グループの新規作成・編集で共有するフォーム。
+    locals: family_group（対象）/ cancel_path（キャンセル先）/ submit_label（送信ボタン文言）。
+    form_with は未保存なら create、保存済みなら update に自動で振り分ける。 %>
+<%= form_with model: family_group do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-control gap-1">
+    <%= f.label :name, class: "label py-0" do %>
+      <span class="label-text font-semibold text-xs tracking-wide uppercase text-base-content/60"><%= t('mypage.family_group.form.name_label') %></span>
+    <% end %>
+    <%= f.text_field :name,
+          placeholder: t('mypage.family_group.form.name_placeholder'),
+          class: "input input-bordered input-sm bg-base-200/50 focus:bg-base-100 focus:input-primary transition-all duration-200 w-full" %>
+  </div>
+
+  <div class="flex justify-end gap-2 pt-1 border-t border-base-200">
+    <%= link_to t('helpers.submit.cancel'), cancel_path, class: "btn btn-ghost btn-sm" %>
+    <%= f.submit submit_label, class: "btn btn-primary btn-sm px-6" %>
+  </div>
+<% end %>
