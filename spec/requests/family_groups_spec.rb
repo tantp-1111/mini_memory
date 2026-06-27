@@ -35,6 +35,33 @@ RSpec.describe "FamilyGroups", type: :request do
     end
   end
 
+  describe "GET /family_groups/:uuid/edit (edit)" do
+    context "未ログイン" do
+      it "サインイン画面へリダイレクト" do
+        get edit_family_group_path(group)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    it "オーナーは 200" do
+      sign_in owner
+      get edit_family_group_path(group)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "メンバーは認可エラーで root へ" do
+      sign_in member
+      get edit_family_group_path(group)
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "非メンバーは 404" do
+      sign_in outsider
+      get edit_family_group_path(group)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe "POST /family_groups (create)" do
     let(:valid_params)   { { family_group: { name: "あたらしい家族" } } }
     let(:invalid_params) { { family_group: { name: "" } } }
@@ -106,9 +133,6 @@ RSpec.describe "FamilyGroups", type: :request do
       end
 
       it "異常系: name 空は 422 で更新されない" do
-        # 既知バグ: update 失敗時に `render :edit` するが app/views/family_groups/edit.html.erb が
-        # 存在せず ActionView::MissingTemplate で 500 になる。修正後にこの pending を外す。
-        pending "既知バグ: edit.html.erb 不在で update 失敗時に 500 になる（要修正）"
         patch family_group_path(group), params: { family_group: { name: "" } }
         expect(response).to have_http_status(:unprocessable_content)
         expect(group.reload.name).to eq("テスト家族")

@@ -140,13 +140,21 @@ ja:
       not_joined: グループに参加していません
       not_joined_subtitle: 家族グループに参加して、ミニメモリを共有しましょう
       create_group: グループを作成
+      form:
+        name_label: グループ名
+        name_placeholder: グループ名を入力 (例：田中家、山田ファミリー)
       new:
         title: 家族グループ新規作成
         subtitle: 家族グループを作成して、ミニメモリを共有しましょう
         name_label: グループ名
         name_placeholder: グループ名を入力 (例：田中家、山田ファミリー)
         create_group: グループを作成
+      edit:
+        title: 家族グループの編集
+        subtitle: グループ名を変更できます
+        update_group: 変更を保存
       show:
+        edit_name: グループ名を編集
         invitation: 招待リンク
         copy: コピー
         invitation_expires_at: 有効期限
