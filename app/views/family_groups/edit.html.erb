@@ -12,8 +12,8 @@
         </svg>
       </div>
       <div>
-        <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('mypage.family_group.new.title') %></h1>
-        <p class="text-base-content/50 text-xs"><%= t('mypage.family_group.new.subtitle') %></p>
+        <h1 class="text-xl font-bold tracking-tight leading-tight"><%= t('mypage.family_group.edit.title') %></h1>
+        <p class="text-base-content/50 text-xs"><%= t('mypage.family_group.edit.subtitle') %></p>
       </div>
     </div>
 
@@ -21,8 +21,8 @@
       <div class="card-body p-6 gap-4">
         <%= render "form",
               family_group: @family_group,
-              cancel_path: mypage_path,
-              submit_label: t("mypage.family_group.new.create_group") %>
+              cancel_path: family_group_path(@family_group),
+              submit_label: t("mypage.family_group.edit.update_group") %>
       </div>
     </div>
   </div>
