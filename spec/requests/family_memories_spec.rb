@@ -24,6 +24,21 @@ RSpec.describe "FamilyMemories", type: :request do
       get family_memories_path
       expect(response).to have_http_status(:ok)
     end
+
+    it "家族の unlisted/published のみ表示し、private_only と家族外の投稿は除外する" do
+      visible_published = create(:memory, user: poster,   visibility: :published,    title: "家族の公開投稿")
+      visible_unlisted  = create(:memory, user: poster,   visibility: :unlisted,     title: "家族の限定投稿")
+      hidden_private    = create(:memory, user: poster,   visibility: :private_only, title: "家族の非公開投稿")
+      outsider_post     = create(:memory, user: outsider, visibility: :published,    title: "家族外の公開投稿")
+
+      sign_in viewer
+      get family_memories_path
+
+      expect(response.body).to include(visible_published.title)
+      expect(response.body).to include(visible_unlisted.title)
+      expect(response.body).not_to include(hidden_private.title)
+      expect(response.body).not_to include(outsider_post.title)
+    end
   end
 
   describe "GET /family_memories/:uuid (show)" do
