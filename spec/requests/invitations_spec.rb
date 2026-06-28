@@ -109,5 +109,13 @@ RSpec.describe "Invitations", type: :request do
       post join_invitation_path(invitation.token)
       expect(response).to redirect_to(root_path)
     end
+
+    it "存在しないトークンは root へリダイレクトし、参加しない" do
+      sign_in outsider
+      expect {
+        post join_invitation_path("nonexistent-token")
+      }.not_to change(UserFamilyGroup, :count)
+      expect(response).to redirect_to(root_path)
+    end
   end
 end
