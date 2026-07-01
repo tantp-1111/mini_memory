@@ -190,7 +190,7 @@ ja:
     new_memory: 新規投稿
     family_memory: 家族メモリ
     board: 掲示板
-    enjoy: 楽しむ
+    game: ゲーム
   drawer:
     summary:
       mini_memory: 私のミニメモリ
@@ -201,7 +201,7 @@ ja:
     list:
       create_memory: 新規投稿
       memory_index: ミニメモリ一覧
-      enjoy: 楽しむ
+      game: ゲーム
       family_memory_index: 家族メモリ一覧
       family_group_settings: 家族グループ設定
       board: 掲示板
