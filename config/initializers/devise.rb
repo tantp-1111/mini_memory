@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# 自前化した LINE ストラテジを読み込む。
+# 未メンテの gem "omniauth-line" を置き換えたもので、
+# 下部の `config.omniauth :line` より前に require する必要があるため冒頭に置く。
+require Rails.root.join("lib/omniauth/strategies/line")
+
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
