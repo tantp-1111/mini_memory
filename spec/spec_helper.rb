@@ -3,20 +3,20 @@
 require "simplecov"
 SimpleCov.start "rails" do
   # 計測対象から除外するパス
-  add_filter "/spec/"
-  add_filter "/config/"
-  add_filter "/db/"
-  add_filter "/vendor/"
-  add_filter "/bin/"
+  skip "/spec/"
+  skip "/config/"
+  skip "/db/"
+  skip "/vendor/"
+  skip "/bin/"
 
   # レポート上のグループ分け（Rails 規約のディレクトリに加え、本プロジェクト固有のレイヤーも追加）
-  add_group "Policies",   "app/policies"
-  add_group "Services",   "app/services"
-  add_group "Decorators", "app/decorators"
+  group "Policies",   "app/policies"
+  group "Services",   "app/services"
+  group "Decorators", "app/decorators"
 
   # テストで一度も読み込まれていない app/lib 配下のファイルもレポートに表示し、
   # 0% カバレッジのファイルを見落とさないようにする
-  track_files "{app,lib}/**/*.rb"
+  cover "{app,lib}/**/*.rb"
 
   # 分岐カバレッジも計測（if/&&/|| の両分岐をテストできているかが見える）
   enable_coverage :branch
