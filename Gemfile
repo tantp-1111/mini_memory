@@ -70,7 +70,7 @@ gem "devise"
 gem "devise-i18n"
 
 # Omniauth - サードパーティ認証の統合
-# LINE ログインは lib/omniauth/strategies/line.rb で自前実装（旧 gem "omniauth-line" は未メンテのため撤去）
+gem "omniauth-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 gem "omniauth-google-oauth2"
