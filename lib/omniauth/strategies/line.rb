@@ -27,11 +27,9 @@ module OmniAuth
         }
       end
 
-      # PROFILE 権限付きのアクセストークンで LINE プロフィールを取得する。
+      # 権限付きのアクセストークンで LINE プロフィールを取得する。
       def raw_info
         @raw_info ||= JSON.parse(access_token.get("v2/profile").body)
-      rescue ::Errno::ETIMEDOUT
-        raise ::Timeout::Error
       end
     end
   end
