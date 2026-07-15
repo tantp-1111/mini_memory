@@ -276,7 +276,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :line, ENV["LINE_LOGIN_KEY"], ENV["LINE_LOGIN_SECRET"], scope: "profile openid email"
+  config.omniauth :line, ENV["LINE_LOGIN_KEY"], ENV["LINE_LOGIN_SECRET"], scope: "profile"
 
   config.omniauth :google_oauth2, ENV["GOOGLE_OAUTH_CLIENT_ID"], ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
 
