@@ -70,7 +70,7 @@ gem "devise"
 gem "devise-i18n"
 
 # Omniauth - サードパーティ認証の統合
-gem "omniauth-line"
+gem "omniauth-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 gem "omniauth-google-oauth2"
