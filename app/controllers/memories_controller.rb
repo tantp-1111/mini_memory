@@ -92,7 +92,6 @@ class MemoriesController < ApplicationController
   # turbo_stream で error メッセージと flash を差し替えることで form 全体の DOM
   # (ファイル選択状態・プレビュー・テキスト入力値) を保持し、画像再選択を不要にする。
   def render_form_failure(action)
-    @available_children = policy_scope(Child).order(:birthday)
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -102,7 +101,10 @@ class MemoriesController < ApplicationController
           turbo_stream.replace("flash_messages", partial: "shared/flash_message")
         ], status: :unprocessable_entity
       end
-      format.html { render action, status: :unprocessable_entity }
+      format.html do
+        @available_children = policy_scope(Child).order(:birthday)
+        render action, status: :unprocessable_entity
+      end
     end
   end
 end
