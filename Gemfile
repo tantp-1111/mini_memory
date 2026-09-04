@@ -56,7 +56,7 @@ gem "bootsnap", require: false
 
 # image_processing - 画像処理とバリアント生成
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 2.0"
+gem "image_processing", "~> 2.1"
 
 # ruby-vips - image_processing の Vips バックエンドに必要
 # image_processing 2.x から runtime 依存ではなくなったため明示
