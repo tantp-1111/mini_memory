@@ -2,11 +2,14 @@ version: 2
 updates:
 - package-ecosystem: bundler
   directory: "/"
+  # PR のマージ先は開発統合ブランチ（未指定だとデフォルトブランチ main 宛てになる）
+  target-branch: develop
   schedule:
     interval: daily
   open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: "/"
+  target-branch: develop
   schedule:
     interval: daily
   open-pull-requests-limit: 10
