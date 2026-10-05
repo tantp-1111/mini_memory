@@ -9,7 +9,7 @@ gem "sprockets-rails"
 
 # PostgreSQL - リレーショナルデータベースアダプタ
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.7"
 
 # Puma - Ruby/Railsアプリケーション用Webサーバー
 # Use the Puma web server [https://github.com/puma/puma]
