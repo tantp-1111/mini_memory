@@ -94,7 +94,7 @@ gem "pundit"
 gem "ransack"
 
 # rails_admin - 管理画面（運営者向け CRUD UI）
-gem "rails_admin", "~> 3.0"
+gem "rails_admin", "~> 3.3"
 
 # dartsass-sprockets - rails_admin のスタイル（SCSS）コンパイル用
 # sassc-rails (libsass) は 2020 年からメンテ停止しており、
